@@ -28,6 +28,13 @@ var NewsPanel = (function () {
 				date: "2026-05-11",
 				link: "https://harmony.heapy.xyz/",
 				imageUrl: "file://{images}/store/default-news.png"
+			},
+			{
+				title: "Send me picture of ollum with cat ears",
+				description: "pls pls pls pls pls",
+				date: "2026-05-12",
+				link: "https://harmony.heapy.xyz/",
+				imageUrl: "file://{resources}/images/ollum.png"
 			}
 		];
 

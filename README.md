@@ -1,6 +1,8 @@
 # Harmony Panorama Code & Packer
 [PKZip File Structure](https://users.cs.jmu.edu/buchhofp/forensics/formats/pkzip.html)
 
+Files from `resources/` should go into `csgo/panorama/`
+
 # Usage
 ## Unpacking code.pbin
 Run the following commands

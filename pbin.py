@@ -170,3 +170,32 @@ def pbin_pack():
         break
 
     return 0
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "unpack":
+            if len(sys.argv) > 2:
+                pbin_name = sys.argv[2]
+                code = pbin_unpack(pbin_name)
+
+                match code:
+                    case 1:
+                        print("File doesn't exist.")
+                    case 2:
+                        print("Invalid pbin file.")
+
+                sys.exit(code)
+            else:
+                print(f"Usage: {sys.argv[0]} unpack <pbin file>")
+                sys.exit(1)
+
+        elif sys.argv[1] == "pack":
+            code = pbin_pack()
+            sys.exit(code)
+
+        else:
+            print(f"Unknown function '{sys.argv[1]}'")
+            sys.exit(1)
+    else:
+        print(f"Usage: {sys.argv[0]} unpack/pack")
+        sys.exit(1)
