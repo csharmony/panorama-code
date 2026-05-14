@@ -1,0 +1,30 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/csgostyles.css" />
+		<include src="file://{resources}/styles/mainmenu.css" />
+		<include src="file://{resources}/styles/mainmenu_overwatch.css" />
+		
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/mainmenu_overwatch.js" />
+	</scripts>
+
+	<Panel class="mainmenu-content__container">
+		<Panel class="content-navbar">
+			<Label class="content-navbar__title" text="Harmony Credits"/>
+		</Panel>
+		<Panel id ="JsCreditsContent" class="overwatch-context-container">
+			<Panel class="vertical-top full-width top-bottom-flow">
+				                
+				<Panel class="overwatch-content-column">
+					<Label class="overwatch-content__title" text="Harmony Credits"/>
+					<Label class="overwatch-content__paragraph" text="Rest in peace H4rmy" html="true"/>
+					<Label class="overwatch-content__subheader" text="Created by" html="true"/>
+					<Label class="overwatch-content__paragraph" text="heapy, lpta, justxrexx, 21papaj37" html="true"/>
+				</Panel>     
+				
+			</Panel>
+		</Panel>
+	</Panel>
+	
+</root>

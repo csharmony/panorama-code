@@ -32,6 +32,10 @@ var SettingsMenu = ( function () {
 			xml: "settings_video",
 			radioid: "VideoRadio"
 		},
+		HarmonySettings: {
+			xml: "settings_harmony",
+			radioid: "HarmonyRadio"
+		},
 		Search: {
 			xml: "settings_search",
 			radioid: "SettingsRadio"

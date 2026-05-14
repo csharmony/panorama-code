@@ -201,18 +201,6 @@
 								<Label id="MainMenuWatchAlertText" class="navbar-btn__notification-text" text="#Store_Price_New"/>
 							</Panel>
 						</RadioButton>
-						                                             
-						<RadioButton id="MainMenuNavBarStats"
-									class="mainmenu-navbar__btn-small colored-icon MainMenuModeOnly"
-									group="NavBar"
-									onactivate="MainMenu.NavigateToTab('JsPlayerStats', 'mainmenu_playerstats'); MainMenu.StatsBtnPressedUpdateAlert();"
-									onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarStats', '#tooltip_navbar_stats' );"
-									onmouseout="UiToolkitAPI.HideTextTooltip();">
-							<Image textureheight="34" texturewidth="-1" src="file://{images}/icons/ui/stats_logo.svg" />
-							<Panel id="MainMenuSubscriptionAlert" class="navbar-btn__notification hidden">
-								<Label id="MainMenuSubscriptionAlertText" class="navbar-btn__notification-text" text="#Store_Price_New"/>
-							</Panel>
-						</RadioButton>
 						                                                 
 						<RadioButton id="MainMenuNavBarOverwatch"
 									class="mainmenu-navbar__btn-small MainMenuModeOnly"
@@ -236,58 +224,34 @@
 							<Panel id="MainMenuSettingsAlert" class="navbar-btn__notification settings-notification">
 								<Label class="navbar-btn__notification-text" text="{d:num_settings}"/> 
 							</Panel>
-						</RadioButton>
-				
-						                                          
-						               
-						                                        
-									                                                         
-									              
-									                                                                           
-									                                                                                             
-									                                             
-							                                                                                     
-						              
-						               
-						                                   
-						               
-						                                    
-									                                                        
-									              
-									                                                                          
-									                                                                                           
-									                                             
-							                                                                                       
-						              
-						               
-						                                         
-						               
-						                                          
-									                                                        
-									              
-									                                                                 
-									                                                                                                  
-									                                             
-							                                                                                     
-						              
+						</RadioButton>           
 						               
 						<Panel class="vertical-align-bottom horizontal-center">
-							                                            
-							<Button id="MainMenuNavBarQuit"
-										class="mainmenu-navbar__btn-small MainMenuModeOnly"
-										onactivate="MainMenu.OnQuitButtonPressed(); $.DispatchEvent( 'PlaySoundEffect', 'UIPanorama.mainmenu_press_quit', 'MOUSE' );"
-										onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarQuit', '#tooltip_navbar_quit' );"
-										onmouseout="UiToolkitAPI.HideTextTooltip();">
-								<Image textureheight="32" texturewidth="-1" src="file://{images}/icons/ui/power.svg" />
-							</Button>
-							                                                  
-							<Button id="MainMenuNavBarExitGame"
-										class="mainmenu-navbar__btn-small PauseMenuModeOnly"
-										onactivate="$.DispatchEvent( 'CSGOMainMenuDisconnect' );"
-										onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarExitGame', '#tooltip_navbar_exit_game' );"
-										onmouseout="UiToolkitAPI.HideTextTooltip();">
-								<Image textureheight="32" texturewidth="-1" src="file://{images}/icons/ui/cancel.svg" />
-							</Button>
+							<Panel style="flow-children: down;">
+								<Button id="MainMenuNavBarHarmonyCredits"
+											class="mainmenu-navbar__btn-small-no-transition MainMenuModeOnly"
+											onactivate="MainMenu.NavigateToTab('JsHarmonyCredits', 'mainmenu_credits');"
+											onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarHarmonyCredits', 'Show credits for the Harmony project' );"
+											onmouseout="UiToolkitAPI.HideTextTooltip();">
+									<Image style="padding: 28px;" textureheight="32" texturewidth="-1" src="file://{resources}/images/harmy.png" />
+								</Button>
+
+								<Button id="MainMenuNavBarQuit"
+											class="mainmenu-navbar__btn-small MainMenuModeOnly"
+											onactivate="MainMenu.OnQuitButtonPressed(); $.DispatchEvent( 'PlaySoundEffect', 'UIPanorama.mainmenu_press_quit', 'MOUSE' );"
+											onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarQuit', '#tooltip_navbar_quit' );"
+											onmouseout="UiToolkitAPI.HideTextTooltip();">
+									<Image textureheight="32" texturewidth="-1" src="file://{images}/icons/ui/power.svg" />
+								</Button>
+
+								<Button id="MainMenuNavBarExitGame"
+											class="mainmenu-navbar__btn-small PauseMenuModeOnly"
+											onactivate="$.DispatchEvent( 'CSGOMainMenuDisconnect' );"
+											onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarExitGame', '#tooltip_navbar_exit_game' );"
+											onmouseout="UiToolkitAPI.HideTextTooltip();">
+									<Image textureheight="32" texturewidth="-1" src="file://{images}/icons/ui/cancel.svg" />
+								</Button>
+							</Panel>
 						</Panel>
 					</Panel>
 				</CSGOBlurTarget>

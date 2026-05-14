@@ -1,0 +1,103 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/csgostyles.css" />
+		<include src="file://{resources}/styles/settings/settings.css" />
+		<include src="file://{resources}/styles/mainmenu.css"/>
+		<include src="file://{resources}/styles/mainmenu_inventory.css"/>
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/scripts/settingsmenu_shared.js" />
+	</scripts>
+	
+	<Panel useglobalcontext="true" class="SettingsMenuTab" >
+
+		<Panel class="content-navbar content-navbar--short">
+			<Panel id="GameModeSelectionRadios" class="content-navbar__tabs content-navbar__tabs--small">
+				<RadioButton onactivate="SettingsMenuShared.ScrollToId('HarmonySettings')" group="SettingsHarmony">
+					<Label class="" text="Viewmodel"/>
+				</RadioButton>
+				
+			</Panel>
+		</Panel>
+
+		<Panel class="SettingsMenuTabContent vscroll">                            
+			<Panel id="HarmonySettings" class="SettingsBackground">
+				<Panel class="SettingsSectionTitleContianer">
+					<Label class="SettingsSectionTitleLabel" text="Viewmodel" />
+				</Panel>
+				<Panel class ="top-bottom-flow full-width">                                  
+					<TooltipPanel id="HarmonyRightHandSelector" class="SettingsMenuDropdownContainer" tooltip="This settings allows you to choose which hand you want to hold your weapon in. Setting it to left hand will mirror the viewmodel, so the weapon will be held in the left hand instead of the right." >
+						<Label text="Use Right Hand" class="half-width"/>
+						<CSGOSettingsEnumDropDown class="PopupButton White" convar="cl_righthand">
+								<Label text="Enabled" value="1" id="cl_righthand_enabled"/>
+                <Label text="Disabled" value="0" id="cl_righthand_disabled"/>
+						</CSGOSettingsEnumDropDown>
+					</TooltipPanel>
+
+					<Panel class="horizontal-separator"/>
+
+          <TooltipPanel id="HarmonyViewmodelRecoilSelector" class="SettingsMenuDropdownContainer" tooltip="This setting allows you to control whether the viewmodel shows recoil animation when firing." >
+						<Label text="Viewmodel Recoil" class="half-width"/>
+						<CSGOSettingsEnumDropDown class="PopupButton White" convar="viewmodel_recoil">
+								<Label text="Enabled" value="1" id="viewmodel_recoil_enabled"/>
+                <Label text="Disabled" value="0" id="viewmodel_recoil_disabled"/>
+						</CSGOSettingsEnumDropDown>
+					</TooltipPanel>
+
+          <Panel class="horizontal-separator"/>
+					                   
+					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="This setting allows you to adjust the field of view of your viewmodel. A higher field of view will make the weapon appear smaller and further away, while a lower field of view will make the weapon appear larger and closer." >
+						<CSGOSettingsSlider id="viewmodel_fov" text="Viewmodel FOV" max="68" min="54" invert="false" percentage="false" convar="viewmodel_fov"/>
+					</TooltipPanel>
+
+					<Panel class="horizontal-separator"/>
+
+          <TooltipPanel class="SettingsMenuDropdownContainer" tooltip="This setting allows you to adjust the horizontal offset of your viewmodel." >
+						<CSGOSettingsSlider id="viewmodel_offset_x" text="Viewmodel Offset X" max="2.5" min="-2.5" invert="false" percentage="false" convar="viewmodel_offset_x"/>
+					</TooltipPanel>
+
+          <Panel class="horizontal-separator"/>
+
+          <TooltipPanel class="SettingsMenuDropdownContainer" tooltip="This setting allows you to adjust the vertical offset of your viewmodel." >
+						<CSGOSettingsSlider id="viewmodel_offset_y" text="Viewmodel Offset Y" max="2" min="-2" invert="false" percentage="false" convar="viewmodel_offset_y"/>
+					</TooltipPanel>
+
+          <Panel class="horizontal-separator"/>
+
+          <TooltipPanel class="SettingsMenuDropdownContainer" tooltip="This setting allows you to adjust the depth offset of your viewmodel." >
+						<CSGOSettingsSlider id="viewmodel_offset_z" text="Viewmodel Offset Z" max="2" min="-2" invert="false" percentage="false" convar="viewmodel_offset_z"/>
+					</TooltipPanel>
+        </Panel>
+      </Panel>
+		</Panel>
+
+		<Panel class="content-controls-actions-bar">
+			<Panel class="left-right-flow vertical-center horizontal-align-right">
+				<Button id="SettingsRestoreKbMouse"
+						class="PopupButton White"
+						onactivate="SettingsMenuShared.ShowConfirmReset( SettingsMenuShared.ResetVideoSettings, 'Are you sure you want to reset your Harmony settings?' );"
+						onmouseover="UiToolkitAPI.ShowTextTooltip( 'SettingsRestoreKbMouse', '#tooltip_reset_defaults' );"
+						onmouseout="UiToolkitAPI.HideTextTooltip();" >
+					<Image id="PermissionsSettingsImg" texturewidth="-1" textureheight="28" src="file://{images}/icons/ui/recent.svg" />
+					<Label text="#settings_reset_video" />
+				</Button>
+		
+				<Button id="BtnDiscardVideoSettingChanges"
+						class="PopupButton White"
+						disabled="true"
+						onactivate="SettingsMenuShared.ShowConfirmDiscard( SettingsMenuShared.VideoSettingsDiscardChanges );">
+						<Label text="#settings_discard_confirm_title"/>
+				</Button>
+				
+				<Button class="PopupButton White"
+						id="BtnApplyVideoSettings"
+						disabled="true"
+						onactivate="SettingsMenuShared.VideoSettingsApplyChanges();">
+						<Label text="#settings_apply_video"/> 
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>
+

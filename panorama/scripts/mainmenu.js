@@ -761,7 +761,7 @@ var MainMenu = ( function() {
 		};
 
 		                            
-		var bFeaturedPanelIsActive = false;
+		var bFeaturedPanelIsActive = true;
 		
 		if ( bFeaturedPanelIsActive )
 		{
@@ -1449,9 +1449,7 @@ var MainMenu = ( function() {
 
 		if ( LicenseUtil.GetCurrentLicenseRestrictions() === false )
 		{
-			  
-			                                                                                              
-			  
+
 			var bIsConnectedToGC = MyPersonaAPI.IsConnectedToGC();
 			$( '#MainMenuInput' ).SetHasClass( 'GameClientConnectingToGC', !bIsConnectedToGC );
 			if ( bIsConnectedToGC )
@@ -1469,10 +1467,7 @@ var MainMenu = ( function() {
 				notification.tooltip = $.Localize( "#Store_Connecting_ToGc_Tooltip" );
 				return notification;
 			}
-		}
-
-		  
-		                             
+		}            
 		  
 		var nIsVacBanned = MyPersonaAPI.IsVacBanned();
 		if ( nIsVacBanned != 0 )
