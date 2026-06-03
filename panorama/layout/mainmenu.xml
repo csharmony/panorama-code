@@ -133,7 +133,15 @@
 								<Label id="MainMenuPlayAlertText" class="navbar-btn__notification-text" text="#Store_Price_New"/>
 							</Panel>
 						</RadioButton>
-						<Frame class="MainMenuModeOnly" src="file://{resources}/layout/advertising_toggle.xml" />
+				
+						<RadioButton id="MainMenuNavBarOperation"
+									class="mainmenu-navbar__btn-small MainMenuModeOnly"
+									group="NavBar" 
+									onactivate="MainMenu.NavigateToTab('JsOperation', 'operation/operation_main');"
+									onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarOperation', 'Operation Riptide' );"
+									onmouseout="UiToolkitAPI.HideTextTooltip();">
+							<Image textureheight="32" texturewidth="-1" src="file://{images}/icons/ui/operation_11.svg" />
+						</RadioButton>
 						                                                    
 						<RadioButton id="MainMenuNavBarResumeGame"
 									class="mainmenu-navbar__btn-small PauseMenuModeOnly"
@@ -229,7 +237,7 @@
 						<Panel class="vertical-align-bottom horizontal-center">
 							<Panel style="flow-children: down;">
 								<Button id="MainMenuNavBarHarmonyCredits"
-											class="mainmenu-navbar__btn-small-no-transition MainMenuModeOnly"
+											class="mainmenu-navbar__btn-small MainMenuModeOnly"
 											onactivate="MainMenu.NavigateToTab('JsHarmonyCredits', 'mainmenu_credits');"
 											onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarHarmonyCredits', 'Show credits for the Harmony project' );"
 											onmouseout="UiToolkitAPI.HideTextTooltip();">

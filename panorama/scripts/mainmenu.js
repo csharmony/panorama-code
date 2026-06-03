@@ -460,9 +460,20 @@ var MainMenu = ( function() {
 			
 			newPanel.Data().elMainMenuRoot = $.GetContextPanel();
 			                                                 
+			if ( tab === 'JsOperation' )
+			{
+				var nActiveSeason = GameTypesAPI.GetActiveSeasionIndexValue();
+				newPanel.SetAttributeInt( "season_access", nActiveSeason );
+			}
 
 			newPanel.BLoadLayout('file://{resources}/layout/' + XmlName + '.xml', false, false );
 			newPanel.RegisterForReadyEvents( true );
+
+			if ( tab === 'JsOperation' )
+			{
+				newPanel.RemoveClass( 'Hidden' );
+				newPanel.RemoveClass( 'PopupPanel' );
+			}
 			
 			                                                                          
 			                                                       
@@ -494,8 +505,12 @@ var MainMenu = ( function() {
 		                             
 		if( _m_activeTab !== tab )
 		{
-			                                       
+			
 			if(XmlName) {
+				if ( XmlName === 'mainmenu_credits' ) {
+					$.DispatchEvent('PlaySoundEffect', 'tab_mainmenu_watch', 'MOUSE');
+				}
+
 				$.DispatchEvent('PlaySoundEffect', 'tab_' + XmlName.replace('/', '_'), 'MOUSE');
 			}
 			

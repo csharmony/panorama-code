@@ -1,7 +1,8 @@
 
 
                                                                                           
-.PopupPanel.op-main
+.PopupPanel.op-main,
+.op-main
 {
 	width: 100%;
 	height: 100%;
@@ -11,7 +12,8 @@
 	                                
 }
 
-.PopupPanel.op-main.blur
+.PopupPanel.op-main.blur,
+.op-main.blur
 {
 	blur: fastgaussian( 2, 2, 6 );
 }

@@ -150,7 +150,7 @@
 						</Button>
 						<TextButton id="AsyncItemWorkCancelBtn" html="true"
 							class="PopupButton op-main-wash-color-light"
-							onactivate="$.DispatchEvent( 'UIPopupButtonClicked', '' ); $.DispatchEvent( 'PlaySoundEffect', 'UIPanorama.mainmenu_press_home', 'MOUSE' );"
+							onactivate="$.DispatchEvent( 'UIPopupButtonClicked', '' ); $.DispatchEvent( 'HideContentPanel' ); $.DispatchEvent( 'PlaySoundEffect', 'UIPanorama.mainmenu_press_home', 'MOUSE' );"
 							text="#GameUI_Close" />
 					</Panel>
 
