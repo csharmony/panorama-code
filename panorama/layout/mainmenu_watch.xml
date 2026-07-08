@@ -77,10 +77,12 @@
 						                                                                                                                                              
 							                                                
 						              
-						   
+
+						<!--
 						<RadioButton id="WatchNavBarButtonEvents" group="WatchNavBar" onactivate="mainmenu_watch.NavigateToTab('JsEvents', 'events menu button');">
 							<Label class="" text="#CSGO_Watch_Cat_Events"/>
 						</RadioButton>
+						-->
 
 					</Panel>
 					<Panel class="horizontal-align-right vertical-center left-right-padding">	

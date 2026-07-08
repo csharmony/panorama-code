@@ -20,32 +20,44 @@ var NewsPanel = (function () {
 			return;
 
 		elLister.RemoveAndDeleteChildren();
-                                     
-		var newsFeed = [
-			{
-				title: "Project Harmony Release!",
-				description: "Project Harmony is now available! Check out the latest update to see what's new.",
-				date: "2026-05-11",
-				link: "https://harmony.heapy.xyz/",
-				imageUrl: "file://{images}/store/default-news.png"
-			},
-			{
-				title: "Send me picture of ollum with cat ears",
-				description: "pls pls pls pls pls",
-				date: "2026-05-12",
-				link: "https://harmony.heapy.xyz/",
-				imageUrl: "file://{resources}/images/ollum.png"
-			}
-		];
 
-		newsFeed.forEach( function( item, i ) 
+		                                     
+		var foundFirstNewsItem = false;
+
+		feed[ 'items' ].forEach( function( item, i )
 		{
 			var elEntry = $.CreatePanel( 'Panel', elLister, 'NewEntry' + i, {
 				acceptsinput: true
 			} );
 
+			var lastReadItem = GameInterfaceAPI.GetSettingString( 'ui_news_last_read_link' );
+
+			                                                           
+			if ( !foundFirstNewsItem && !item.categories.includes( 'Minor' ) )
+			{
+				foundFirstNewsItem = true;
+
+				                                             
+				elEntry.AddClass( 'new' );
+
+				/*
+				if ( item.link != lastReadItem )
+				{
+					UiToolkitAPI.ShowCustomLayoutPopupParameters( '', 'file://{resources}/layout/popups/popup_news.xml',
+						'date=' + item.date + "&" + 
+						'title=' + item.title + "&" + 
+						'link=' + item.link );
+				}
+				*/
+
+				GameInterfaceAPI.SetSettingString( 'ui_news_last_read_link', item.link );
+			}
+
 			elEntry.BLoadLayoutSnippet( 'news-full-entry' );
 			var elImage = elEntry.FindChildInLayoutFile( 'NewsHeaderImage' );
+			
+			$.Msg(item);
+
 			if ( item.imageUrl )
 			{
 				elImage.SetImage( item.imageUrl );
@@ -61,7 +73,8 @@ var NewsPanel = (function () {
 			elEntryInfo.SetDialogVariable( 'news_item_date', item.date );
 			elEntryInfo.SetDialogVariable( 'news_item_title', item.title );
 			elEntryInfo.SetDialogVariable( 'news_item_body', item.description );
-						
+
+			         
 			elEntry.FindChildInLayoutFile( 'NewsEntryBlurTarget' ).AddBlurPanel( elEntryInfo );
 
 			elEntry.SetPanelEvent( "onactivate", function( link, elEntry, clearNew )
@@ -75,6 +88,7 @@ var NewsPanel = (function () {
 				}
 
 			}.bind( SteamOverlayAPI, item.link, elEntry, i == 0 ) );
+		
 		} );
 	};
 

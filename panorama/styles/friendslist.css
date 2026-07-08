@@ -13,6 +13,7 @@
 	height: fit-children;
 	Width: 100%;
 	flow-children: right;
+	align: center center;
 	border-top: 1px solid rgba(255, 255, 255, 0.281);
 
 	transition-property: position;
@@ -89,7 +90,8 @@
 	transition-timing-function: ease-in-out;
 }
 
-.friendslist-navbar-btn RadioButton
+.friendslist-navbar-btn RadioButton,
+.friendslist-navbar-btn Button
 {
 	width: 100%;
 	height: 100%;
@@ -99,13 +101,15 @@
 	background-color: gradient( linear, 0% 100%, 0% 99%, from( white ), color-stop( 0, #ffffff00), to( #ffffff00 ) );
 }
 
-.friendslist-navbar-btn RadioButton Label
+.friendslist-navbar-btn RadioButton Label,
+.friendslist-navbar-btn Button Label
 {
 	font-size: 18px;
 	font-weight: medium;
 }
 
-.friendslist-navbar-btn RadioButton:enabled:hover
+.friendslist-navbar-btn RadioButton:enabled:hover,
+.friendslist-navbar-btn Button:hover
 {
 	background-color: gradient( linear, 0% 100%, 0% 98%, from( white ), color-stop( .9, white ), to( #ffffff00 ) );
 
@@ -125,7 +129,8 @@
 	sound: "UIPanorama.sidemenu_select";
 }
 
-.friendslist-navbar-btn RadioButton Image
+.friendslist-navbar-btn RadioButton Image,
+.friendslist-navbar-btn Button Image
 {
 	vertical-align: middle;
 	horizontal-align: center;

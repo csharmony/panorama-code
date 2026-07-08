@@ -17,10 +17,34 @@
 	vertical-align:top;
 }
 
+.overwatch-paragraph__container
+{
+	flow-children: right;
+	width: overwatch-column-width;
+	height: fit-children;
+	text-overflow: ellipsis;
+}
+
 .overwatch-content__paragraph
 {
 	font-size:18px;
 	color:white;
+	text-overflow: clip;
+}
+
+.overwatch-content__pteam
+{
+	color: rgb(247, 83, 108);
+}
+
+.overwatch-content__pcontrib
+{
+	color: rgb(243, 102, 90);
+}
+
+.overwatch-content__pthanks
+{
+	color: rgb(245, 132, 89);
 }
 
 .overwatch-content__title

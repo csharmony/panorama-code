@@ -748,8 +748,8 @@ var MainMenu = ( function() {
 		elLastMatch.BLoadLayout( 'file://{resources}/layout/mainmenu_lastmatch.xml', false, false );
 
 		                             
-		var elStore = $.CreatePanel( 'Panel', $.FindChildInContext( '#JsNewsContainer' ), 'JsStorePanel' );
-		elStore.BLoadLayout( 'file://{resources}/layout/mainmenu_store.xml', false, false );
+		// var elStore = $.CreatePanel( 'Panel', $.FindChildInContext( '#JsNewsContainer' ), 'JsStorePanel' );
+		// elStore.BLoadLayout( 'file://{resources}/layout/mainmenu_store.xml', false, false );
 
 		                             
 		                                                                                                            

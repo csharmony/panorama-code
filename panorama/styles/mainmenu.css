@@ -739,7 +739,7 @@ CSGOEndOfMatch.mainmenu-content__container
 {
 	width: 720px;
 	height: 100%;
-	margin: 24px 0px 24px 128px;
+	margin: 18px 0px 0px 128px;
 	position: 0px 0px 0px;
 	transform: scale3d( 1, 1, 1 );
 	flow-children: down;

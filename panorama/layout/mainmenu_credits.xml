@@ -2,28 +2,64 @@
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
 		<include src="file://{resources}/styles/mainmenu.css" />
-		<include src="file://{resources}/styles/mainmenu_overwatch.css" />
-		
+		<include src="file://{resources}/styles/mainmenu_overwatch.css" />	
 	</styles>
 	<scripts>
 	</scripts>
-
 	<Panel class="mainmenu-content__container">
 		<Panel class="content-navbar">
 			<Label class="content-navbar__title" text="Harmony Credits"/>
 		</Panel>
 		<Panel id ="JsCreditsContent" class="overwatch-context-container">
-			<Panel class="vertical-top full-width top-bottom-flow">
-				                
+			<Panel class="vertical-top full-width top-bottom-flow">                
 				<Panel class="overwatch-content-column">
 					<Label class="overwatch-content__title" text="Harmony Credits"/>
-					<Label class="overwatch-content__paragraph" text="Rest in peace H4rmy" html="true"/>
-					<Label class="overwatch-content__subheader" text="Created by" html="true"/>
-					<Label class="overwatch-content__paragraph" text="heapy, lpta, justxrexx, 21papaj37" html="true"/>
-				</Panel>     
-				
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__paragraph" text="Rest in peace " html="true"/>
+						<Label class="overwatch-content__pteam" text="h4rmy " html="true"/>
+						<Label class="overwatch-content__paragraph" text="[*]" html="true"/>
+					</Panel>
+					<Label class="overwatch-content__subheader" text="Team" html="true"/>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pteam" text="heapy " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- Founder, Developer - working on the whole project" html="true"/>
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pteam" text="lptaxyz " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- Developer - working on the Game Coordinator and Panorama (in-game UI)" html="true"/>
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pteam" text="justxrexx " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- Administrator" html="true"/>
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pteam" text="21papaj37 " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- Administrator" html="true"/>
+					</Panel>
+					<Label class="overwatch-content__subheader" text="Contributors" html="true"/>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pcontrib" text="v4llu " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- created game intro movie" html="true"/>
+					</Panel>
+					<Label class="overwatch-content__subheader" text="Big thanks to" html="true"/>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pthanks" text="theeto " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- offered help with Game Coordinator knowledge." html="true"/>
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pthanks" text="mikkokko " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- for creating the csgo_gc project, which serves as a base for Harmony's game executable." html="true"/>
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pthanks" text="dricotec " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- for code regarding tradeups functionality." html="true"/>
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__pthanks" text="J-tanzanite " html="true"/>
+						<Label class="overwatch-content__paragraph" text="- for creating Little Anti-Cheat which serves as a base for Harmony's server-side anti-cheat." html="true"/>
+					</Panel>
+				</Panel>  
 			</Panel>
 		</Panel>
 	</Panel>
-	
 </root>

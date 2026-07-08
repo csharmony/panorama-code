@@ -127,6 +127,7 @@
 					<Label id="JsFriendsTabAlertText" class="navbar-btn__notification-text shadow" text=""/>
 				</Panel>
 			</Panel>
+			<!--
 			<Panel id="JsFriendsTab-lobbies" class="friendslist-navbar-btn" style="tooltip-position: bottom;">
 				<RadioButton id="JsFriendsTab" 
 							group="FriendsNavBar"
@@ -139,6 +140,7 @@
 					<Label id="JsFriendsTabAlertText" class="navbar-btn__notification-text" text=""/>
 				</Panel>
 			</Panel>
+			-->
 			<Panel id="JsFriendsTab-recents" class="friendslist-navbar-btn" style="tooltip-position: bottom;">
 				<RadioButton id="JsFriendsTab" 
 							group="FriendsNavBar" 
@@ -163,6 +165,15 @@
 					<Label id="JsFriendsTabAlertText" class="navbar-btn__notification-text" text=""/>
 				</Panel>
 			</Panel>
+			<Panel class="friendslist-navbar-btn" style="tooltip-position: bottom;">
+				<Button id="JsFriendsList-requests-toolbar-button-add"
+					onactivate="friendsList.OnAddFriend();"
+					group="FriendsNavBar"
+					onmouseover="UiToolkitAPI.ShowTextTooltip( 'JsFriendsList-requests-toolbar-button-add', '#AddFriend_tooltip' );"
+					onmouseout="UiToolkitAPI.HideTextTooltip();">
+					<Image src="file://{images}/icons/ui/addplayer.svg"/>
+				</Button>
+			</Panel>
 		</Panel>
 		<Panel class="friendslist__seperator"/>
 		
@@ -174,16 +185,6 @@
 			</Panel>
 
 			<Panel id="JsFriendsList-requests" class="friendslist-list hidden">
-				<Panel id="JsFriendsListSettings" class="friendslist-navbar friendslist-navbar--tab-settings expand">
-					<Panel class= "horizontal-align-left vertical-center" >
-						<Button id="JsFriendsList-requests-toolbar-button-add"
-							class="IconButton" onactivate="friendsList.OnAddFriend();"
-							onmouseover="UiToolkitAPI.ShowTextTooltip( 'JsFriendsList-requests-toolbar-button-add', '#AddFriend_tooltip' );"
-							onmouseout="UiToolkitAPI.HideTextTooltip();">
-							<Image src="file://{images}/icons/ui/addplayer.svg"/>
-						</Button>
-					</Panel>
-				</Panel>
 				<Panel id="JsFriendsList-List" class="friendslist-list__contents">
 					                               
 				</Panel>

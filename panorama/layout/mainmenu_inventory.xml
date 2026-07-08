@@ -87,6 +87,7 @@
 			</Panel>
 		</snippet>
 
+		<!--
 		<snippet name="MarketLinkSnippet">
 			<Panel class="horizontal-align-right vertical-center left-right-padding">
 				<Button id="InvMarketLink" class="IconButton left-right-flow" >
@@ -95,6 +96,7 @@
 				</Button>
 			</Panel>
 		</snippet>
+		-->
 
 		<snippet name="CapabilityActionBar">
 			<Panel>

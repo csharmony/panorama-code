@@ -120,7 +120,7 @@
 									onactivate="MainMenu.OnHomeButtonPressed(); $.DispatchEvent( 'PlaySoundEffect', 'mainmenu_press_home', 'MOUSE' ); $.DispatchEvent('PlayMainMenuMusic', true, true); GameInterfaceAPI.SetSettingString('panorama_play_movie_ambient_sound', '1');"
 									onmouseover="UiToolkitAPI.ShowTextTooltip('MainMenuNavBarHome', '#tooltip_navbar_home');"
 									onmouseout="UiToolkitAPI.HideTextTooltip();">
-							<Image textureheight="32" texturewidth="-1" src="file://{images}/icons/ui/csgologo.svg" />
+							<Image textureheight="32" texturewidth="-1" src="file://{resources}/images/harmonylogo.png" />
 						</RadioButton>
 						<RadioButton id="MainMenuNavBarPlay"
 									class="mainmenu-navbar__btn-small mainmenu-navbar__btn-play"
@@ -133,7 +133,8 @@
 								<Label id="MainMenuPlayAlertText" class="navbar-btn__notification-text" text="#Store_Price_New"/>
 							</Panel>
 						</RadioButton>
-				
+
+						<!--
 						<RadioButton id="MainMenuNavBarOperation"
 									class="mainmenu-navbar__btn-small MainMenuModeOnly"
 									group="NavBar" 
@@ -142,6 +143,7 @@
 									onmouseout="UiToolkitAPI.HideTextTooltip();">
 							<Image textureheight="32" texturewidth="-1" src="file://{images}/icons/ui/operation_11.svg" />
 						</RadioButton>
+						-->
 						                                                    
 						<RadioButton id="MainMenuNavBarResumeGame"
 									class="mainmenu-navbar__btn-small PauseMenuModeOnly"

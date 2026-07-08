@@ -147,8 +147,8 @@ var mainmenu_watch = ( function()
 
 			for ( let i = maxTournaments; i >= 1; i-- )
 			{
-				if ( i == 2 ) continue;             
-				if ( i == 17 ) continue;            
+				// if ( i == 2 ) continue;             
+				// if ( i == 17 ) continue;            
 				                                         
 				let elTournamentPanel = $.CreatePanel( 'Panel', pastTournamentPanel, "Tournament_" + i );
 				             
@@ -216,7 +216,7 @@ var mainmenu_watch = ( function()
 				}
 
 				let elButton = elTournamentPanel.FindChild( 'JsTournamentContent' );
-				elButton.SetPanelEvent( 'onactivate', _NavigateToTab.bind( undefined, 'JsMainMenuSubContent_Tournament' + i, 'mainmenu_watch_tournament', 'tournament:' + i, true, true ) );
+				// elButton.SetPanelEvent( 'onactivate', _NavigateToTab.bind( undefined, 'JsMainMenuSubContent_Tournament' + i, 'mainmenu_watch_tournament', 'tournament:' + i, true, true ) );
 				
 
 				var image = 'url("file://{images}/tournaments/events/bg_' + i +'.png")';
