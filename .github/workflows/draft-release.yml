@@ -1,0 +1,48 @@
+name: Draft Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+      prerelease:
+        description: 'Mark as pre-release'
+        type: boolean
+        default: false
+
+jobs:
+  draft-release:
+    permissions:
+      contents: write
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
+        with:
+          python-version: '3.14'
+
+      - run: uv run pbin.py pack
+
+      - name: Compose release body
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ inputs.tag }}'
+          $notes = gh api /repos/${{ github.repository }}/releases/generate-notes -f tag_name=$tag --jq '.body'
+
+          Add-Content -Path body.md -Value '## Changelog'
+          Add-Content -Path body.md -Value $notes
+
+      - uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ inputs.tag }}
+          name: ${{ inputs.tag }}
+          draft: true
+          body_path: body.md
+          prerelease: ${{ inputs.prerelease }}
+          files: ./code_harmony.pbin
