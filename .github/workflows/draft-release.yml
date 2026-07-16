@@ -27,6 +27,17 @@ jobs:
 
       - run: uv run pbin.py pack
 
+      - name: Create panorama.zip
+        shell: pwsh
+        run: |
+          $tmp = New-Item -ItemType Directory -Path "$env:TEMP\panorama" -Force
+
+          Copy-Item code_harmony.pbin $tmp\
+          Copy-Item resources\* $tmp\ -Recurse
+          
+          Compress-Archive -Path $tmp\* -DestinationPath panorama.zip
+          Remove-Item $tmp -Recurse -Force
+
       - name: Compose release body
         shell: pwsh
         env:
@@ -45,4 +56,4 @@ jobs:
           draft: true
           body_path: body.md
           prerelease: ${{ inputs.prerelease }}
-          files: ./code_harmony.pbin
+          files: ./panorama.zip
