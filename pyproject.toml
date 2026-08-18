@@ -1,0 +1,8 @@
+[project]
+name = "panorama-code"
+dynamic = ["version"]
+description = "Modified Panorama UI code for Harmony"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["panorama", "panorama.*"]
