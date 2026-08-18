@@ -12,7 +12,7 @@ def file_md5(fname):
     return hash_md5.hexdigest()
 
 def create_path(path: str):
-    path = path.split("\\")[:-1]
+    path = path.replace("/", os.sep).replace("\\", os.sep).split(os.sep)[:-1]
 
     tmp = ""
     for directory in path:
@@ -20,7 +20,7 @@ def create_path(path: str):
             os.mkdir(tmp + directory)
         except FileExistsError:
             pass
-        tmp += directory + '\\'
+        tmp += directory + os.sep
 
 def pk_header(header: bytes):
     pk = {}
@@ -62,11 +62,12 @@ def pbin_unpack(file_name: str):
                     pk = pk_header(raw_header)
                     if pk["signature"] == b"\x50\x4b\x03\x04":
                         file = f.read(pk["filename_length"]).decode(encoding="utf-8")
+                        fs_path = file.replace("\\", os.sep)
 
                         print(file)
                         create_path(file)
 
-                        with open(file, "wb") as tmp:
+                        with open(fs_path, "wb") as tmp:
                             tmp.write(f.read(pk["uncomp_size"]))
                             tmp.close()
                     else:
@@ -95,11 +96,12 @@ def pbin_pack():
 
     for root, dirs, files in os.walk("panorama"):
         for file in files:
-            file_name = os.path.join(root, file).replace("/", "\\")
-            file_size = os.stat(file_name).st_size
+            fs_path = os.path.join(root, file)
+            file_name = fs_path.replace("/", "\\")
+            file_size = os.stat(fs_path).st_size
             
             file_data = b""
-            with open(file_name, "rb") as f:
+            with open(fs_path, "rb") as f:
                 file_data = f.read()
             
             file_crc = zlib.crc32(file_data) & 0xFFFFFFFF
