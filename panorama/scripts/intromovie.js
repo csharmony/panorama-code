@@ -2,7 +2,7 @@
 
 function ShowIntroMovie()
 {
-    var movieName = "file://{resources}/videos/intro.webm";
+    var movieName = "file://{resources}/videos/intro_harmony.webm";
     var launcherType = MyPersonaAPI.GetLauncherType();
     if (launcherType == "perfectworld")
     {

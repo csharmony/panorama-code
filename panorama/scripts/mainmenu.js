@@ -1359,6 +1359,8 @@ var MainMenu = ( function() {
 	
 	var _UpdateSubscriptionAlert = function()
 	{
+		return;
+		
 		var elNavBar = $.GetContextPanel().FindChildInLayoutFile('JsMainMenuNavBar'),
 		elAlert = elNavBar.FindChildInLayoutFile('MainMenuSubscriptionAlert');
 

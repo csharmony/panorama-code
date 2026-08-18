@@ -682,7 +682,8 @@ var ItemContextEntires = ( function (){
 				return strActionName;
 			},
 			AvailableForItem: function ( id ) {
-				return ItemInfo.ItemHasCapability( id, 'nameable' );
+				// return ItemInfo.ItemHasCapability( id, 'nameable' );
+				return InventoryAPI.GetItemDefinitionName(id) == 'Name Tag';
 			},
 			OnSelected:  function ( id ) {
 
@@ -945,7 +946,7 @@ var ItemContextEntires = ( function (){
 			  	                      
 			    
 			AvailableForItem: function ( id ) {
-				return InventoryAPI.IsMarketable( id );
+				return false;
 			},
 			OnSelected: function ( id ) {
 				$.DispatchEvent( 'PlaySoundEffect', 'inventory_inspect_sellOnMarket', 'MOUSE' );
@@ -956,10 +957,12 @@ var ItemContextEntires = ( function (){
 		{
 			name: 'delete',
 			style: function (id){
-				return !InventoryAPI.IsMarketable( id ) ? 'TopSeparator' : '';
+				return !InventoryAPI.IsMarketable( id ) ? ' TopSeparator' : '';
 			},
 			AvailableForItem: function ( id ) {
-				return InventoryAPI.IsDeletable( id );
+				// return InventoryAPI.IsDeletable( id );
+				const isDefault = id.length > 20 || (id.length === 20 && id >= '17293822569102704640');
+				return !isDefault;
 			},
 			OnSelected: function ( id ) {
 				$.DispatchEvent( 'ContextMenuEvent', '' );

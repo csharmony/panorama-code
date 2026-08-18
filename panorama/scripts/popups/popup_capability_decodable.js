@@ -360,11 +360,13 @@ var CapabilityDecodable = ( function()
 		var items = [];
 		items.push( { label: '#UI_Inspect', jsCallback: callBackFunc.bind( undefined, itemid, caseId, keyId ) } );
 
+		/*
 		if ( MyPersonaAPI.GetLauncherType() !== "perfectworld" )
 		{
 			items.push( { label: '#SFUI_Store_Market_Link', jsCallback: _ViewOnMarket.bind( undefined, itemid ) } );
 		}
-
+		*/
+		
 		UiToolkitAPI.ShowSimpleContextMenu( '', 'ControlLibSimpleContextMenu', items );
 	};
 

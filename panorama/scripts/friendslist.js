@@ -48,17 +48,6 @@ var friendsList = (function() {
 				nodatString: '#FriendsList_nodata_recents',
 				type: 'recent'
 			},
-
-			{
-				elContent: $( '#JsFriendsList-lobbies' ),
-				elList: $( '#JsFriendsList-lobbies' ).FindChild( 'JsFriendsList-List' ),
-				elTabRadioBtn: $( '#JsFriendsTab-lobbies' ),
-				getCount: _GetLobbiesCount,
-				getAlertsCount: _GetLobbiesCount,
-				getXuidByIndex: _GetLobbyXuidByIndex,
-				tileXmlToUse: 'friend_advertise_tile',
-				nodatString: '#FriendsList_nodata_advertising'
-			}
 		];
 
 		_UpdateAllTabsAlertCounts();
@@ -192,6 +181,8 @@ var friendsList = (function() {
 
 	var _UpdateTabAlertCounts = function( tabIndex )
 	{
+		return;
+
 		var tabData = _m_tabs [ tabIndex ];
 		var count = 0;
 		var elAlert = tabData.elTabRadioBtn.FindChild( 'JsFriendsTabAlert' );
