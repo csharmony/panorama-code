@@ -683,7 +683,7 @@ var ItemContextEntires = ( function (){
 			},
 			AvailableForItem: function ( id ) {
 				// return ItemInfo.ItemHasCapability( id, 'nameable' );
-				return InventoryAPI.GetItemDefinitionName(id) == 'Name Tag';
+				return ['Name Tag', 'casket'].includes(InventoryAPI.GetItemDefinitionName(id));
 			},
 			OnSelected:  function ( id ) {
 
@@ -917,7 +917,8 @@ var ItemContextEntires = ( function (){
 				return 'TopSeparator';
 			},
 			AvailableForItem: function ( id ) {
-				return InventoryAPI.IsPotentiallyMarketable( id );
+				// return InventoryAPI.IsPotentiallyMarketable( id );
+				return false;
 			},
 			OnSelected: function ( id ) {
 				$.DispatchEvent( 'ContextMenuEvent', '' );

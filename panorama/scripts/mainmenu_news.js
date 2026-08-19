@@ -55,8 +55,6 @@ var NewsPanel = (function () {
 
 			elEntry.BLoadLayoutSnippet( 'news-full-entry' );
 			var elImage = elEntry.FindChildInLayoutFile( 'NewsHeaderImage' );
-			
-			$.Msg(item);
 
 			if ( item.imageUrl )
 			{
