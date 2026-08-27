@@ -5,7 +5,7 @@
 This repository contains the Panorama (in-game UI) files for [Harmony](https://harmony.heapy.xyz/) and a Python utility script for extracting Panorama files from `code.pbin` and packing modified files from the `panorama/` directory into `code_harmony.pbin`.
 
 > [!WARNING]
-> In order for CS:GO to load custom `code.pbin` correctly, you have to use custom `panorama.dll/panorama[_gl]_client.so` library which skips signature checks. If you plan using this project for [Harmony](https://harmony.heapy.xyz/), it already skips signature checking for `code_harmony.pbin`
+> In order for CS:GO to load custom `code.pbin` correctly, you have to use custom `panorama.dll/panorama_[gl/vulkan]_client.so` library which skips signature checks. If you plan using this project for [Harmony](https://harmony.heapy.xyz/), it already skips signature checking for `code_harmony.pbin`
 
 # Usage
 ## Unpacking `code.pbin`
