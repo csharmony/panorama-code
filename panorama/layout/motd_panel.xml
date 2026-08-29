@@ -1,0 +1,32 @@
+<root>
+	<styles>
+        <include src="file://{resources}/styles/csgostyles.css" />
+		<include src="file://{resources}/styles/motd_panel.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/motd_panel.js" />
+	</scripts>
+
+	<Panel class="MOTDPanel_Backdrop">
+		<Panel class="MOTDPanel">
+			<Panel class="MOTDPanel_Header">
+				<Label class="MOTDPanel_Title" text="Server's Message of the Day" />
+			</Panel>
+
+            <HTML id="MOTDPanel_HTML" 
+                  class="full-width full-height" 
+                  acceptsinput="true" 
+                  acceptsfocus="true" 
+                  focusonhover="true" 
+                  mousetracking="true" 
+                  popuplinks="false" 
+                  url="" />
+
+			<Panel class="MOTDPanel_Footer">
+				<Button class="MOTDPanel_GoButton" onactivate="MOTDPanel.OnGoPressed()">
+					<Label text="GO" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

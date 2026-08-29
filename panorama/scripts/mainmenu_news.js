@@ -2,103 +2,56 @@
 
 var NewsPanel = (function () {
 
-	var _GetRssFeed = function()
-	{
-		BlogAPI.RequestRSSFeed();
-	}
+    var _Init = function() {
+        var elBlogHTML = $.GetContextPanel().FindChildTraverse('HarmonyBlogHTML');
+        if (elBlogHTML) {
+            elBlogHTML.SetURL('https://harmony.heapy.xyz/blog');
+        }
+    };
 
-	var _OnRssFeedReceived = function( feed )
-	{
-		if( $.GetContextPanel().BHasClass( 'news-panel--hide-news-panel' ) )
-		{
-			return;
-		};
-		
-		var elLister = $.GetContextPanel().FindChildInLayoutFile( 'NewsPanelLister' );
+    function _InjectCSS() {
+        var elBlogHTML = $.GetContextPanel().FindChildTraverse('HarmonyBlogHTML');
+        if (elBlogHTML) {
+            elBlogHTML.RunJavascript(`
+                var style = document.createElement('style');
+                style.textContent = \`
+                    nav.sticky.top-0.z-50.flex.items-center.gap-1.border-b.border-border.px-4.py-2.backdrop-blur-sm {
+                        display: none !important;
+                    }
+                    h1.text-2xl.font-semibold {
+                        display: none !important;
+                    }
+                \`;
+                document.head.appendChild(style);
+            `);
+        }
+    }
 
-		if ( elLister === undefined || elLister === null || !feed )
-			return;
+	function _HTMLFinishRequest() {
+        _InjectCSS();
+    }
 
-		elLister.RemoveAndDeleteChildren();
+	function _HTMLOpenPopupTab(objHtmlEventTarget, objHtml, sUrl) {
+		// Add custom command later here if needed, for now we allow only to open external links in 'developer 2'
+        if(GameInterfaceAPI.GetSettingString("developer") == 2) {
+			UiToolkitAPI.ShowGenericPopupYesNo( 'External Link', 'This link will open ' + sUrl + ' externally in your Browser.\n\nAre you sure that you want to open this link?', '', function() { SteamOverlayAPI.OpenUrlInOverlayOrExternalBrowser(sUrl); }, function() { } )
+		} else {
+			UiToolkitAPI.ShowGenericPopupOk( 'External Links', 'Due to security measure\'s, you cannot open any links externally from within CS Harmony unless it\'s enabled specifically in your game settings.', '', function() { } )
+		}
+    }
 
-		                                     
-		var foundFirstNewsItem = false;
-
-		feed[ 'items' ].forEach( function( item, i )
-		{
-			var elEntry = $.CreatePanel( 'Panel', elLister, 'NewEntry' + i, {
-				acceptsinput: true
-			} );
-
-			var lastReadItem = GameInterfaceAPI.GetSettingString( 'ui_news_last_read_link' );
-
-			                                                           
-			if ( !foundFirstNewsItem && !item.categories.includes( 'Minor' ) )
-			{
-				foundFirstNewsItem = true;
-
-				                                             
-				elEntry.AddClass( 'new' );
-
-				/*
-				if ( item.link != lastReadItem )
-				{
-					UiToolkitAPI.ShowCustomLayoutPopupParameters( '', 'file://{resources}/layout/popups/popup_news.xml',
-						'date=' + item.date + "&" + 
-						'title=' + item.title + "&" + 
-						'link=' + item.link );
-				}
-				*/
-
-				GameInterfaceAPI.SetSettingString( 'ui_news_last_read_link', item.link );
-			}
-
-			elEntry.BLoadLayoutSnippet( 'news-full-entry' );
-			var elImage = elEntry.FindChildInLayoutFile( 'NewsHeaderImage' );
-
-			if ( item.imageUrl )
-			{
-				elImage.SetImage( item.imageUrl );
-			}
-			else
-			{
-				elImage.SetImage( "file://{images}/store/default-news.png" );
-			}
-
-			var elEntryInfo = $.CreatePanel( 'Panel', elEntry, 'NewsInfo' + i );
-			elEntryInfo.BLoadLayoutSnippet( 'news-info' );
-
-			elEntryInfo.SetDialogVariable( 'news_item_date', item.date );
-			elEntryInfo.SetDialogVariable( 'news_item_title', item.title );
-			elEntryInfo.SetDialogVariable( 'news_item_body', item.description );
-
-			         
-			elEntry.FindChildInLayoutFile( 'NewsEntryBlurTarget' ).AddBlurPanel( elEntryInfo );
-
-			elEntry.SetPanelEvent( "onactivate", function( link, elEntry, clearNew )
-			{
-				SteamOverlayAPI.OpenURL( link );
-
-				if ( clearNew )
-				{
-					GameInterfaceAPI.SetSettingString( 'ui_news_last_read_link', link );
-					elEntry.RemoveClass( 'new' );
-				}
-
-			}.bind( SteamOverlayAPI, item.link, elEntry, i == 0 ) );
-		
-		} );
-	};
 
 	return {
-		GetRssFeed			: _GetRssFeed,
-		OnRssFeedReceived: _OnRssFeedReceived,
+		Init: _Init,
+		HTMLFinishRequest: _HTMLFinishRequest,
+		HTMLOpenPopupTab: _HTMLOpenPopupTab
 	};
 })();
 
 
 ( function()
 {
-	NewsPanel.GetRssFeed();
-	$.RegisterForUnhandledEvent( "PanoramaComponent_Blog_RSSFeedReceived", NewsPanel.OnRssFeedReceived );
+	NewsPanel.Init();
+    $.RegisterEventHandler("HTMLFinishRequest", $.GetContextPanel(), NewsPanel.HTMLFinishRequest);
+	$.RegisterEventHandler("HTMLOpenPopupTab", $.GetContextPanel(), NewsPanel.HTMLOpenPopupTab);
 })();
