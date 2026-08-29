@@ -2,10 +2,15 @@
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
 		<include src="file://{resources}/styles/hud/hud.css" />
+		<include src="file://{resources}/styles/motd_panel.css" />
 	</styles>
 
-	<CSGOHud hittest="false">
-		                                                                           
+	<scripts>
+		<include src="file://{resources}/scripts/motd_panel.js" />
+	</scripts>
+
+	<CSGOHud hittest="false">  
+	 
 		
 		<CSGOHudBlurTarget blurrects="RoundImpactScoreMain MapDraft" class="HudBlurLess" hittest="false" hittestchildren="false">
 			<CSGOBackbufferImagePanel class="full-width full-height" />
@@ -144,9 +149,6 @@
 		</Panel>
 
 		<CSGOEndOfMatch id="EndOfMatch" />
-
-		<CSGOTeamSelectMenu id="TeamSelectMenu"/>
-
 		            
 		<CSGOSurvivalSpawnSelect id="SurvivalSpawnSelect"/>
 		            
@@ -159,9 +161,13 @@
 		
 		                                                                   
 		<Panel id="ItemPreviewDebugManager" hittest="false" />
+		<Frame id="MOTDPanelHUD" src="file://{resources}/layout/motd_panel.xml" />
 		<CSGOPopupManager id="PopupManager" onpopupsdismissed="" />
 		<ContextMenuManager id="ContextMenuManager" />
 		<CSGOTooltipManager id="TooltipManager" hittest="false" />
 
+		<CSGOTeamSelectMenu id="TeamSelectMenu"/>
+
 	</CSGOHud>
+
 </root>
