@@ -1,0 +1,64 @@
+.MOTDPanel_Backdrop {
+	width: 100%;
+	height: 100%;
+	background-color: blurBackgroundColor;
+	horizontal-align: center;
+	vertical-align: center;
+}
+
+.MOTDPanel {
+	width: 80%;
+	height: 75%;
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: down;
+	background-color: #1e1e1eff;
+	border: 1px solid #444444ff;
+	border-radius: 8px;
+	box-shadow: 0px 0px 20px black;
+}
+
+.MOTDPanel_Header {
+	width: 100%;
+	height: 50px;
+	vertical-align: center;
+	padding-left: 20px;
+	background-color: #141414ff;
+	border-radius: 8px 8px 0px 0px;
+}
+
+.MOTDPanel_Title {
+	font-size: 22px;
+	font-weight: bold;
+    font-family: Stratum2, 'Arial Unicode MS';
+	color: white;
+}
+
+#MOTDPanel_HTML {
+	width: 100%;
+	height: fill-parent-flow(1);
+}
+
+.MOTDPanel_Footer {
+	width: 100%;
+	height: 60px;
+	vertical-align: center;
+	background-color: #141414ff;
+	border-radius: 0px 0px 8px 8px;
+}
+
+.MOTDPanel_GoButton {
+	width: 170px;
+	height: 40px;
+	background-color: #1a1a1aff;
+	border: 1px solid #555555ff;
+	horizontal-align: center;
+	vertical-align: center;
+}
+
+.MOTDPanel_GoButton Label {
+	horizontal-align: center;
+	vertical-align: center;
+	color: white;
+    font-family: Stratum2, 'Arial Unicode MS';
+}
