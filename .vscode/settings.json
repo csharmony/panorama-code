@@ -7,10 +7,28 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 4
   },
+  // "[tailwindcss]": {
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  //   "editor.formatOnPaste": true,
+  //   "editor.formatOnSave": true,
+  //   "editor.tabSize": 2
+  // },
+  // "[css]": {
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  //   "editor.formatOnPaste": true,
+  //   "editor.formatOnSave": true,
+  //   "editor.tabSize": 2
+  // },
+  "[tailwindcss]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2
+  },
   "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
+    "editor.defaultFormatter": null,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
     "editor.tabSize": 2
   },
   "[javascript]": {
