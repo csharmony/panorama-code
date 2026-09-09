@@ -230,13 +230,14 @@
 
 						<Panel class="vertical-align-bottom horizontal-center">
 							<Panel style="flow-children: down;">
-								<Button id="MainMenuNavBarHarmonyCredits"
+								<RadioButton id="MainMenuNavBarHarmonyCredits"
 									class="mainmenu-navbar__btn-small MainMenuModeOnly"
+									group="NavBar"
 									onactivate="MainMenu.NavigateToTab('JsHarmonyCredits', 'mainmenu_credits');"
 									onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarHarmonyCredits', '#Harmony_Tooltip_Credits' );"
 									onmouseout="UiToolkitAPI.HideTextTooltip();">
 									<Image style="padding: 28px;" textureheight="32" texturewidth="-1" src="file://{resources}/images/harmy.png" />
-								</Button>
+								</RadioButton>
 
 								<Button id="MainMenuNavBarQuit"
 									class="mainmenu-navbar__btn-small MainMenuModeOnly"
