@@ -6,33 +6,13 @@
 
 	<CSGOHudRadio hittest="false">
 
-		                         
+
 		<Panel id="RadioPanelBG" />
 
-		                     
+
 		<Panel id="RadioPanel">
 
-			                                                 
 
-			    
-			    	
-			                    
-				                                                
-				                        
-				                        
-				                        
-			        
-
-			                    
-				                                              
-				                        
-				                        
-				                        
-			        
-
-			   
-			   
-			
 		</Panel>
 
 	</CSGOHudRadio>

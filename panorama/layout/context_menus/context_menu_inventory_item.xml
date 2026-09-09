@@ -10,8 +10,8 @@
 		<include src="file://{resources}/scripts/common/item_context_entries.js" />
 	</scripts>
 
-		
+
 	<Panel onload="ItemContextMenu.SetupContextMenu()" acceptsinput="true" acceptsfocus="true" class="top-bottom-flow ContextMenuItem">
-		                             
-	</Panel	>
+
+	</Panel>
 </root>

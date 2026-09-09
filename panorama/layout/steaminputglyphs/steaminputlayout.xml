@@ -11,19 +11,19 @@
 			<Panel class="steam-controller-layout">
 				<Panel id="LeftHalf">
 					<Panel id="DirectionalPad">
-						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right" />
 					</Panel>
 				</Panel>
 
 				<Panel id="RightHalf">
 					<Panel id="FaceButtons">
-						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right" />
 					</Panel>
 				</Panel>
 
@@ -34,19 +34,19 @@
 			<Panel class="xbox-controller-layout">
 				<Panel id="LeftHalf">
 					<Panel id="DirectionalPad">
-						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right" />
 					</Panel>
 				</Panel>
 
 				<Panel id="RightHalf">
 					<Panel id="FaceButtons">
-						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right" />
 					</Panel>
 				</Panel>
 			</Panel>
@@ -56,19 +56,19 @@
 			<Panel class="playstation-controller-layout">
 				<Panel id="LeftHalf">
 					<Panel id="DirectionalPad">
-						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right" />
 					</Panel>
 				</Panel>
 
 				<Panel id="RightHalf">
 					<Panel id="FaceButtons">
-						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right" />
 					</Panel>
 				</Panel>
 			</Panel>
@@ -78,20 +78,20 @@
 			<Panel class="nintendo-controller-layout">
 				<Panel id="LeftHalf">
 					<Panel id="DirectionalPad">
-						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right" />
 					</Panel>
 				</Panel>
 
 				<Panel id="RightHalf">
 					<Panel id="FaceButtons">
-						                                                                         
-						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right"/>
+
+						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right" />
 					</Panel>
 				</Panel>
 			</Panel>
@@ -101,19 +101,19 @@
 			<Panel class="mobile-controller-layout">
 				<Panel id="LeftHalf">
 					<Panel id="DirectionalPad">
-						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="DPad_Up" button_or_axis_name="button_dpad_n" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="DPad_Down" button_or_axis_name="button_dpad_s" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Left" button_or_axis_name="button_dpad_w" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="DPad_Right" button_or_axis_name="button_dpad_e" class="text--flow--right" />
 					</Panel>
 				</Panel>
 
 				<Panel id="RightHalf">
 					<Panel id="FaceButtons">
-						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right"/>
-						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left"/>
-						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right"/>
+						<CCSGOSteamInputGlyph id="FacePad_Up" button_or_axis_name="button_y" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Down" button_or_axis_name="button_a" class="text--flow--right" />
+						<CCSGOSteamInputGlyph id="FacePad_Left" button_or_axis_name="button_x" class="text--flow--left" />
+						<CCSGOSteamInputGlyph id="FacePad_Right" button_or_axis_name="button_b" class="text--flow--right" />
 					</Panel>
 				</Panel>
 			</Panel>
@@ -122,6 +122,5 @@
 	</snippets>
 
 
-
-	<CCSGOSteamInputLayout/>   
+	<CCSGOSteamInputLayout />
 </root>

@@ -6,8 +6,8 @@
 	</styles>
 
 	<Panel class="tablethints" hittest="false" force-no-composition-layer="true">
-		                                                                              
-		<Label class="tablethints__text stratum-font" html="true" text="#TabletHintBuy"/>
-		<Label class="tablethints__text stratum-font" html="true" text="#TabletHintClose"/>
+
+		<Label class="tablethints__text stratum-font" html="true" text="#TabletHintBuy" />
+		<Label class="tablethints__text stratum-font" html="true" text="#TabletHintClose" />
 	</Panel>
 </root>

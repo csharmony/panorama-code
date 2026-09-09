@@ -10,13 +10,13 @@
 		<include src="file://{resources}/scripts/store.js" />
 	</scripts>
 
-	<SalesBanner hittest="false" class="MainMenuPanel"> 	
+	<SalesBanner hittest="false" class="MainMenuPanel">
 		<EdgeScroller id="BannerContents">
-			                                       
+
 		</EdgeScroller>
 		<Panel id="BannerControls">
-			<Panel id="BannerControlsBgShadow" class="MainMenuPanelBg"/>
-			<Panel id="BannerControlsBg" class="MainMenuPanelBg"/>
+			<Panel id="BannerControlsBgShadow" class="MainMenuPanelBg" />
+			<Panel id="BannerControlsBg" class="MainMenuPanelBg" />
 		</Panel>
 	</SalesBanner>
 

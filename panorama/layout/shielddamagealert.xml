@@ -6,9 +6,9 @@
 	</styles>
 
 	<CSGOShieldDamageAlert class="ShieldDamageAlert">
-		<ProgressBar id="ShieldDamage" class="ShieldDamageAlertProgress" min="100" max="0"/>
-		<Panel class="ShieldDamageAlertBackdrop"/>
-		<Panel class="ShieldDamageAlertOverlay"/>
+		<ProgressBar id="ShieldDamage" class="ShieldDamageAlertProgress" min="100" max="0" />
+		<Panel class="ShieldDamageAlertBackdrop" />
+		<Panel class="ShieldDamageAlertOverlay" />
 	</CSGOShieldDamageAlert>
-	
+
 </root>

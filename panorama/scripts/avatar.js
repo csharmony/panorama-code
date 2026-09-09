@@ -1,165 +1,144 @@
-'use strict';
+"use strict"
 
-var Avatar = ( function()
-{
-	
-	var _Init = function( elAvatar, xuid, type )
-	{
-	  	                                      
+var Avatar = (function () {
+  var _Init = function (elAvatar, xuid, type) {
+    switch (type) {
+      case "playercard":
+        _SetImage(elAvatar, xuid)
+        _SetFlair(elAvatar, xuid)
+        _SetTeamColor(elAvatar, xuid)
+        _SetLobbyLeader(elAvatar)
+        break
+      case "flair":
+        _SetImage(elAvatar, xuid)
+        _SetFlair(elAvatar, xuid)
+        break
+      default:
+        _SetImage(elAvatar, xuid)
+        _SetTeamColor(elAvatar, xuid)
+    }
+  }
 
-		switch ( type )
-		{
-			case 'playercard':
-				_SetImage( elAvatar, xuid );
-				_SetFlair( elAvatar, xuid );
-				_SetTeamColor( elAvatar, xuid );
-				_SetLobbyLeader( elAvatar );
-				break;
-			case 'flair':
-				_SetImage( elAvatar, xuid );
-				_SetFlair( elAvatar, xuid );
-				break;
-			default:
-				_SetImage( elAvatar, xuid );
-				_SetTeamColor( elAvatar, xuid );
-		}
-	};
+  var _SetImage = function (elAvatar, xuid) {
+    var elImage = elAvatar.FindChildTraverse("JsAvatarImage")
 
-	var _SetImage = function( elAvatar, xuid )
-	{
-		var elImage = elAvatar.FindChildTraverse( 'JsAvatarImage' );
-		
-		if ( xuid === '' || xuid === '0' || xuid === 0 )
-		{
-			elImage.AddClass( 'hidden' );
-			return;
-		}
+    if (xuid === "" || xuid === "0" || xuid === 0) {
+      elImage.AddClass("hidden")
+      return
+    }
 
-		elImage.steamid = xuid;
-		elImage.RemoveClass( 'hidden' );
-	};
+    elImage.steamid = xuid
+    elImage.RemoveClass("hidden")
+  }
 
-	var _SetFlair = function( elAvatar, xuid )
-	{
-		var elFlair = elAvatar.FindChildTraverse( 'JsAvatarFlair' );
-	
-		if ( xuid === '' || xuid === '0' || xuid === 0 )
-		{
-			elFlair.AddClass( 'hidden' );
-			return;
-		}
+  var _SetFlair = function (elAvatar, xuid) {
+    var elFlair = elAvatar.FindChildTraverse("JsAvatarFlair")
 
-		elFlair.RemoveClass( 'hidden' );
+    if (xuid === "" || xuid === "0" || xuid === 0) {
+      elFlair.AddClass("hidden")
+      return
+    }
 
-		var flairItemId = InventoryAPI.GetFlairItemId( xuid );
+    elFlair.RemoveClass("hidden")
 
+    var flairItemId = InventoryAPI.GetFlairItemId(xuid)
 
-		                                                                                   
-		if ( flairItemId === "0" || !flairItemId )
-		{
-			var flairDefIdx = FriendsListAPI.GetFriendDisplayItemDefFeatured( xuid );
-			flairItemId = InventoryAPI.GetFauxItemIDFromDefAndPaintIndex( flairDefIdx, 0 );
-		
-			if ( flairItemId === "0" || !flairItemId )
-				return;
-		}
+    if (flairItemId === "0" || !flairItemId) {
+      var flairDefIdx = FriendsListAPI.GetFriendDisplayItemDefFeatured(xuid)
+      flairItemId = InventoryAPI.GetFauxItemIDFromDefAndPaintIndex(
+        flairDefIdx,
+        0
+      )
 
-		var imagePath = InventoryAPI.GetItemInventoryImage( flairItemId );
+      if (flairItemId === "0" || !flairItemId) return
+    }
 
-		elFlair.SetImage( 'file://{images_econ}' + imagePath + '_small.png' );
-	};
+    var imagePath = InventoryAPI.GetItemInventoryImage(flairItemId)
 
-	var _SetTeamColor = function( elAvatar, xuid )
-	{
-		var teamColor = PartyListAPI.GetPartyMemberSetting( xuid, 'game/teamcolor' );
-		var elTeamColor = elAvatar.FindChildTraverse( 'JsAvatarTeamColor' );
+    elFlair.SetImage("file://{images_econ}" + imagePath + "_small.png")
+  }
 
-		if ( !teamColor )
-		{
-			if ( elTeamColor )
-				elTeamColor.AddClass( 'hidden' );
+  var _SetTeamColor = function (elAvatar, xuid) {
+    var teamColor = PartyListAPI.GetPartyMemberSetting(xuid, "game/teamcolor")
+    var elTeamColor = elAvatar.FindChildTraverse("JsAvatarTeamColor")
 
-			return;
-		}
+    if (!teamColor) {
+      if (elTeamColor) elTeamColor.AddClass("hidden")
 
-		if( typeof TeamColor !== 'undefined' )
-		{
-			var rgbColor = TeamColor.GetTeamColor( Number( teamColor ) );
-			
-			elTeamColor.RemoveClass( 'hidden' );
-			elTeamColor.style.washColor = 'rgb(' + rgbColor + ')';
-		}
-	};
+      return
+    }
 
-	var _SetTeamLetter = function( elAvatar, xuid )
-	{
-		var teamColor = PartyListAPI.GetPartyMemberSetting( xuid, 'game/teamcolor' );
-		var elTeamLetter = elAvatar.FindChildTraverse( 'JsAvatarTeamLetter' );
-		var useLetters = false;
+    if (typeof TeamColor !== "undefined") {
+      var rgbColor = TeamColor.GetTeamColor(Number(teamColor))
 
-		if ( teamColor == '' && useLetters )
-		{
-			if ( elTeamLetter )
-				elTeamLetter.AddClass( 'hidden' );
+      elTeamColor.RemoveClass("hidden")
+      elTeamColor.style.washColor = "rgb(" + rgbColor + ")"
+    }
+  }
 
-			return;
-		}
+  var _SetTeamLetter = function (elAvatar, xuid) {
+    var teamColor = PartyListAPI.GetPartyMemberSetting(xuid, "game/teamcolor")
+    var elTeamLetter = elAvatar.FindChildTraverse("JsAvatarTeamLetter")
+    var useLetters = false
 
-		var teamLetter = elTeamLetter._GetTeamColorLetter( Number( teamColor ) );
-		elTeamLetter.RemoveClass( 'hidden' );
-		elTeamLetter.text = teamLetter;
-	};
+    if (teamColor == "" && useLetters) {
+      if (elTeamLetter) elTeamLetter.AddClass("hidden")
 
-	var _SetLobbyLeader = function( elAvatar )
-	{
-		if ( !elAvatar.hasOwnProperty( "GetAttributeString" ) )
-			return;
-		
-		var show = elAvatar.GetAttributeString( 'showleader', '' );
-		var elLeader = elAvatar.FindChildTraverse( 'JsAvatarLeader' );
-		
-		if ( elLeader )
-		{
-			if ( show === 'show' )
-				elLeader.RemoveClass( 'hidden' );
-			else
-				elLeader.AddClass( 'hidden' );
-		}
-	};
+      return
+    }
 
-	var _UpdateTalkingState = function( elAvatar, xuid, bCalledFromScheduledFunction )
-	{
-		if ( !elAvatar || !elAvatar.IsValid() )
-			return;
+    var teamLetter = elTeamLetter._GetTeamColorLetter(Number(teamColor))
+    elTeamLetter.RemoveClass("hidden")
+    elTeamLetter.text = teamLetter
+  }
 
-		var elSpeaking = elAvatar.FindChildTraverse( 'JsAvatarSpeaking' );
-		if ( !elSpeaking )
-			return;
+  var _SetLobbyLeader = function (elAvatar) {
+    if (!elAvatar.hasOwnProperty("GetAttributeString")) return
 
-		var bFriendIsTalking = PartyListAPI.GetFriendIsTalking( xuid );
-		elSpeaking.SetHasClass( 'hidden', !bFriendIsTalking );
+    var show = elAvatar.GetAttributeString("showleader", "")
+    var elLeader = elAvatar.FindChildTraverse("JsAvatarLeader")
 
-		if ( bFriendIsTalking && ( bCalledFromScheduledFunction || !elAvatar.GetAttributeString( 'updatetalkingstate', '' ) ) )
-		{
-			var schfn = $.Schedule( .1, _UpdateTalkingState.bind( this, elAvatar, xuid, true ) );
-			elAvatar.SetAttributeString( 'updatetalkingstate', '' + schfn );
-		}
+    if (elLeader) {
+      if (show === "show") elLeader.RemoveClass("hidden")
+      else elLeader.AddClass("hidden")
+    }
+  }
 
-		if ( !bFriendIsTalking )
-		{
-			elAvatar.SetAttributeString( 'updatetalkingstate', '' );
-		}
-	};
+  var _UpdateTalkingState = function (
+    elAvatar,
+    xuid,
+    bCalledFromScheduledFunction
+  ) {
+    if (!elAvatar || !elAvatar.IsValid()) return
 
-	return {
-		Init: _Init,
-		UpdateTalkingState: _UpdateTalkingState,
-		SetFlair: _SetFlair,
-	};
-})();
+    var elSpeaking = elAvatar.FindChildTraverse("JsAvatarSpeaking")
+    if (!elSpeaking) return
 
-(function()
-{
-	                                                                           
-	                                                                                                          
-})();
+    var bFriendIsTalking = PartyListAPI.GetFriendIsTalking(xuid)
+    elSpeaking.SetHasClass("hidden", !bFriendIsTalking)
+
+    if (
+      bFriendIsTalking &&
+      (bCalledFromScheduledFunction ||
+        !elAvatar.GetAttributeString("updatetalkingstate", ""))
+    ) {
+      var schfn = $.Schedule(
+        0.1,
+        _UpdateTalkingState.bind(this, elAvatar, xuid, true)
+      )
+      elAvatar.SetAttributeString("updatetalkingstate", "" + schfn)
+    }
+
+    if (!bFriendIsTalking) {
+      elAvatar.SetAttributeString("updatetalkingstate", "")
+    }
+  }
+
+  return {
+    Init: _Init,
+    UpdateTalkingState: _UpdateTalkingState,
+    SetFlair: _SetFlair
+  }
+})()
+
+;(function () {})()

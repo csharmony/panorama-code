@@ -1,7 +1,7 @@
 <root>
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
-        <include src="file://{resources}/styles/context_menus/context_menu_base.css" />
+		<include src="file://{resources}/styles/context_menus/context_menu_base.css" />
 		<include src="file://{resources}/styles/context_menus/context_menu_watchnotice_match_streams.css" />
 	</styles>
 	<scripts>
@@ -14,16 +14,15 @@
 			<Button class="eventsched-match__stream Positive left-right-flow">
 
 				<Panel style="width:40px;margin-right:10px;">
-					<Label id="JsRegionLabel" class="" text=""/>
+					<Label id="JsRegionLabel" class="" text="" />
 				</Panel>
-								
-				<Label  id="id-eventsched-match__stream__name" class="eventsched-match__stream eventsched-match__stream__name" text="#eventsched_stream_watch" />
+
+				<Label id="id-eventsched-match__stream__name" class="eventsched-match__stream eventsched-match__stream__name" text="#eventsched_stream_watch" />
 
 			</Button>
 		</snippet>
 
 	</snippets>
-
 
 
 	<ContextMenuCustomLayout hittest="true" class="contextmenu-watchnotice_match_streams ContextMenuItem" onload="ContextMenuWatchNoticeMatchStream.Init()">
@@ -44,7 +43,7 @@
 			<Label text="#eventsched_no_streams" />
 		</Button>
 
-		<Panel id="id-watchnotice__event__match__stream-container" class="top-bottom-flow TopSeparator"/>
-			                                  
+		<Panel id="id-watchnotice__event__match__stream-container" class="top-bottom-flow TopSeparator" />
+
 	</ContextMenuCustomLayout>
 </root>

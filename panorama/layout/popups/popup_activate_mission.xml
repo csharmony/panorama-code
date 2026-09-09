@@ -1,7 +1,7 @@
 <root>
 	<styles>
 		<include src="file://{resources}/styles/gamestyles.css" />
-        <include src="file://{resources}/styles/popups/popups_shared.css" />
+		<include src="file://{resources}/styles/popups/popups_shared.css" />
 		<include src="file://{resources}/styles/popups/popup_custom.css" />
 	</styles>
 	<scripts>
@@ -14,14 +14,14 @@
 
 		<Label class="PopupMessage" text="{s:message}" />
 
-		                                                                                                     
+
 		<Panel id="Spinner" class="Spinner" />
 
 
 		<Panel class="PopupButtonRow">
-			                                                                                
-                                                                                                         
+
+
 		</Panel>
-	
+
 	</PopupCustomLayout>
 </root>

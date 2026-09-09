@@ -1,146 +1,142 @@
-'use strict';
+"use strict"
 
-var PopupAddFriend = ( function(){
+var PopupAddFriend = (function () {
+  var m_xuidToInvite = ""
 
-	var m_xuidToInvite = '';
+  var _Init = function () {
+    var yourCode = MyPersonaAPI.GetFriendCode()
 
-	var _Init = function() 
-	{
-		var yourCode = MyPersonaAPI.GetFriendCode();
-		
-		var onMouseOver = function()
-		{
-			UiToolkitAPI.ShowTextTooltip( 'JsPopupYourFriendCode', yourCode );
-		}
+    var onMouseOver = function () {
+      UiToolkitAPI.ShowTextTooltip("JsPopupYourFriendCode", yourCode)
+    }
 
-		var onMouseOut = function()
-		{
-			UiToolkitAPI.HideTextTooltip();
-		}
-		
-		var onActivate = function()
-		{
-			SteamOverlayAPI.CopyTextToClipboard( yourCode );
-			UiToolkitAPI.ShowTextTooltip( 'JsPopupYourFriendCode', '#AddFriend_copy_code_Hint' );
-		}
+    var onMouseOut = function () {
+      UiToolkitAPI.HideTextTooltip()
+    }
 
-		var elYourCodeBtn = $( '#JsPopupYourFriendCode' );
+    var onActivate = function () {
+      SteamOverlayAPI.CopyTextToClipboard(yourCode)
+      UiToolkitAPI.ShowTextTooltip(
+        "JsPopupYourFriendCode",
+        "#AddFriend_copy_code_Hint"
+      )
+    }
 
-		elYourCodeBtn.SetPanelEvent( 'onmouseover', onMouseOver );
-		elYourCodeBtn.SetPanelEvent( 'onmouseout', onMouseOut );
-		elYourCodeBtn.SetPanelEvent( 'onactivate', onActivate );
+    var elYourCodeBtn = $("#JsPopupYourFriendCode")
 
-		                                         
-		$( '#JsPopupYourSendRequest' ).enabled = false;
+    elYourCodeBtn.SetPanelEvent("onmouseover", onMouseOver)
+    elYourCodeBtn.SetPanelEvent("onmouseout", onMouseOut)
+    elYourCodeBtn.SetPanelEvent("onactivate", onActivate)
 
-		                                                
-		$( '#JsFriendCodeNotFound' ).visible = false;
-		$( '#JsFriendCodeFound' ).visible = false;
+    $("#JsPopupYourSendRequest").enabled = false
 
-		$( '#JsAddFriendTextEntryLabel' ).SetFocus();
-		$( '#JsAddFriendTextEntryLabel' ).SetPanelEvent( 'ontextentrychange', _OnEntrySubmit );
+    $("#JsFriendCodeNotFound").visible = false
+    $("#JsFriendCodeFound").visible = false
 
-		                           
-	};
+    $("#JsAddFriendTextEntryLabel").SetFocus()
+    $("#JsAddFriendTextEntryLabel").SetPanelEvent(
+      "ontextentrychange",
+      _OnEntrySubmit
+    )
+  }
 
-	var _SetUpEnterTextButton = function()
-	{
-		var elBtn = $.GetContextPanel().FindChildTraverse( 'JsEnterNameBtn' );
-		elBtn.SetPanelEvent( 'onactivate', _OnEntrySubmit );
-	};
+  var _SetUpEnterTextButton = function () {
+    var elBtn = $.GetContextPanel().FindChildTraverse("JsEnterNameBtn")
+    elBtn.SetPanelEvent("onactivate", _OnEntrySubmit)
+  }
 
-	var _OnEntrySubmit = function ()
-	{
-		var elNotFoundLabel = $( '#JsFriendCodeNotFound' ),
-		elTextEntry = $( '#JsAddFriendTextEntryLabel' );
+  var _OnEntrySubmit = function () {
+    var elNotFoundLabel = $("#JsFriendCodeNotFound"),
+      elTextEntry = $("#JsAddFriendTextEntryLabel")
 
-		var xuid = FriendsListAPI.GetXuidFromFriendCode( elTextEntry.text.toUpperCase() );
-		
-		if( xuid )
-		{
-			              
-			var elTile = $.GetContextPanel().FindChildTraverse( 'JsPopupFriendTile' );
+    var xuid = FriendsListAPI.GetXuidFromFriendCode(
+      elTextEntry.text.toUpperCase()
+    )
 
-			if( !elTile )
-			{
-				elTile = $.CreatePanel( "Panel", $( '#JsFriendCodeFound' ), 'JsPopupFriendTile' );
-				elTile.SetAttributeString( 'xuid', xuid );
-				elTile.BLoadLayout('file://{resources}/layout/friendtile.xml', false, false);
-			}
-			
-			                                                               
-			$.Schedule( .1, function () { 
-				friendTile.Init( elTile ); 
-				elTile.RemoveClass( 'hidden' );
-			});
+    if (xuid) {
+      var elTile = $.GetContextPanel().FindChildTraverse("JsPopupFriendTile")
 
-			$( '#JsAddFriendInviteImg' ).AddClass('hidden');
-			$( '#JsFriendCodeFound' ).visible = true;
-			$( '#JsPopupYourSendRequest' ).enabled = true;
+      if (!elTile) {
+        elTile = $.CreatePanel(
+          "Panel",
+          $("#JsFriendCodeFound"),
+          "JsPopupFriendTile"
+        )
+        elTile.SetAttributeString("xuid", xuid)
+        elTile.BLoadLayout(
+          "file://{resources}/layout/friendtile.xml",
+          false,
+          false
+        )
+      }
 
-			elNotFoundLabel.visible = false;
-			$.GetContextPanel().FindChildInLayoutFile( 'JSFriendValidIcon' ).SetHasClass( 'valid', true );
+      $.Schedule(0.1, function () {
+        friendTile.Init(elTile)
+        elTile.RemoveClass("hidden")
+      })
 
-			m_xuidToInvite = xuid;
-		}
-		else
-		{
-			if( elTextEntry.text === '' )
-			{
-				elNotFoundLabel.visible = false;
-				return;
-			}
-			
-			                          
-			elNotFoundLabel.SetDialogVariable( 'code', elTextEntry.text.toUpperCase() );
-			elNotFoundLabel.text = $.Localize( '#AddFriend_not_found', elNotFoundLabel );
-			$.GetContextPanel().FindChildInLayoutFile( 'JSFriendValidIcon' ).SetHasClass( 'valid', false );
-			
-			elNotFoundLabel.visible = true;
+      $("#JsAddFriendInviteImg").AddClass("hidden")
+      $("#JsFriendCodeFound").visible = true
+      $("#JsPopupYourSendRequest").enabled = true
 
-			$( '#JsPopupYourSendRequest' ).enabled = false;
-			$( '#JsFriendCodeFound' ).visible = false;
-		}
-	};
+      elNotFoundLabel.visible = false
+      $.GetContextPanel()
+        .FindChildInLayoutFile("JSFriendValidIcon")
+        .SetHasClass("valid", true)
 
-	var _OnSendInvite = function ()
-	{
-		$( '#JsAddFriendInviteImg' ).RemoveClass('hidden');
-		$( '#JsPopupYourSendRequest' ).enabled = false;
-		SteamOverlayAPI.InteractWithUser( m_xuidToInvite, 'friendadd' );
-		$.DispatchEvent( 'UIPopupButtonClicked', '' );
-	};
+      m_xuidToInvite = xuid
+    } else {
+      if (elTextEntry.text === "") {
+        elNotFoundLabel.visible = false
+        return
+      }
 
-	var _OnCancelEntry = function ()
-	{
-		
-	};
+      elNotFoundLabel.SetDialogVariable("code", elTextEntry.text.toUpperCase())
+      elNotFoundLabel.text = $.Localize("#AddFriend_not_found", elNotFoundLabel)
+      $.GetContextPanel()
+        .FindChildInLayoutFile("JSFriendValidIcon")
+        .SetHasClass("valid", false)
 
-	var _FriendsListUpdateName = function( xuid )
-	{
-		var elTile = $.GetContextPanel().FindChildTraverse( 'JsPopupFriendTile' );
+      elNotFoundLabel.visible = true
 
-		if ( elTile && elTile.IsValid() && ( xuid === elTile.GetAttributeString( 'xuid', '' )))
-		{
-			friendTile.Init( elTile ); 
-		}
-	};
+      $("#JsPopupYourSendRequest").enabled = false
+      $("#JsFriendCodeFound").visible = false
+    }
+  }
 
-	return {
-		Init:	_Init,
-		OnSendInvite:	_OnSendInvite,
-		OnCancelEntry:	_OnCancelEntry,
-		OnEntrySubmit: _OnEntrySubmit,
-		FriendsListUpdateName: _FriendsListUpdateName
-	};
+  var _OnSendInvite = function () {
+    $("#JsAddFriendInviteImg").RemoveClass("hidden")
+    $("#JsPopupYourSendRequest").enabled = false
+    SteamOverlayAPI.InteractWithUser(m_xuidToInvite, "friendadd")
+    $.DispatchEvent("UIPopupButtonClicked", "")
+  }
 
-} )();
+  var _OnCancelEntry = function () {}
 
-                                                                                                    
-                                            
-                                                                                                    
-(function()
-{
-	
-	$.RegisterForUnhandledEvent( 'PanoramaComponent_FriendsList_NameChanged', PopupAddFriend.FriendsListUpdateName );
-})();
+  var _FriendsListUpdateName = function (xuid) {
+    var elTile = $.GetContextPanel().FindChildTraverse("JsPopupFriendTile")
+
+    if (
+      elTile &&
+      elTile.IsValid() &&
+      xuid === elTile.GetAttributeString("xuid", "")
+    ) {
+      friendTile.Init(elTile)
+    }
+  }
+
+  return {
+    Init: _Init,
+    OnSendInvite: _OnSendInvite,
+    OnCancelEntry: _OnCancelEntry,
+    OnEntrySubmit: _OnEntrySubmit,
+    FriendsListUpdateName: _FriendsListUpdateName
+  }
+})()
+
+;(function () {
+  $.RegisterForUnhandledEvent(
+    "PanoramaComponent_FriendsList_NameChanged",
+    PopupAddFriend.FriendsListUpdateName
+  )
+})()

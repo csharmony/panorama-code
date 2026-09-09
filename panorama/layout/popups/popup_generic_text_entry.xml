@@ -1,5 +1,5 @@
 <root>
-	<styles>
+  <styles>
     <include src="file://{resources}/styles/gamestyles.css" />
     <include src="file://{resources}/styles/popups/popups_shared.css" />
     <include src="file://{resources}/styles/popups/popup_generic_text_entry.css" />
@@ -7,20 +7,17 @@
 
   <Panel class="PopupPanel Hidden" popupbackground="dim" defaultfocus="TextEntry">
     <Label class="PopupTitle" text="#DOTA_Generic_Popup_Title" />
-    <Panel class="MessagePanel" >
-      <Panel class="ImageContainer" >
-                                                                                              
-                                                                                  
+    <Panel class="MessagePanel">
+      <Panel class="ImageContainer">
+
+
       </Panel>
-      <Label class="MessageLabel" text="#DOTA_Generic_Popup_Body"/>
+      <Label class="MessageLabel" text="#DOTA_Generic_Popup_Body" />
     </Panel>
-    <TextEntry id="TextEntry" oninputsubmit="GenericPopupTextEntryFinished()" />    
+    <TextEntry id="TextEntry" oninputsubmit="GenericPopupTextEntryFinished()" />
     <Panel id="ButtonContainer" class="PopupButtonRow">
-                                           
-                                                                             
-                 
-               
-         
+
+
     </Panel>
   </Panel>
 </root>

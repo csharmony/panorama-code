@@ -13,23 +13,19 @@
 
       <Panel class="hud-progress-bar-layout">
         <Panel class="hud-progress-bar-circle">
-          
+
           <Panel class="hud-progress-bar-circle-background" />
           <Panel class="hud-progress-bar-circle-animator progress-bar-animating" progress-animation="circle-full-to-empty" />
           <Image id="ActionIcon" src="file://{images}/icons/equipment/defuser.svg" class="hud-progress-bar-circle-icon" scaling="stretch-to-fit-preserve-aspect" />
-          
-                                                                       
+
+
           <Panel class="hud-progress-bar-circle-border-inner" />
         </Panel>
 
         <Panel class="hud-progress-bar-info">
-          <Label id="ActionLabel" class="hud-progress-bar-info-title"/>
-                                                                                                                
-                                                                                                               
-                                                                                                                
-                                                                                                                
-                              
-               
+          <Label id="ActionLabel" class="hud-progress-bar-info-title" />
+
+
           <Label text="{t:d:duration}.{s:milliseconds} " class="hud-progress-bar-info-countdown-text" />
         </Panel>
       </Panel>

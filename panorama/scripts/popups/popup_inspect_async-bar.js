@@ -1,403 +1,414 @@
+"use-strict"
 
-'use-strict';
+var InspectAsyncActionBar = (function () {
+  var m_scheduleHandle = null
+  var m_itemid = ""
+  var m_worktype = ""
+  var m_okButtonClass = "Positive"
+  var m_toolid = ""
+  var m_isDecodeableKeyless = false
+  var m_asynActionForceHide = false
+  var m_showAsyncActionDesc = false
+  var m_isXrayMode = false
+  var m_allowXrayClaim = false
+  var m_inspectOnly = false
+  var m_isSeasonPass = false
+  var _m_PanelRegisteredForEvents
 
-var InspectAsyncActionBar = ( function()
-{
-	var m_scheduleHandle = null;
-	var m_itemid = '';                             
-	var m_worktype = '';                                                                             
-	var m_okButtonClass = 'Positive';                                             
-	var m_toolid = '';                                                             
-	var m_isDecodeableKeyless = false;                                                   
-	var m_asynActionForceHide = false;
-	var m_showAsyncActionDesc = false;
-	var m_isXrayMode = false;
-	var m_allowXrayClaim = false;
-	var m_inspectOnly = false;
-	var m_isSeasonPass = false;
-	var _m_PanelRegisteredForEvents;
+  var _Init = function (
+    elPanel,
+    itemId,
+    funcGetSettingCallback,
+    funcCallbackOnAction
+  ) {
+    m_itemid = itemId
+    m_worktype = funcGetSettingCallback("asyncworktype", "")
+    m_toolid = funcGetSettingCallback("toolid", "")
+    m_isDecodeableKeyless =
+      funcGetSettingCallback("decodeablekeyless", "false") === "true"
+        ? true
+        : false
+    m_asynActionForceHide =
+      funcGetSettingCallback("asyncforcehide", "false") === "true"
+        ? true
+        : false
+    m_showAsyncActionDesc =
+      funcGetSettingCallback("asyncactiondescription", "no") === "yes"
+        ? true
+        : false
+    m_isXrayMode =
+      funcGetSettingCallback("isxraymode", "no") === "yes" ? true : false
+    m_allowXrayClaim =
+      funcGetSettingCallback("allowxrayclaim", "no") === "yes" ? true : false
+    m_inspectOnly =
+      funcGetSettingCallback("inspectonly", "false") === "true" ? true : false
+    m_isSeasonPass =
+      funcGetSettingCallback("seasonpass", "false") === "true" ? true : false
 
-	var _Init = function( elPanel, itemId, funcGetSettingCallback, funcCallbackOnAction )
-	{
-		m_itemid = itemId;
-		m_worktype = funcGetSettingCallback( 'asyncworktype', '' );
-		m_toolid = funcGetSettingCallback( 'toolid', '' );
-		m_isDecodeableKeyless = ( funcGetSettingCallback( 'decodeablekeyless', 'false' ) === 'true' ) ? true : false;
-		m_asynActionForceHide = ( funcGetSettingCallback( 'asyncforcehide', 'false' ) === 'true' ) ? true : false;
-		m_showAsyncActionDesc = ( funcGetSettingCallback( 'asyncactiondescription', 'no' ) === 'yes' ) ? true : false;
-		m_isXrayMode = ( funcGetSettingCallback( "isxraymode", "no" ) === 'yes' ) ? true : false;
-		m_allowXrayClaim = ( funcGetSettingCallback( "allowxrayclaim", "no" ) === 'yes' ) ? true : false;
-		m_inspectOnly = ( funcGetSettingCallback( 'inspectonly', 'false' ) === 'true' ) ? true : false;
-		m_isSeasonPass = ( funcGetSettingCallback( 'seasonpass', 'false' ) === 'true' ) ? true : false;
-  
-		                                      
-		                               
-		                               
+    if (
+      m_asynActionForceHide ||
+      !m_worktype ||
+      (m_worktype === "nameable" && !m_toolid) ||
+      _DoesNotMeetDecodalbeRequirements()
+    ) {
+      elPanel.AddClass("hidden")
+      return
+    }
 
-		if ( m_asynActionForceHide ||
-			!m_worktype || 
-			( m_worktype === 'nameable' && !m_toolid ) ||
-			_DoesNotMeetDecodalbeRequirements()
-		)
-		{
-			elPanel.AddClass( 'hidden' );
-			return;
-		}
+    elPanel.RemoveClass("hidden")
 
-		elPanel.RemoveClass( 'hidden' );
-		
-		m_okButtonClass = funcGetSettingCallback( 'asyncworkbtnstyle', m_okButtonClass );
+    m_okButtonClass = funcGetSettingCallback(
+      "asyncworkbtnstyle",
+      m_okButtonClass
+    )
 
-		_SetUpDescription( elPanel );
-		_SetUpButtonStates( elPanel, funcGetSettingCallback, funcCallbackOnAction );
+    _SetUpDescription(elPanel)
+    _SetUpButtonStates(elPanel, funcGetSettingCallback, funcCallbackOnAction)
 
-		if ( m_worktype === 'prestigecheck' )
-		{	                                                      
-			_OnAccept( elPanel );
-		}
-		
-		if ( !_m_PanelRegisteredForEvents )
-		{
-			_m_PanelRegisteredForEvents = $.RegisterForUnhandledEvent( 'PanoramaComponent_Inventory_ItemCustomizationNotification', InspectAsyncActionBar.OnItemCustomization );
+    if (m_worktype === "prestigecheck") {
+      _OnAccept(elPanel)
+    }
 
-			if( m_worktype !== 'decodeable' && m_worktype !== 'nameable' && m_worktype !== 'remove_sticker' )
-			{
-				$.RegisterForUnhandledEvent( 'PanoramaComponent_MyPersona_InventoryUpdated', InspectAsyncActionBar.OnMyPersonaInventoryUpdated );
-				$.RegisterForUnhandledEvent( 'PanoramaComponent_Inventory_PrestigeCoinResponse', InspectAsyncActionBar.OnInventoryPrestigeCoinResponse );
-			}
-		}
-	};
+    if (!_m_PanelRegisteredForEvents) {
+      _m_PanelRegisteredForEvents = $.RegisterForUnhandledEvent(
+        "PanoramaComponent_Inventory_ItemCustomizationNotification",
+        InspectAsyncActionBar.OnItemCustomization
+      )
 
-	var _DoesNotMeetDecodalbeRequirements = function()
-	{
-		                                                                                                      
-		if ( m_worktype === 'decodeable' )
-		{
-			var sRestriction = InventoryAPI.GetDecodeableRestriction( m_itemid );
-			if ( sRestriction === 'restricted' || ( sRestriction === 'xray' && !m_isXrayMode ) ||  m_inspectOnly )
-				return false;
+      if (
+        m_worktype !== "decodeable" &&
+        m_worktype !== "nameable" &&
+        m_worktype !== "remove_sticker"
+      ) {
+        $.RegisterForUnhandledEvent(
+          "PanoramaComponent_MyPersona_InventoryUpdated",
+          InspectAsyncActionBar.OnMyPersonaInventoryUpdated
+        )
+        $.RegisterForUnhandledEvent(
+          "PanoramaComponent_Inventory_PrestigeCoinResponse",
+          InspectAsyncActionBar.OnInventoryPrestigeCoinResponse
+        )
+      }
+    }
+  }
 
-			return ( !m_toolid && !m_isDecodeableKeyless );
-		}
-		return false;
-	};
+  var _DoesNotMeetDecodalbeRequirements = function () {
+    if (m_worktype === "decodeable") {
+      var sRestriction = InventoryAPI.GetDecodeableRestriction(m_itemid)
+      if (
+        sRestriction === "restricted" ||
+        (sRestriction === "xray" && !m_isXrayMode) ||
+        m_inspectOnly
+      )
+        return false
 
-	var _PerformAsyncAction = function( funcGetSettingCallback, funcCallbackOnAction )
-	{
-		                                           
-		if ( m_worktype === 'useitem' || m_worktype === 'usegift' )
-		{
-			InventoryAPI.UseTool( m_itemid, '' );
-		}
-		else if ( m_worktype === 'delete' )
-		{
-			InventoryAPI.DeleteItem( m_itemid );
-		}
-		else if ( m_worktype === 'prestigecheck' )
-		{
-			InventoryAPI.RequestPrestigeCoin();
-		}
-		else if ( m_worktype === 'prestigeget' || m_worktype === 'prestigeupgrade' )
-		{
-			InventoryAPI.RequestPrestigeCoin( InventoryAPI.GetItemDefinitionIndex( m_itemid ) );
-		}
-		else if ( m_worktype === 'nameable' )
-		{
-			$.DispatchEvent( "PlaySoundEffect", "rename_applyConfirm", "MOUSE" );
-			InventoryAPI.UseTool( m_toolid, m_itemid );
-			funcCallbackOnAction();
-		}
-		else if ( m_worktype === 'can_sticker' || m_worktype === 'can_patch' )
-		{
-			$.DispatchEvent( 'PlaySoundEffect', 'sticker_applyConfirm', 'MOUSE' );
+      return !m_toolid && !m_isDecodeableKeyless
+    }
+    return false
+  }
 
-			var selectedStickerSlot = funcGetSettingCallback( 'selectedstickerslot', '' );
-			var bIsValid = InventoryAPI.SetStickerToolSlot( m_itemid, selectedStickerSlot );
+  var _PerformAsyncAction = function (
+    funcGetSettingCallback,
+    funcCallbackOnAction
+  ) {
+    if (m_worktype === "useitem" || m_worktype === "usegift") {
+      InventoryAPI.UseTool(m_itemid, "")
+    } else if (m_worktype === "delete") {
+      InventoryAPI.DeleteItem(m_itemid)
+    } else if (m_worktype === "prestigecheck") {
+      InventoryAPI.RequestPrestigeCoin()
+    } else if (
+      m_worktype === "prestigeget" ||
+      m_worktype === "prestigeupgrade"
+    ) {
+      InventoryAPI.RequestPrestigeCoin(
+        InventoryAPI.GetItemDefinitionIndex(m_itemid)
+      )
+    } else if (m_worktype === "nameable") {
+      $.DispatchEvent("PlaySoundEffect", "rename_applyConfirm", "MOUSE")
+      InventoryAPI.UseTool(m_toolid, m_itemid)
+      funcCallbackOnAction()
+    } else if (m_worktype === "can_sticker" || m_worktype === "can_patch") {
+      $.DispatchEvent("PlaySoundEffect", "sticker_applyConfirm", "MOUSE")
 
-			if ( bIsValid )
-			{
-				InventoryAPI.UseTool( m_toolid, m_itemid );
-				funcCallbackOnAction();
-			}
-		}
-		else if ( m_worktype === 'decodeable' )
-		{
-			                                                                 
-			if ( ItemInfo.ItemMatchDefName( m_itemid, 'spray' ) || ItemInfo.ItemDefinitionNameSubstrMatch(m_itemid, 'tournament_pass_') )
-			{
-				InventoryAPI.UseTool( m_itemid, '' );
-			}
-			else if ( InventoryAPI.GetDecodeableRestriction( m_itemid ) === "xray" && !m_allowXrayClaim )
-			{
-				InventoryAPI.UseTool( m_itemid, m_itemid );
-			}
-			else
-			{
-				InventoryAPI.UseTool( m_toolid, m_itemid );
-			}
+      var selectedStickerSlot = funcGetSettingCallback(
+        "selectedstickerslot",
+        ""
+      )
+      var bIsValid = InventoryAPI.SetStickerToolSlot(
+        m_itemid,
+        selectedStickerSlot
+      )
 
-			if ( InventoryAPI.GetDecodeableRestriction( m_itemid ) !== "xray" )
-			{
-				$.DispatchEvent( 'StartDecodeableAnim' );
-			}
-		}
-	};
-	
-	var _SetUpButtonStates = function( elPanel, funcGetSettingCallback, funcCallbackOnAction )
-	{
-		var elOK = elPanel.FindChildInLayoutFile( 'AsyncItemWorkAcceptConfirm' );
+      if (bIsValid) {
+        InventoryAPI.UseTool(m_toolid, m_itemid)
+        funcCallbackOnAction()
+      }
+    } else if (m_worktype === "decodeable") {
+      if (
+        ItemInfo.ItemMatchDefName(m_itemid, "spray") ||
+        ItemInfo.ItemDefinitionNameSubstrMatch(m_itemid, "tournament_pass_")
+      ) {
+        InventoryAPI.UseTool(m_itemid, "")
+      } else if (
+        InventoryAPI.GetDecodeableRestriction(m_itemid) === "xray" &&
+        !m_allowXrayClaim
+      ) {
+        InventoryAPI.UseTool(m_itemid, m_itemid)
+      } else {
+        InventoryAPI.UseTool(m_toolid, m_itemid)
+      }
 
-		function _SetPanelEventOnAccept ()
-		{
-			elOK.SetPanelEvent(
-				'onactivate',
-				_OnAccept.bind(
-					undefined,
-					elPanel,
-					funcGetSettingCallback,
-					funcCallbackOnAction
-				) );
-		}
+      if (InventoryAPI.GetDecodeableRestriction(m_itemid) !== "xray") {
+        $.DispatchEvent("StartDecodeableAnim")
+      }
+    }
+  }
 
-		if ( m_worktype === 'decodeable' )                                                           
-		{
-			var sRestriction = InventoryAPI.GetDecodeableRestriction( m_itemid );
-			var elDescLabel = elPanel.FindChildInLayoutFile( 'AsyncItemWorkDesc' );
-			var elDescImage = elPanel.FindChildInLayoutFile( 'AsyncItemWorkDescImage' );
+  var _SetUpButtonStates = function (
+    elPanel,
+    funcGetSettingCallback,
+    funcCallbackOnAction
+  ) {
+    var elOK = elPanel.FindChildInLayoutFile("AsyncItemWorkAcceptConfirm")
 
-			                               
-			if ( sRestriction === 'restricted' )
-			{
-				                                        
-				elOK.visible = false;
-				elDescLabel.visible = false;
-				elDescImage.visible = false;
-				return;
-			}
+    function _SetPanelEventOnAccept() {
+      elOK.SetPanelEvent(
+        "onactivate",
+        _OnAccept.bind(
+          undefined,
+          elPanel,
+          funcGetSettingCallback,
+          funcCallbackOnAction
+        )
+      )
+    }
 
-			if ( m_isXrayMode )
-			{
-				var enabled = m_allowXrayClaim ? true : false;
-				_EnableDisableOkBtn( elPanel, enabled );
-				elOK.AddClass( m_okButtonClass );
-				elOK.text = '#popup_xray_claim_item';
-				_SetPanelEventOnAccept();
-				return;
-			}
+    if (m_worktype === "decodeable") {
+      var sRestriction = InventoryAPI.GetDecodeableRestriction(m_itemid)
+      var elDescLabel = elPanel.FindChildInLayoutFile("AsyncItemWorkDesc")
+      var elDescImage = elPanel.FindChildInLayoutFile("AsyncItemWorkDescImage")
 
-			if ( sRestriction === 'xray' && !m_inspectOnly )
-			{
-				                                         
-				elOK.visible = true;
-				elOK.text = '#popup_xray_button_goto';
-				elOK.AddClass( m_okButtonClass );
+      if (sRestriction === "restricted") {
+        elOK.visible = false
+        elDescLabel.visible = false
+        elDescImage.visible = false
+        return
+      }
 
-				elOK.SetPanelEvent( 'onactivate', function()
-				{
-					$.DispatchEvent( "ShowXrayCasePopup", m_toolid, m_itemid, true );
-					_ClosePopup();
+      if (m_isXrayMode) {
+        var enabled = m_allowXrayClaim ? true : false
+        _EnableDisableOkBtn(elPanel, enabled)
+        elOK.AddClass(m_okButtonClass)
+        elOK.text = "#popup_xray_claim_item"
+        _SetPanelEventOnAccept()
+        return
+      }
 
-				} );
+      if (sRestriction === "xray" && !m_inspectOnly) {
+        elOK.visible = true
+        elOK.text = "#popup_xray_button_goto"
+        elOK.AddClass(m_okButtonClass)
 
-				                                               
-				elDescLabel.visible = true;
-				elDescLabel.text = '#popup_decodeable_async_xray_desc';
-				elDescImage.visible = false;
+        elOK.SetPanelEvent("onactivate", function () {
+          $.DispatchEvent("ShowXrayCasePopup", m_toolid, m_itemid, true)
+          _ClosePopup()
+        })
 
-				return;
-			}
-		}
+        elDescLabel.visible = true
+        elDescLabel.text = "#popup_decodeable_async_xray_desc"
+        elDescImage.visible = false
 
-		if( _HideOkButton() )
-		{
-			elOK.visible = false;
-			return;
-		}
+        return
+      }
+    }
 
-		var sOkButtonText = '#popup_'+m_worktype+'_button';
-		var itemDefName = ItemInfo.GetItemDefinitionName( m_itemid );
-		if ( m_worktype === 'decodeable' )
-		{
-			if ( itemDefName && itemDefName.indexOf( "spray" ) != -1 )
-				sOkButtonText = sOkButtonText + "_graffiti";
-			else if ( itemDefName && itemDefName.indexOf( "tournament_pass_" ) != -1 )
-				sOkButtonText = sOkButtonText + "_fantoken";
-		}
+    if (_HideOkButton()) {
+      elOK.visible = false
+      return
+    }
 
-		if ( m_worktype === 'nameable' && itemDefName === 'casket' )
-		{
-			sOkButtonText = '#popup_newcasket_button';
-		}
+    var sOkButtonText = "#popup_" + m_worktype + "_button"
+    var itemDefName = ItemInfo.GetItemDefinitionName(m_itemid)
+    if (m_worktype === "decodeable") {
+      if (itemDefName && itemDefName.indexOf("spray") != -1)
+        sOkButtonText = sOkButtonText + "_graffiti"
+      else if (itemDefName && itemDefName.indexOf("tournament_pass_") != -1)
+        sOkButtonText = sOkButtonText + "_fantoken"
+    }
 
-		elOK.text = sOkButtonText;
-		elOK.AddClass( m_okButtonClass );
-		_SetPanelEventOnAccept();
-	};
+    if (m_worktype === "nameable" && itemDefName === "casket") {
+      sOkButtonText = "#popup_newcasket_button"
+    }
 
-	var _HideOkButton = function()
-	{
-		return ( m_worktype === 'remove_sticker' ) ? true : false;
-	};
+    elOK.text = sOkButtonText
+    elOK.AddClass(m_okButtonClass)
+    _SetPanelEventOnAccept()
+  }
 
-	var _SetUpDescription = function( elPanel )
-	{
-		var elDescLabel = elPanel.FindChildInLayoutFile( 'AsyncItemWorkDesc' );
-		var elDescImage = elPanel.FindChildInLayoutFile( 'AsyncItemWorkDescImage' );
+  var _HideOkButton = function () {
+    return m_worktype === "remove_sticker" ? true : false
+  }
 
-		elDescLabel.SetHasClass( 'popup-capability-faded', m_isXrayMode && !m_allowXrayClaim );
-		elDescImage.SetHasClass( 'popup-capability-faded', m_isXrayMode && !m_allowXrayClaim );
-		
-		if ( m_showAsyncActionDesc )
-		{
-			elDescImage.itemid = m_toolid;
-			var itemName = ItemInfo.GetName( m_toolid );
+  var _SetUpDescription = function (elPanel) {
+    var elDescLabel = elPanel.FindChildInLayoutFile("AsyncItemWorkDesc")
+    var elDescImage = elPanel.FindChildInLayoutFile("AsyncItemWorkDescImage")
 
-			if ( itemName )
-			{
-				elDescLabel.SetDialogVariable( 'itemname', itemName);
-				elDescLabel.text = $.Localize( 'popup_' + m_worktype + '_async_desc', elDescLabel );
-			}
-		}	
+    elDescLabel.SetHasClass(
+      "popup-capability-faded",
+      m_isXrayMode && !m_allowXrayClaim
+    )
+    elDescImage.SetHasClass(
+      "popup-capability-faded",
+      m_isXrayMode && !m_allowXrayClaim
+    )
 
-		elDescLabel.visible = m_showAsyncActionDesc;
-	};
+    if (m_showAsyncActionDesc) {
+      elDescImage.itemid = m_toolid
+      var itemName = ItemInfo.GetName(m_toolid)
 
-	var _EnableDisableOkBtn = function( elPanel, bEnable )
-	{
-		var elOK = elPanel.FindChildInLayoutFile( 'AsyncItemWorkAcceptConfirm' );
+      if (itemName) {
+        elDescLabel.SetDialogVariable("itemname", itemName)
+        elDescLabel.text = $.Localize(
+          "popup_" + m_worktype + "_async_desc",
+          elDescLabel
+        )
+      }
+    }
 
-		if( !elOK.visible )
-			return;
+    elDescLabel.visible = m_showAsyncActionDesc
+  }
 
-		if( elOK.enabled !== bEnable )
-			elOK.TriggerClass( 'popup-capability-update-anim');
+  var _EnableDisableOkBtn = function (elPanel, bEnable) {
+    var elOK = elPanel.FindChildInLayoutFile("AsyncItemWorkAcceptConfirm")
 
-		elOK.enabled = bEnable;
-	};
+    if (!elOK.visible) return
 
-	var _OnAccept = function( elPanel, funcGetSettingCallback, funcCallbackOnAction )
-	{	
-		if ( m_scheduleHandle )
-		{
-			$.CancelScheduled( m_scheduleHandle );
-			m_scheduleHandle = null;
-		}
+    if (elOK.enabled !== bEnable)
+      elOK.TriggerClass("popup-capability-update-anim")
 
-		elPanel.FindChildInLayoutFile( 'NameableSpinner' ).RemoveClass( 'hidden' );
-		elPanel.FindChildInLayoutFile( 'AsyncItemWorkAcceptConfirm' ).AddClass( 'hidden' );
-		m_scheduleHandle = $.Schedule( 5, _CancelWaitforCallBack.bind( undefined, elPanel) );
+    elOK.enabled = bEnable
+  }
 
-		_PerformAsyncAction( funcGetSettingCallback, funcCallbackOnAction );
-	};
+  var _OnAccept = function (
+    elPanel,
+    funcGetSettingCallback,
+    funcCallbackOnAction
+  ) {
+    if (m_scheduleHandle) {
+      $.CancelScheduled(m_scheduleHandle)
+      m_scheduleHandle = null
+    }
 
-	var _ClosePopup = function()
-	{
-		_ResetTimeouthandle();
-		$.DispatchEvent( 'HideSelectItemForCapabilityPopup' );
-		$.DispatchEvent( 'UIPopupButtonClicked', '' );
-		$.DispatchEvent( 'CapabilityPopupIsOpen', false );
-	};
+    elPanel.FindChildInLayoutFile("NameableSpinner").RemoveClass("hidden")
+    elPanel
+      .FindChildInLayoutFile("AsyncItemWorkAcceptConfirm")
+      .AddClass("hidden")
+    m_scheduleHandle = $.Schedule(
+      5,
+      _CancelWaitforCallBack.bind(undefined, elPanel)
+    )
 
-	var _CancelWaitforCallBack = function( elPanel )
-	{
-		m_scheduleHandle = null;
-		                        
-		
-		var elSpinner = elPanel.FindChildInLayoutFile( 'NameableSpinner' );
-		elSpinner.AddClass( 'hidden' );
+    _PerformAsyncAction(funcGetSettingCallback, funcCallbackOnAction)
+  }
 
-		_ClosePopup();
+  var _ClosePopup = function () {
+    _ResetTimeouthandle()
+    $.DispatchEvent("HideSelectItemForCapabilityPopup")
+    $.DispatchEvent("UIPopupButtonClicked", "")
+    $.DispatchEvent("CapabilityPopupIsOpen", false)
+  }
 
-		UiToolkitAPI.ShowGenericPopupOk(
-			$.Localize( '#SFUI_SteamConnectionErrorTitle' ),
-			$.Localize( '#SFUI_InvError_Item_Not_Given' ),
-			'',
-			function()
-			{
-			},
-			function()
-			{
-			}
-		);
-	};
+  var _CancelWaitforCallBack = function (elPanel) {
+    m_scheduleHandle = null
 
-	var _OnEventToClose = function( bCloseForLootlistPreview = false )
-	{
-		_ResetTimeouthandle();
+    var elSpinner = elPanel.FindChildInLayoutFile("NameableSpinner")
+    elSpinner.AddClass("hidden")
 
-		if( !bCloseForLootlistPreview )
-		{
-			$.DispatchEvent( 'UnblurOperationPanel' );
-		}
-	
-		_ClosePopup();
-	};
+    _ClosePopup()
 
-	var _ResetTimeouthandle = function()
-	{
-		if ( m_scheduleHandle )
-		{
-			$.CancelScheduled( m_scheduleHandle );
-			m_scheduleHandle = null;
-		}
-	};
+    UiToolkitAPI.ShowGenericPopupOk(
+      $.Localize("#SFUI_SteamConnectionErrorTitle"),
+      $.Localize("#SFUI_InvError_Item_Not_Given"),
+      "",
+      function () {},
+      function () {}
+    )
+  }
 
-	var _OnItemCustomization = function( numericType, type, itemid )
-	{
-		if ( _IgnoreClose() )
-		{
-			_ResetTimeouthandle();
-			return;
-		}
+  var _OnEventToClose = function (bCloseForLootlistPreview = false) {
+    _ResetTimeouthandle()
 
-		_OnEventToClose();
-		$.DispatchEvent( 'ShowAcknowledgePopup', type, itemid );
-	};
+    if (!bCloseForLootlistPreview) {
+      $.DispatchEvent("UnblurOperationPanel")
+    }
 
-	var _IgnoreClose = function()
-	{
-		return m_worktype === 'decodeable';
-	};
+    _ClosePopup()
+  }
 
-	var _OnMyPersonaInventoryUpdated = function()
-	{
-		if( m_isSeasonPass && InventoryAPI.IsValidItemID( m_itemid ))
-		{
-			return;
-		}
-		
-		_OnEventToClose();
-	};
+  var _ResetTimeouthandle = function () {
+    if (m_scheduleHandle) {
+      $.CancelScheduled(m_scheduleHandle)
+      m_scheduleHandle = null
+    }
+  }
 
-	var _OnInventoryPrestigeCoinResponse = function( defidx, upgradeid, hours, prestigetime )
-	{
-		_OnEventToClose();
+  var _OnItemCustomization = function (numericType, type, itemid) {
+    if (_IgnoreClose()) {
+      _ResetTimeouthandle()
+      return
+    }
 
-		if ( m_worktype === 'prestigecheck' )
-		{
-			UiToolkitAPI.ShowCustomLayoutPopupParameters(
-				'',
-				'file://{resources}/layout/popups/popup_inventory_inspect.xml',
-				'itemid=' + InventoryAPI.GetFauxItemIDFromDefAndPaintIndex( defidx, 0 ) +                                                                                          
-				'&' + 'asyncworkitemwarning=no' +
-				'&' + 'asyncworktype='+( ( upgradeid === '0' ) ? 'prestigeget' : 'prestigeupgrade')
-			);
-		}
-		else if ( upgradeid !== '0' )
-		{
-			InventoryAPI.AcknowledgeNewItembyItemID( upgradeid );
-			InventoryAPI.SetItemSessionPropertyValue( upgradeid, 'recent', '1' );
-			$.DispatchEvent( 'InventoryItemPreview', upgradeid );
-		}
-	};
+    _OnEventToClose()
+    $.DispatchEvent("ShowAcknowledgePopup", type, itemid)
+  }
 
-	return {
-		Init: _Init,
-		OnItemCustomization: _OnItemCustomization,
-		OnMyPersonaInventoryUpdated : _OnMyPersonaInventoryUpdated,
-		OnInventoryPrestigeCoinResponse: _OnInventoryPrestigeCoinResponse,
-		ClosePopup: _ClosePopup,
-		OnEventToClose : _OnEventToClose,
-		EnableDisableOkBtn : _EnableDisableOkBtn
-	};
-} )();
+  var _IgnoreClose = function () {
+    return m_worktype === "decodeable"
+  }
+
+  var _OnMyPersonaInventoryUpdated = function () {
+    if (m_isSeasonPass && InventoryAPI.IsValidItemID(m_itemid)) {
+      return
+    }
+
+    _OnEventToClose()
+  }
+
+  var _OnInventoryPrestigeCoinResponse = function (
+    defidx,
+    upgradeid,
+    hours,
+    prestigetime
+  ) {
+    _OnEventToClose()
+
+    if (m_worktype === "prestigecheck") {
+      UiToolkitAPI.ShowCustomLayoutPopupParameters(
+        "",
+        "file://{resources}/layout/popups/popup_inventory_inspect.xml",
+        "itemid=" +
+          InventoryAPI.GetFauxItemIDFromDefAndPaintIndex(defidx, 0) +
+          "&" +
+          "asyncworkitemwarning=no" +
+          "&" +
+          "asyncworktype=" +
+          (upgradeid === "0" ? "prestigeget" : "prestigeupgrade")
+      )
+    } else if (upgradeid !== "0") {
+      InventoryAPI.AcknowledgeNewItembyItemID(upgradeid)
+      InventoryAPI.SetItemSessionPropertyValue(upgradeid, "recent", "1")
+      $.DispatchEvent("InventoryItemPreview", upgradeid)
+    }
+  }
+
+  return {
+    Init: _Init,
+    OnItemCustomization: _OnItemCustomization,
+    OnMyPersonaInventoryUpdated: _OnMyPersonaInventoryUpdated,
+    OnInventoryPrestigeCoinResponse: _OnInventoryPrestigeCoinResponse,
+    ClosePopup: _ClosePopup,
+    OnEventToClose: _OnEventToClose,
+    EnableDisableOkBtn: _EnableDisableOkBtn
+  }
+})()

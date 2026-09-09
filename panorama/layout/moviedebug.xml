@@ -3,7 +3,7 @@
 		<include src="file://{resources}/styles/gamestyles.css" />
 		<include src="file://{resources}/styles/movie.css" />
 	</styles>
-	
+
 	<MovieDebug oncanel="DeletePanel( this )">
 		<Panel class="debug-background">
 			<Panel class="DebugColumn">

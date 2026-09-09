@@ -26,8 +26,8 @@
 			playerProfile.BLoadLayout( "file://{resources}/layout/playerprofile.xml", false, false );
 		}
 	</script>
-	
+
 	<Panel class="ToolTip" ontooltiploaded="loadPlayerProfileXml()">
-		<Panel class="ToolTip" id="JsTooltip"/>
+		<Panel class="ToolTip" id="JsTooltip" />
 	</Panel>
 </root>

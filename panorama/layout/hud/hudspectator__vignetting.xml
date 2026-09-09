@@ -5,7 +5,7 @@
   </styles>
 
   <Panel class="hud-spectator-bkg">
-    <Panel class="hud-spectator-bkg-TOP"/>
-    <Panel class="hud-spectator-bkg-BOT"/>
+    <Panel class="hud-spectator-bkg-TOP" />
+    <Panel class="hud-spectator-bkg-BOT" />
   </Panel>
 </root>

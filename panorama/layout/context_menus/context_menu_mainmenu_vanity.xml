@@ -21,10 +21,10 @@
 		</snippet>
 
 	</snippets>
-	
-   <Panel class="ContextMenuItem" onload="MainMenuVanityContextMenu.Init();">
-  		<Panel id="ContextMenuBodyNoScroll" class="top-bottom-flow"/>
-      	<Panel id="ContextMenuBodyWeapons" class="top-bottom-flow"/>
+
+	<Panel class="ContextMenuItem" onload="MainMenuVanityContextMenu.Init();">
+		<Panel id="ContextMenuBodyNoScroll" class="top-bottom-flow" />
+		<Panel id="ContextMenuBodyWeapons" class="top-bottom-flow" />
 	</Panel>
 
 </root>

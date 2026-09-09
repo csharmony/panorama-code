@@ -13,7 +13,7 @@
 		}
 
 	</script>
-	
+
 	<Panel class="TestContents" ontooltiploaded="setupTooltip()">
 		<Label allowrawtext="true" text="Hello" />
 		<Label allowrawtext="true" text="How are you doing?" />

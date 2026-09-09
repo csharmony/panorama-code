@@ -4,10 +4,10 @@
 		<include src="file://{resources}/styles/hud/hudalerts.css" />
 	</styles>
 
-  <CSGOHudAlerts alertstate="AlertHidden" class="AlertHidden" hittest="false">
-	  <Panel class="hrTop" />
-		<Panel id="AlertBg"/>
-	  <Label id="AlertText"/>
+	<CSGOHudAlerts alertstate="AlertHidden" class="AlertHidden" hittest="false">
+		<Panel class="hrTop" />
+		<Panel id="AlertBg" />
+		<Label id="AlertText" />
 		<Panel class="hrBot" />
-  </CSGOHudAlerts>
+	</CSGOHudAlerts>
 </root>

@@ -1,42 +1,45 @@
-'use strict';
+"use strict"
 
-var PopupReportServer = ( function ()
-{
-	var _Init = function ()
-	{
-		$.GetContextPanel().SetDialogVariable( "server_name", GameStateAPI.GetServerName() );
-		_UpdateSubmitButton();
-	}
+var PopupReportServer = (function () {
+  var _Init = function () {
+    $.GetContextPanel().SetDialogVariable(
+      "server_name",
+      GameStateAPI.GetServerName()
+    )
+    _UpdateSubmitButton()
+  }
 
-	var _Submit = function ()
-	{
-		var categories = "";
+  var _Submit = function () {
+    var categories = ""
 
-		                                                    
-		$.GetContextPanel().FindChildInLayoutFile( "id-report" ).Children().forEach( el => 
-		{
-			if ( el.checked )
-				categories += el.GetAttributeString( "data-category", "" ) + ",";
-		});
+    $.GetContextPanel()
+      .FindChildInLayoutFile("id-report")
+      .Children()
+      .forEach((el) => {
+        if (el.checked)
+          categories += el.GetAttributeString("data-category", "") + ","
+      })
 
-		GameStateAPI.SubmitServerReport( categories );
+    GameStateAPI.SubmitServerReport(categories)
 
-		$.DispatchEvent( 'UIPopupButtonClicked', '' );
-	}
+    $.DispatchEvent("UIPopupButtonClicked", "")
+  }
 
-	var _UpdateSubmitButton = function ()
-	{
-		var bCanSubmit = $.GetContextPanel().FindChildInLayoutFile( "id-report" ).Children().some( function ( el )
-		{
-			return el.checked;
-		} );
+  var _UpdateSubmitButton = function () {
+    var bCanSubmit = $.GetContextPanel()
+      .FindChildInLayoutFile("id-report")
+      .Children()
+      .some(function (el) {
+        return el.checked
+      })
 
-		$.GetContextPanel().FindChildInLayoutFile( "SubmitButton" ).enabled = bCanSubmit;
-	}
+    $.GetContextPanel().FindChildInLayoutFile("SubmitButton").enabled =
+      bCanSubmit
+  }
 
-	return {
-		Init				:	_Init,
-		Submit				: _Submit,
-		UpdateSubmitButton	: _UpdateSubmitButton,
-	};
-})();
+  return {
+    Init: _Init,
+    Submit: _Submit,
+    UpdateSubmitButton: _UpdateSubmitButton
+  }
+})()

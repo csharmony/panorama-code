@@ -11,9 +11,9 @@
 
 	<Panel class="news-panel mainmenu__limitedtest MainMenuModeOnly">
 		<Button id="id-mainmenu-limitedtest" class="mainmenu__limitedtest" hittest="true">
-			<Panel class="mainmenu__limitedtest_bg" src="file://{images}/backgrounds/limitedbeta.png" hittest="false"/>
+			<Panel class="mainmenu__limitedtest_bg" src="file://{images}/backgrounds/limitedbeta.png" hittest="false" />
 
-		<Label class="mainmenu__limitedtest_text stratum2Font" text="#popup_limited_test_invite"/>
+			<Label class="mainmenu__limitedtest_text stratum2Font" text="#popup_limited_test_invite" />
 		</Button>
 	</Panel>
 </root> 

@@ -7,8 +7,8 @@
 
 	<Panel>
 		<Panel class="horizontal-center">
-			<Label class="op9-title op9-title--top" text="#op9_name"/>
-			<Label class="op9-title op9-title--bottom" text="#op9_name"/>
+			<Label class="op9-title op9-title--top" text="#op9_name" />
+			<Label class="op9-title op9-title--bottom" text="#op9_name" />
 		</Panel>
 	</Panel>
 </root>

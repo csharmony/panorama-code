@@ -9,7 +9,7 @@
 	</scripts>
 
 	<CSGOHudFreezePanel class="FreezePanelRoot" hittest="false" hittestchildren="false">
-		                                     
+
 		<Panel id="FreezePanel" class="FreezePanel overflow-noclip">
 			<Panel class="left-right-flow overflow-noclip">
 				<Panel class="FreezePanel__Content overflow-noclip">
@@ -26,10 +26,10 @@
 									<CSGOAvatarImage id="Avatar" class="FreezePanel__Avatar" scaling="stretch-to-cover-preserve-aspect" />
 									<ProgressBar id="AvatarHealthBar" class="FreezePanel__AvatarHealthBar" />
 									<Image id="AvatarFlair" class="FreezePanel__AvatarFlair" />
-									<Image id="PlayerAvatarSkillGroup" 
-										class="FreezePanel__AvatarSkillGroup FreezePanel__AvatarSkillGroup--Hidden" 
-										textureheight="-1" 
-										texturewidth="64" 
+									<Image id="PlayerAvatarSkillGroup"
+										class="FreezePanel__AvatarSkillGroup FreezePanel__AvatarSkillGroup--Hidden"
+										textureheight="-1"
+										texturewidth="64"
 										src="file://{images}/icons/skillgroups/skillgroup_expired.svg" />
 								</Panel>
 								<Panel class="top-bottom-flow vertical-center" style="width: fill-parent-flow( 1.0 );">
@@ -58,7 +58,7 @@
 			</Panel>
 		</Panel>
 
-		                                       
+
 		<Panel id="FreezePanelSS" class="FreezePanelSS overflow-noclip">
 			<Panel class="FreezePanelSS__Logo">
 				<Image class="FreezePanelSS__LogoImage" src="file://{images}/hud/freezepanel/logo.png" />
@@ -88,7 +88,7 @@
 			</Panel>
 		</Panel>
 
-		                     
+
 		<Label id="FreezeCancel" class="FreezeCancel" text="#Panorama_Freeze_Cancel_Start_Replay" html="true" />
 	</CSGOHudFreezePanel>
 </root>

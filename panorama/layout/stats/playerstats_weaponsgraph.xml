@@ -19,15 +19,15 @@
 		</snippet>
 		<snippet name="CategoryButton">
 			<RadioButton class="graph-button stats-panel">
-				<Label class="normal-heading" text="{s:category}"/>
+				<Label class="normal-heading" text="{s:category}" />
 				<Panel class="full-width full-height vertical-align-bottom top-bottom-flow">
 					<Panel class="category-stats left-right-flow full-width">
-						<Label class="label--small" text="#stat_total_kills"/>
-						<Label class="value--small horizontal-align-right" text="{d:kills}"/>
+						<Label class="label--small" text="#stat_total_kills" />
+						<Label class="value--small horizontal-align-right" text="{d:kills}" />
 					</Panel>
 					<Panel class="category-stats left-right-flow full-width">
-						<Label class="label--small" text="#playerstat_name_3"/>
-						<Label class="value--small horizontal-align-right" text="{s:kd}"/>
+						<Label class="label--small" text="#playerstat_name_3" />
+						<Label class="value--small horizontal-align-right" text="{s:kd}" />
 					</Panel>
 				</Panel>
 			</RadioButton>
@@ -37,12 +37,12 @@
 	<Panel>
 		<Panel class="playerstats__web-weapons__root">
 			<Label class="playerstats_section_heading vertical-align-top normal-heading" text="#playerstats_weapons" />
-			<Panel class="left-right-flow full-height full-width" >
+			<Panel class="left-right-flow full-height full-width">
 				<Panel id="CategoryButtonContainer" class="category-button-container">
-					                        
+
 				</Panel>
 				<Panel id="id-playerstats__web-weapons" class="hide-incomplete-nodata full-height full-width">
-					<SpiderGraph id="WeaponsGraph" class="playerstats__web-weapons"/>
+					<SpiderGraph id="WeaponsGraph" class="playerstats__web-weapons" />
 				</Panel>
 			</Panel>
 

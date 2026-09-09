@@ -2,15 +2,15 @@
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
 		<include src="file://{resources}/styles/intromovie.css" />
-	</styles>	
+	</styles>
 	<scripts>
 		<include src="file://{resources}/scripts/intromovie.js" />
 	</scripts>
 
 	<CSGOIntroMovie hittest="false">
-		<Movie id="IntroMoviePlayer" disableactivatepause="true"/>
+		<Movie id="IntroMoviePlayer" disableactivatepause="true" />
 
-		                                                                                                             
+
 		<Panel id="SteamNotificationsPlaceholder" hittest="false" />
 	</CSGOIntroMovie>
 </root>

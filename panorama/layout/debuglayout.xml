@@ -1,5 +1,5 @@
 <root>
-	<styles>		
+	<styles>
 		<include src="file://{resources}/styles/debugger.css" />
 	</styles>
 
@@ -7,7 +7,7 @@
 		<snippet name="PanelStart">
 			<Panel class="DebugLabelPanelRow" acceptsfocus="true">
 				<Panel id="Indent">
-					<ToggleButton allowrawtext="true" id="DebugLabelToggle" selected="true" />					
+					<ToggleButton allowrawtext="true" id="DebugLabelToggle" selected="true" />
 				</Panel>
 				<Label allowrawtext="true" id="DebugLayoutPanelOpen" acceptsfocus="true" />
 				<Label allowrawtext="true" id="StyleLink" class="StyleLink" />
@@ -21,8 +21,8 @@
 			</Panel>
 		</snippet>
 	</snippets>
-	
+
 	<DebugLayout>
-		                                                     
-	</DebugLayout>	
+
+	</DebugLayout>
 </root>

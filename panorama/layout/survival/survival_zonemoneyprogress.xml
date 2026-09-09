@@ -6,7 +6,7 @@
 	</styles>
 
 	<CSGOSurvivalZoneMoneyProgress class="zoneprogress">
-		<Panel id="Progress" class="zoneprogress__bar"/>
+		<Panel id="Progress" class="zoneprogress__bar" />
 	</CSGOSurvivalZoneMoneyProgress>
-	
+
 </root>

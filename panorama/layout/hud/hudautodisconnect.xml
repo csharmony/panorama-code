@@ -7,10 +7,10 @@
 	<CSGOHudAutoDisconnect class="auto-disconnect">
 		<Panel class="auto-disconnect-container">
 			<Panel id="TopContainer">
-				<Label id="TopLabel" class="auto-disconnect_top-label"/>
+				<Label id="TopLabel" class="auto-disconnect_top-label" />
 			</Panel>
 			<Panel id="BottomContainer" class="bottom-container">
-				<Label id="BottomLabel" class="auto-disconnect_bottom-label"/>
+				<Label id="BottomLabel" class="auto-disconnect_bottom-label" />
 				<Image id="TimerIcon" texturewidth="-1" textureheight="28" src="file://{images}/icons/ui/clock.svg" />
 			</Panel>
 		</Panel>

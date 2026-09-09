@@ -2,7 +2,7 @@
 	<styles>
 		<include src="file://{resources}/styles/debugger.css" />
 	</styles>
-	
+
 	<DebugStyleAnimation>
 		<Panel class="DebugKeyFrameSection">
 			<Panel class="DebugKeyFrameRow">
@@ -15,5 +15,5 @@
 			<Label text="}" />
 		</Panel>
 		<Label allowrawtext="true" id="StyleLink" class="StyleLink" text="" />
-	</DebugStyleAnimation>	
+	</DebugStyleAnimation>
 </root>

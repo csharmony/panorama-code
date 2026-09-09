@@ -3,7 +3,7 @@
 		<include src="file://{resources}/styles/csgostyles.css" />
 		<include src="file://{resources}/styles/store.css" />
 	</styles>
-	
+
 	<Panel class="StoreItem">
 		<Image id="ItemImage" src="file://{images}/store/storeimages_double_temp_pow2.vtf" />
 		<Label id="ItemTitle"></Label>

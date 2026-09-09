@@ -1,76 +1,65 @@
+"use-strict"
 
-'use-strict';
+var TooltipPlayerXp = (function () {
+  function _Init() {
+    var xuid = $.GetContextPanel().GetAttributeString("xuid", "not-found")
+    var rawBonuses = MyPersonaAPI.GetActiveXpBonuses(),
+      bonusesArray = rawBonuses.split(","),
+      maxLevel = InventoryAPI.GetMaxLevel(),
+      currentPoints = FriendsListAPI.GetFriendXp(xuid),
+      pointsPerLevel = MyPersonaAPI.GetXpPerLevel(),
+      currentLvl = FriendsListAPI.GetFriendLevel(xuid),
+      isDueServiceMedal = currentLvl >= maxLevel ? true : false
 
-var TooltipPlayerXp = ( function()
-{
-	function _Init()
-	{
-		                                                                              
-		                                                                             
+    $.GetContextPanel().SetDialogVariable("xpcurrent", currentPoints)
+    $.GetContextPanel().SetDialogVariable(
+      "xptonext",
+      pointsPerLevel - currentPoints
+    )
 
-		var xuid = $.GetContextPanel().GetAttributeString( "xuid", "not-found" );
-		var rawBonuses = MyPersonaAPI.GetActiveXpBonuses(),
-			bonusesArray = rawBonuses.split(","),
-			maxLevel = InventoryAPI.GetMaxLevel(),
-			currentPoints = FriendsListAPI.GetFriendXp( xuid ),
-			pointsPerLevel = MyPersonaAPI.GetXpPerLevel(),
-			currentLvl = FriendsListAPI.GetFriendLevel( xuid ),
-			isDueServiceMedal = currentLvl >= maxLevel ? true : false;
+    $("#JsTooltip_Xp_Current").text = isDueServiceMedal
+      ? "#tooltip_xp_have_max_current"
+      : "#tooltip_xp_current"
+    $("#JsTooltip_Xp_Needed").text = isDueServiceMedal
+      ? "#tooltip_xp_have_max_rank"
+      : "#tooltip_xp_for_next_rank"
 
-		$.GetContextPanel().SetDialogVariable( "xpcurrent", currentPoints );
-		$.GetContextPanel().SetDialogVariable( "xptonext", pointsPerLevel - currentPoints);
+    if (bonusesArray.length > 0) {
+      if (isDueServiceMedal) {
+        for (var i = 0; i < bonusesArray.length; i++) {
+          if (bonusesArray[i] === 2) bonusesArray.splice(i, 1)
+        }
+      }
+    }
 
-		$( "#JsTooltip_Xp_Current" ).text = isDueServiceMedal ? "#tooltip_xp_have_max_current" : "#tooltip_xp_current";
-		$( "#JsTooltip_Xp_Needed" ).text = isDueServiceMedal ? "#tooltip_xp_have_max_rank" : "#tooltip_xp_for_next_rank";
+    var numBonusesAdded = 0
+    if (bonusesArray.length > 0) {
+      $("#JsTooltipXpSection").RemoveClass("hidden")
+      $("#JsTooltipXpBonuses").RemoveAndDeleteChildren()
 
-		if( bonusesArray.length > 0 )
-		{
-			                                                             
-			                                                              
-			if( isDueServiceMedal )
-			{
-				for( var i = 0; i < bonusesArray.length; i++ )
-				{
-					if ( bonusesArray[i] === 2 )
-						bonusesArray.splice( i, 1 );
-				}
-			}
-		}
+      for (var i = 0; i < bonusesArray.length; i++) {
+        if (!bonusesArray[i]) continue
 
-		var numBonusesAdded = 0;
-		if( bonusesArray.length > 0 )
-		{
-			                                                             
-			                                                              
+        ++numBonusesAdded
 
-			$( '#JsTooltipXpSection' ).RemoveClass( 'hidden' );
-			$( "#JsTooltipXpBonuses" ).RemoveAndDeleteChildren();
+        var newTile = $.CreatePanel(
+          "Label",
+          $("#JsTooltipXpBonuses"),
+          "JsTooltipBonus" + i
+        )
+        newTile.AddClass("tooltip-player-xp__subtitle")
+        newTile.text = $.Localize("#tooltip_xp_bonus_" + bonusesArray[i])
+      }
+    }
 
-			for( var i = 0; i < bonusesArray.length; i++ )
-			{
-				if ( !bonusesArray[i] )
-					continue;
+    if (!numBonusesAdded) {
+      $("#JsTooltipXpSection").AddClass("hidden")
+    }
+  }
 
-				++ numBonusesAdded;
-				                                                   
-				var newTile = $.CreatePanel( "Label", $( "#JsTooltipXpBonuses" ), 'JsTooltipBonus' + i );
-				newTile.AddClass( 'tooltip-player-xp__subtitle' );
-				newTile.text =  $.Localize( "#tooltip_xp_bonus_" + bonusesArray[i] );
-			}
-		}
+  return {
+    Init: _Init
+  }
+})()
 
-		if ( !numBonusesAdded )
-		{
-			$( '#JsTooltipXpSection' ).AddClass( 'hidden' );
-		}
-	}
-
-	return {
-		Init: _Init
-	}
-} )();
-
-( function()
-{
-	                                                                                                                                           
-} )();
+;(function () {})()

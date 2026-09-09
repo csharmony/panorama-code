@@ -16,43 +16,43 @@
 			</Button>
 		</snippet>
 	</snippets>
-	
+
 	<ContextMenuCustomLayout class="ContextMenuPlayerCard"
-							onload="InventorySearch.Init();"
-							acceptsfocus="true"
-							useglobalcontext="true">
+		onload="InventorySearch.Init();"
+		acceptsfocus="true"
+		useglobalcontext="true">
 		<Panel id="ContextMenuSearch" class="context-menu-search-container">
-			<Panel class="context-menu-search__input-container" >
+			<Panel class="context-menu-search__input-container">
 				<TextEntry id="InventorySearchInput"
-							class="context-menu-search__input"
-							maxchars="1024"
-							placeholder="#inv_search_placeholder"
-							ontextentrychange="InventorySearch.OnEntryChanged();"/>
+					class="context-menu-search__input"
+					maxchars="1024"
+					placeholder="#inv_search_placeholder"
+					ontextentrychange="InventorySearch.OnEntryChanged();" />
 			</Panel>
 			<Panel class="horizontal-center">
 
-				<Panel id="SearchNoResults" class="context-menu-search__no-results hidden" >
+				<Panel id="SearchNoResults" class="context-menu-search__no-results hidden">
 					<Image src='file://{images}/icons/ui/warning.svg' />
 					<Label id="SearchNoResultsLabel"
-							html="true"
-							text="#inv_search_no_results"
-							class="context-menu-search__no-results-text"/>
+						html="true"
+						text="#inv_search_no_results"
+						class="context-menu-search__no-results-text" />
 				</Panel>
 
 				<InventoryItemList id="ContextMenuSearchResultsList"
-									hittest="true"
-									itemheight="200px" 
-									itemwidth="192px" 
-									spacersize="0px" 
-									spacerperiod="0" 
-									class="context-menu-search__results">
+					hittest="true"
+					itemheight="200px"
+					itemwidth="192px"
+					spacersize="0px"
+					spacerperiod="0"
+					class="context-menu-search__results">
 				</InventoryItemList>
 
-				<Panel id="SuggestedSearchEntries" class="context-menu-search__no-results" >
-					<Label html="true" text="#inv_search_popular" class="context-menu-search__no-results-text fontWeight-Bold"/>
-					                     
+				<Panel id="SuggestedSearchEntries" class="context-menu-search__no-results">
+					<Label html="true" text="#inv_search_popular" class="context-menu-search__no-results-text fontWeight-Bold" />
+
 				</Panel>
-				
+
 			</Panel>
 		</Panel>
 	</ContextMenuCustomLayout>

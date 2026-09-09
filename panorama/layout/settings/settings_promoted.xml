@@ -2,7 +2,7 @@
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
 		<include src="file://{resources}/styles/settings/settings.css" />
-		<include src="file://{resources}/styles/mainmenu.css"/>
+		<include src="file://{resources}/styles/mainmenu.css" />
 	</styles>
 
 	<scripts>
@@ -14,20 +14,19 @@
 	<snippets>
 		<snippet name="PromotedSetting">
 			<Panel class="promoted-setting SettingsBackground">
-				<Label id="SettingName" class="promoted-setting__name SettingsSectionTitleLabel"/>
+				<Label id="SettingName" class="promoted-setting__name SettingsSectionTitleLabel" />
 				<Label id="SettingDesc" class="promoted-setting__desc" />
 				<Button id="ViewSetting" class="promoted-setting__button PopupButton White">
-					<Image src="file://{images}/icons/ui/link.svg"/>
-					<Label class="promoted-setting__label" text="#GameUI_Settings_View"/>
+					<Image src="file://{images}/icons/ui/link.svg" />
+					<Label class="promoted-setting__label" text="#GameUI_Settings_View" />
 				</Button>
 			</Panel>
 		</snippet>
 	</snippets>
 
-	<Panel class="SettingsMenuTab" >
-		<Panel id="SettingContainer" class="SettingsMenuTabContent vscroll" >
-			                                               
+	<Panel class="SettingsMenuTab">
+		<Panel id="SettingContainer" class="SettingsMenuTabContent vscroll">
+
 		</Panel>
 	</Panel>
 </root>
-

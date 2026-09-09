@@ -1,82 +1,48 @@
-                                                             
+"use strict"
 
-"use strict";
+var EventUtil = (function () {
+  var _eventIdSet = new Set()
 
-var EventUtil = ( function ()
-{
-	var _eventIdSet = new Set();
+  var _officialEventIds = [
+    5277, 5278, 5279, 5281, 5282,
 
-	                                                                                                                                
-	   
-	                                                                                                                                   
-	                                                                                                                                    
-	                       
-	   
-	                                                                                                                                   
-	  
-	var _officialEventIds = [
+    5356, 5339, 5338, 5376,
 
-		                              
-		5277,
-		5278,
-		5279,
-		5281,
-		5282,
+    5500, 5506, 5465, 5464,
 
-		                    
-		5356,             
-		5339,         
-		5338,         
-		5376,                     
+    5937, 5967,
 
-		                       
-		5500,                               
-		5506,                              
-		5465,                     
-		5464,                   
+    4866, 6207
+  ]
+  _officialEventIds.forEach((item) => _eventIdSet.add(item.toString()))
 
-		                  
-		5937,                       
-		5967,                 
+  var _AnnotateOfficialEvents = function (jsonEvents) {
+    for (let event of jsonEvents) {
+      if (_eventIdSet.has(event.event_id)) {
+        event.is_official = true
+      }
+    }
 
-		                 
-		4866,
-		6207,
-	];
-	_officialEventIds.forEach( item => _eventIdSet.add( item.toString() ) );
+    return jsonEvents
+  }
 
-	var _AnnotateOfficialEvents = function( jsonEvents )
-	{
-		for ( let event of jsonEvents )
-		{
-			if ( _eventIdSet.has( event.event_id ) )
-			{
-				event.is_official = true;
-			}
-		}
+  var _GetTournamentWinner = function (tournamentId, numTeams) {
+    let ProEventJSO = TournamentsAPI.GetProEventDataJSO(tournamentId, numTeams)
+    let oWinningTeam
 
-		return jsonEvents;
-	}
+    if (
+      ProEventJSO &&
+      ProEventJSO.hasOwnProperty("eventdata") &&
+      ProEventJSO["eventdata"].hasOwnProperty(tournamentId)
+    ) {
+      oWinningTeam = ProEventJSO["eventdata"][tournamentId][0]
+    }
 
-	var _GetTournamentWinner = function( tournamentId, numTeams )
-	{
-		let ProEventJSO = TournamentsAPI.GetProEventDataJSO( tournamentId, numTeams );
-		let oWinningTeam;
+    return oWinningTeam
+  }
 
-		if ( ProEventJSO
-			&& ProEventJSO.hasOwnProperty( 'eventdata' )
-			&& ProEventJSO[ 'eventdata' ].hasOwnProperty( tournamentId ) )
-		{
-			oWinningTeam = ProEventJSO[ 'eventdata' ][ tournamentId ][ 0 ];
-		}
-
-		return oWinningTeam;
-	};
-
-	return{
-		AnnotateOfficialEvents: _AnnotateOfficialEvents,
-		GetTournamentWinner: _GetTournamentWinner
-	};
-} )();
-
-
+  return {
+    AnnotateOfficialEvents: _AnnotateOfficialEvents,
+    GetTournamentWinner: _GetTournamentWinner
+  }
+})()

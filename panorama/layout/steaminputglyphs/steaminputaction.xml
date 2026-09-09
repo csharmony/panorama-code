@@ -8,8 +8,8 @@
 		<include src="file://{resources}/styles/hud/hudweaponpanel.css" />
 		<include src="file://{resources}/styles/hud/hudgameicons.css" />
 	</styles>
-	
-   <CCSGOSteamInputAction>   	
-		<Panel class="action-container"/>
-   </CCSGOSteamInputAction>
+
+	<CCSGOSteamInputAction>
+		<Panel class="action-container" />
+	</CCSGOSteamInputAction>
 </root>	

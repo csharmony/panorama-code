@@ -1,23 +1,9 @@
-"use strict";
+"use strict"
 
+function OnLoadedB() {}
 
-function OnLoadedB()
-{
-                       
+function ButtonActivatedOther() {
+  $.GetContextPanel().Data().moo_()
 }
 
-function ButtonActivatedOther()
-{
-                                                                                                  
-    $.GetContextPanel().Data().moo_();
-}
-
-                                                                                                    
-                                           
-                                                                                                    
-(function ()
-{
-                      
-})();
-
-
+;(function () {})()

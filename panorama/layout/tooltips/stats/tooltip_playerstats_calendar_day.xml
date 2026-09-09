@@ -2,14 +2,14 @@
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
 		<include src="file://{resources}/styles/stats/playerstats.css" />
-		<include src="file://{resources}/styles/stats/playerstats_calendar.css" />		
+		<include src="file://{resources}/styles/stats/playerstats_calendar.css" />
 	</styles>
 
 	<scripts>
-			<include src="file://{resources}/scripts/common/dateutil.js" />
+		<include src="file://{resources}/scripts/common/dateutil.js" />
 		<include src="file://{resources}/scripts/tooltips/stats/tooltip_playerstats_calendar_day.js" />
 	</scripts>
-	
+
 	<snippets>
 
 		<snippet name="snippet-match">
@@ -25,14 +25,12 @@
 
 
 	<Panel useglobalcontext="false" ontooltiploaded="PlayerStatsCalendarDayTooltip.Init()">
-		                                                            
-			                                                                       
-		                     
+
 
 		<Panel class="playerstats-tt__root">
 			<Label class="playerstats-tt__header" text="{s:date}" />
 			<Panel id="TTCalendarDayMatchList" class="playerstats-tt__matches">
-				                   
+
 			</Panel>
 		</Panel>
 

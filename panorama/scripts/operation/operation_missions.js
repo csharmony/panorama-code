@@ -1,172 +1,133 @@
+"use strict"
+var OperationMissions = (function () {
+  var m_missionsPanel = $.GetContextPanel().FindChildInLayoutFile(
+    "id-op-missions-panel"
+  )
+  var m_missionsList = m_missionsPanel.FindChildInLayoutFile("id-tiers-list")
+  var m_scheduleMissionsUpdateHandler = null
 
-'use strict';
-var OperationMissions = ( function()
-{
-    var m_missionsPanel = $.GetContextPanel().FindChildInLayoutFile( 'id-op-missions-panel' );
-    var m_missionsList = m_missionsPanel.FindChildInLayoutFile( 'id-tiers-list' );
-    var m_scheduleMissionsUpdateHandler = null;
+  var _Init = function (nSeasonAccess) {}
 
-    var _Init = function( nSeasonAccess )
-    {
-                                                  
-		                                                                                                
-                                             
-    };
-    
-    var _MakeMissionCards = function( nSeasonAccess )
-    {
-        var numMissionCards = MissionsAPI.GetSeasonalOperationMissionCardsCount( nSeasonAccess );
-                                                                      
-        for ( var i = 0; i < numMissionCards; ++ i )
-        {
-            OperationMissionCard.GetMissionCardDetails( i, nSeasonAccess, m_missionsList );
-        }
-                                            
-    };
+  var _MakeMissionCards = function (nSeasonAccess) {
+    var numMissionCards =
+      MissionsAPI.GetSeasonalOperationMissionCardsCount(nSeasonAccess)
 
-    var _GetActiveMissonCard = function( elParent, nSeasonAccess )
-    {
-        if ( nSeasonAccess )
-        {
-            var activeCardIndx = MissionsAPI.GetSeasonalOperationMissionCardActiveIdx( nSeasonAccess );
-                                                             
+    for (var i = 0; i < numMissionCards; ++i) {
+      OperationMissionCard.GetMissionCardDetails(
+        i,
+        nSeasonAccess,
+        m_missionsList
+      )
+    }
+  }
 
-            if( activeCardIndx === -1 )
-            {
-                return null;
-            }
+  var _GetActiveMissonCard = function (elParent, nSeasonAccess) {
+    if (nSeasonAccess) {
+      var activeCardIndx =
+        MissionsAPI.GetSeasonalOperationMissionCardActiveIdx(nSeasonAccess)
 
-            var jsoCardDetails = MissionsAPI.GetSeasonalOperationMissionCardDetails( nSeasonAccess, activeCardIndx );
-            var elMissionCard = elParent.FindChildInLayoutFile( OperationMissionCard.MissionCardPrefix + jsoCardDetails.id );
-            if ( elMissionCard )
-            {
-                return elMissionCard;
-            }
-        }
-    };
+      if (activeCardIndx === -1) {
+        return null
+      }
 
-    var _ScrollToMissionCard = function ( elMissionCard, elParent )
-    {
-        var tileHeight = elMissionCard.contentheight;
-        var yPos = ( elMissionCard.actualyoffset + ( tileHeight * 1.5 ) );
+      var jsoCardDetails = MissionsAPI.GetSeasonalOperationMissionCardDetails(
+        nSeasonAccess,
+        activeCardIndx
+      )
+      var elMissionCard = elParent.FindChildInLayoutFile(
+        OperationMissionCard.MissionCardPrefix + jsoCardDetails.id
+      )
+      if (elMissionCard) {
+        return elMissionCard
+      }
+    }
+  }
 
-        elParent.ScrollToFitRegion( 0, 0, elMissionCard.actualyoffset, elMissionCard.actualyoffset+ tileHeight, 3, true, false );
-    };
+  var _ScrollToMissionCard = function (elMissionCard, elParent) {
+    var tileHeight = elMissionCard.contentheight
+    var yPos = elMissionCard.actualyoffset + tileHeight * 1.5
 
-    var _ReadyForDisplay = function( elPanel )
-    {
-                                                 
-        var nSeasonAccess = parseInt( $.GetContextPanel().GetAttributeString( "season_access", "" ) );
-        _UpdateMissionCardsTimer( nSeasonAccess );
-        $.Schedule( 0.1, function() { m_missionsPanel.AddClass( 'show' ); });
-        $.Schedule( 0.4, _SetActiveCard.bind( undefined, m_missionsList, nSeasonAccess ));
+    elParent.ScrollToFitRegion(
+      0,
+      0,
+      elMissionCard.actualyoffset,
+      elMissionCard.actualyoffset + tileHeight,
+      3,
+      true,
+      false
+    )
+  }
 
-        function _SetActiveCard ( m_missionsList, nSeasonAccess)
-        {
-            var elActiveCard = _GetActiveMissonCard( m_missionsList, nSeasonAccess );
-            if ( elActiveCard )
-            {
-                elActiveCard.checked = true;
-                _ScrollToMissionCard( elActiveCard, m_missionsList );
-            }
-        }
-    };
+  var _ReadyForDisplay = function (elPanel) {
+    var nSeasonAccess = parseInt(
+      $.GetContextPanel().GetAttributeString("season_access", "")
+    )
+    _UpdateMissionCardsTimer(nSeasonAccess)
+    $.Schedule(0.1, function () {
+      m_missionsPanel.AddClass("show")
+    })
+    $.Schedule(
+      0.4,
+      _SetActiveCard.bind(undefined, m_missionsList, nSeasonAccess)
+    )
 
-    var _UnreadyForDisplay = function( elPanel )
-    {
-                                                   
-        m_missionsPanel.RemoveClass( 'show' );
-        _CancelMissionCardsTimer();
-    };
+    function _SetActiveCard(m_missionsList, nSeasonAccess) {
+      var elActiveCard = _GetActiveMissonCard(m_missionsList, nSeasonAccess)
+      if (elActiveCard) {
+        elActiveCard.checked = true
+        _ScrollToMissionCard(elActiveCard, m_missionsList)
+      }
+    }
+  }
 
-    var _UpdateMissionCardsTimer = function( nSeasonAccess )
-    {
-                                                    
-                                                    
-        m_scheduleMissionsUpdateHandler = null;
+  var _UnreadyForDisplay = function (elPanel) {
+    m_missionsPanel.RemoveClass("show")
+    _CancelMissionCardsTimer()
+  }
 
-        if ( m_missionsPanel && m_missionsPanel.IsValid() && nSeasonAccess && nSeasonAccess != -1 )
-        {
-            _MakeMissionCards( nSeasonAccess );
-            m_scheduleMissionsUpdateHandler = $.Schedule( 5.0, _UpdateMissionCardsTimer.bind( undefined, nSeasonAccess ) );
-        }
-    };
+  var _UpdateMissionCardsTimer = function (nSeasonAccess) {
+    m_scheduleMissionsUpdateHandler = null
 
-    var _CancelMissionCardsTimer = function()
-	{
-		if ( m_scheduleMissionsUpdateHandler )
-		{
-			$.CancelScheduled( m_scheduleMissionsUpdateHandler );
-			m_scheduleMissionsUpdateHandler = null;
-		}
-	};
+    if (
+      m_missionsPanel &&
+      m_missionsPanel.IsValid() &&
+      nSeasonAccess &&
+      nSeasonAccess != -1
+    ) {
+      _MakeMissionCards(nSeasonAccess)
+      m_scheduleMissionsUpdateHandler = $.Schedule(
+        5.0,
+        _UpdateMissionCardsTimer.bind(undefined, nSeasonAccess)
+      )
+    }
+  }
 
-    return {
-        Init: _Init,
-        OnReadyForDisplay: _ReadyForDisplay,
-        OnUnreadyForDisplay: _UnreadyForDisplay
-    };
-} )();
+  var _CancelMissionCardsTimer = function () {
+    if (m_scheduleMissionsUpdateHandler) {
+      $.CancelScheduled(m_scheduleMissionsUpdateHandler)
+      m_scheduleMissionsUpdateHandler = null
+    }
+  }
 
-( function()
-{
-    var elMissionsPanel = $.GetContextPanel().FindChildInLayoutFile( 'id-op-missions-panel' );
-    $.RegisterEventHandler( "ReadyForDisplay", elMissionsPanel, OperationMissions.OnReadyForDisplay );
-	$.RegisterEventHandler( "UnreadyForDisplay", elMissionsPanel, OperationMissions.OnUnreadyForDisplay );
-} )();
+  return {
+    Init: _Init,
+    OnReadyForDisplay: _ReadyForDisplay,
+    OnUnreadyForDisplay: _UnreadyForDisplay
+  }
+})()
 
-
-                                           
-            
-                                                                                     
-                                                                  
-            
-               
-            
-                                                                        
-                                                                                 
-                                                                                                                
-            
-                                                                                                               
-                                                                                 
-                                                                                                       
-                                                                                                 
-
-                                                                                                                      
-                                                                                                                
-                                                                                                                                 
-                                                                                                                               
-
-                                             
-            
-                                                             
-                                                                 
-                                                                                             
-                                                                                         
-                                                                                      
-                
-                                                           
-                                                                     
-                
-                                     
-
-
-                                                                                      
-                                                    
-
-                                                                                   
-                                                                       
-                                                                                              
-
-                                                                           
-                 
-               
-                                       
-     
-                              
-     
-                                                                               
-      
-                                                                 
-       
-
+;(function () {
+  var elMissionsPanel = $.GetContextPanel().FindChildInLayoutFile(
+    "id-op-missions-panel"
+  )
+  $.RegisterEventHandler(
+    "ReadyForDisplay",
+    elMissionsPanel,
+    OperationMissions.OnReadyForDisplay
+  )
+  $.RegisterEventHandler(
+    "UnreadyForDisplay",
+    elMissionsPanel,
+    OperationMissions.OnUnreadyForDisplay
+  )
+})()

@@ -4,18 +4,6 @@
 		<include src="file://{resources}/styles/tooltips/tooltip_custom_test.css" />
 	</styles>
 
-	           
-
-		                       
-		 
-			                                                                            
-			                                                                           
-		 
-
-	           
-	
-	                                                                  
-	                                                                
 
 	<Panel class="TestContents">
 		<Label text="Scene Panel - Debug Scene Mode" />

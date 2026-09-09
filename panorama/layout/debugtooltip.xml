@@ -1,9 +1,9 @@
 <root>
-	<styles>		
+	<styles>
 		<include src="file://{resources}/styles/debugger.css" />
 	</styles>
-	
+
 	<TextTooltip>
-		<Label allowrawtext="true" id="Text" />	                                                                                                         
-	</TextTooltip>	
+		<Label allowrawtext="true" id="Text" />
+	</TextTooltip>
 </root>

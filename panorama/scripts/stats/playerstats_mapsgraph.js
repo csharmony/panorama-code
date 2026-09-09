@@ -1,27 +1,13 @@
-                           
-   
-   
+"use strict"
 
-"use strict"; 
+var MapSpiderGraph = (function () {
+  function _Init() {}
 
-var MapSpiderGraph = ( function ()
-{
-	function _Init() 
-	{
-	}
+  return {
+    Init: _Init
+  }
+})()
 
-	return {
-		Init 					: _Init
-	 };
-})();
-
-                                                                                                    
-                                           
-                                                                                                    
-(function()
-{
-	MapSpiderGraph.Init();
-	                                                                   
-	                                                                         
-
-})();
+;(function () {
+  MapSpiderGraph.Init()
+})()

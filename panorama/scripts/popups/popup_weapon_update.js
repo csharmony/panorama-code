@@ -1,111 +1,119 @@
-'use strict';
+"use strict"
 
-var PopupWeaponUpdate = ( function()
-{
-	var _Init = function()
-	{
-		var defIndex = $.GetContextPanel().GetAttributeString( "defindex", -1 );
-		
-		if ( defIndex === -1 )
-		{
-			return;
-		}
-		
-		var itemId = InventoryAPI.GetFauxItemIDFromDefAndPaintIndex( Number( defIndex ), 0 );
-		_SetModel( itemId );
-		                                      
-		_UpdateCurrentlyEquippedItemName( itemId );
-		_ActionOpenLoadout( itemId );
-		_AnimatePanelsForReveal();
+var PopupWeaponUpdate = (function () {
+  var _Init = function () {
+    var defIndex = $.GetContextPanel().GetAttributeString("defindex", -1)
 
-		$.DispatchEvent( 'PlaySoundEffect', 'UIPanorama.popup_newweapon', 'MOUSE' );
-	};
+    if (defIndex === -1) {
+      return
+    }
 
-	var _SetModel = function( itemId )
-	{
-		                                                  
+    var itemId = InventoryAPI.GetFauxItemIDFromDefAndPaintIndex(
+      Number(defIndex),
+      0
+    )
+    _SetModel(itemId)
 
-		var elPanel = $.GetContextPanel().FindChildInLayoutFile( 'id-weapon-update-model' );
-		var modelPath = ItemInfo.GetModelPathFromJSONOrAPI( itemId );
+    _UpdateCurrentlyEquippedItemName(itemId)
+    _ActionOpenLoadout(itemId)
+    _AnimatePanelsForReveal()
 
-		elPanel.SetScene( "resource/ui/econ/ItemModelPanelCharWeaponInspect.res",
-			modelPath,
-			false
-		);
+    $.DispatchEvent("PlaySoundEffect", "UIPanorama.popup_newweapon", "MOUSE")
+  }
 
-		elPanel.SetCameraPreset( 1, false );
-		 $.Schedule( 1.5, _PlayCameraAnimOnModel.bind( undefined, elPanel ) );
-	};
+  var _SetModel = function (itemId) {
+    var elPanel = $.GetContextPanel().FindChildInLayoutFile(
+      "id-weapon-update-model"
+    )
+    var modelPath = ItemInfo.GetModelPathFromJSONOrAPI(itemId)
 
-	var _AnimatePanelsForReveal = function()
-	{
-		var idsForPanelToAnimate = [
-			'id-popup-weapon__info',
-			'id-popup-weapon-footer',
-			'id-popup-weapon__model-bg',
-			'id-weapon-update-model'
-		];
+    elPanel.SetScene(
+      "resource/ui/econ/ItemModelPanelCharWeaponInspect.res",
+      modelPath,
+      false
+    )
 
-		idsForPanelToAnimate.forEach( element => {
-			$.GetContextPanel().FindChildInLayoutFile( element ).RemoveClass( 'offscreen' );
-		});
-	};
+    elPanel.SetCameraPreset(1, false)
+    $.Schedule(1.5, _PlayCameraAnimOnModel.bind(undefined, elPanel))
+  }
 
-	var _PlayCameraAnimOnModel = function( elPanel )
-	{
-		                                      
-		elPanel.SetSceneIntroRotation( -5.0, 60, 1 );
+  var _AnimatePanelsForReveal = function () {
+    var idsForPanelToAnimate = [
+      "id-popup-weapon__info",
+      "id-popup-weapon-footer",
+      "id-popup-weapon__model-bg",
+      "id-weapon-update-model"
+    ]
 
-		$.GetContextPanel().FindChildInLayoutFile( 'id-popup-weapon__model-bg' ).AddClass( 'fillheight' );
-		$.GetContextPanel().FindChildInLayoutFile( 'id-popup-weapon__info__top' ).AddClass( 'popup-weapon-label-dark' );
-	};
+    idsForPanelToAnimate.forEach((element) => {
+      $.GetContextPanel()
+        .FindChildInLayoutFile(element)
+        .RemoveClass("offscreen")
+    })
+  }
 
-	var _UpdateCurrentlyEquippedItemName = function( itemId )
-	{
-		var slot = ItemInfo.GetSlotSubPosition( itemId );
-		var defaultItem = LoadoutAPI.GetDefaultItem( 'ct', slot );
-		                                                                                   
+  var _PlayCameraAnimOnModel = function (elPanel) {
+    elPanel.SetSceneIntroRotation(-5.0, 60, 1)
 
-		var elLabel = $.GetContextPanel().FindChildInLayoutFile( 'id-equip-hint' );
-		elLabel.SetDialogVariable( 'weapon', ItemInfo.GetName ( defaultItem ));
-		elLabel.SetDialogVariable( 'weaponnew', ItemInfo.GetName ( itemId ));
-	};
+    $.GetContextPanel()
+      .FindChildInLayoutFile("id-popup-weapon__model-bg")
+      .AddClass("fillheight")
+    $.GetContextPanel()
+      .FindChildInLayoutFile("id-popup-weapon__info__top")
+      .AddClass("popup-weapon-label-dark")
+  }
 
-	var _Close = function()
-	{
-		var setVersionTo = $.GetContextPanel().GetAttributeString( "uisettingversion", '0' );
+  var _UpdateCurrentlyEquippedItemName = function (itemId) {
+    var slot = ItemInfo.GetSlotSubPosition(itemId)
+    var defaultItem = LoadoutAPI.GetDefaultItem("ct", slot)
 
-		GameInterfaceAPI.SetSettingString( 'ui_popup_weaponupdate_version', setVersionTo );
-		$.DispatchEvent( 'UIPopupButtonClicked', '' );
-	};
+    var elLabel = $.GetContextPanel().FindChildInLayoutFile("id-equip-hint")
+    elLabel.SetDialogVariable("weapon", ItemInfo.GetName(defaultItem))
+    elLabel.SetDialogVariable("weaponnew", ItemInfo.GetName(itemId))
+  }
 
-	var _ActionOpenLoadout = function( itemId )
-	{
-		var elBtn= $.GetContextPanel().FindChildInLayoutFile( 'id-popup-weapon-equip' );
-		
-		elBtn.SetPanelEvent( 'onactivate', OnActivate );
-		
-		function OnActivate ()
-		{
-			var subSlot = ItemInfo.GetSlotSubPosition( itemId );
+  var _Close = function () {
+    var setVersionTo = $.GetContextPanel().GetAttributeString(
+      "uisettingversion",
+      "0"
+    )
 
-			$.DispatchEvent( 'OpenInventory' );
-			$.DispatchEvent( "ShowLoadoutForItem", ItemInfo.GetSlot( itemId ), subSlot, 3 );
+    GameInterfaceAPI.SetSettingString(
+      "ui_popup_weaponupdate_version",
+      setVersionTo
+    )
+    $.DispatchEvent("UIPopupButtonClicked", "")
+  }
 
-			LoadoutAPI.EquipItemInSlot( 'ct', itemId, subSlot );
-			LoadoutAPI.EquipItemInSlot( 't', itemId, subSlot );
+  var _ActionOpenLoadout = function (itemId) {
+    var elBtn = $.GetContextPanel().FindChildInLayoutFile(
+      "id-popup-weapon-equip"
+    )
 
-			_Close();
-		}
-	};
+    elBtn.SetPanelEvent("onactivate", OnActivate)
 
-	return {
-		Init: _Init,
-		Close: _Close
-	};
+    function OnActivate() {
+      var subSlot = ItemInfo.GetSlotSubPosition(itemId)
 
-})();
+      $.DispatchEvent("OpenInventory")
+      $.DispatchEvent(
+        "ShowLoadoutForItem",
+        ItemInfo.GetSlot(itemId),
+        subSlot,
+        3
+      )
 
-(function()
-{
-})();
+      LoadoutAPI.EquipItemInSlot("ct", itemId, subSlot)
+      LoadoutAPI.EquipItemInSlot("t", itemId, subSlot)
+
+      _Close()
+    }
+  }
+
+  return {
+    Init: _Init,
+    Close: _Close
+  }
+})()
+
+;(function () {})()

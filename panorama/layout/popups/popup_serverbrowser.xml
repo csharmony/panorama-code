@@ -3,7 +3,7 @@
 		<include src="file://{resources}/styles/gamestyles.css" />
 		<include src="file://{resources}/styles/popups/popups_shared.css" />
 	</styles>
-	
+
 	<script>
 		var onOpenServerBrowser = function ()
 		{
@@ -41,11 +41,11 @@
 
 		<Panel class="PopupButtonRow">
 			<ToggleButton id="NeverShowToggle" class="PopupButton">
-				<Label class="" text="#SFUI_MainMenu_ServerBrowserWarning_NeverShow"/>
+				<Label class="" text="#SFUI_MainMenu_ServerBrowserWarning_NeverShow" />
 			</ToggleButton>
 			<TextButton class="PopupButton" text="#OK" onactivate="onOpenServerBrowser()" />
 			<TextButton class="PopupButton" text="#Cancel_Button" onactivate="closeServerBrowserPopUp()" />
 		</Panel>
-	
+
 	</PopupCustomLayout>
 </root>

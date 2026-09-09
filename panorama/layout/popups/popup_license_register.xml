@@ -1,7 +1,7 @@
 <root>
 	<styles>
 		<include src="file://{resources}/styles/gamestyles.css" />
-        <include src="file://{resources}/styles/popups/popups_shared.css" />
+		<include src="file://{resources}/styles/popups/popups_shared.css" />
 		<include src="file://{resources}/styles/popups/popup_custom.css" />
 	</styles>
 	<scripts>
@@ -13,14 +13,14 @@
 
 		<Label class="PopupMessage" text="#Store_Connecting_ToGc" />
 
-		                                                                                                     
+
 		<Panel id="Spinner" class="Spinner" />
 
 
 		<Panel class="PopupButtonRow">
-			                                                                                
-            <TextButton class="PopupButton" text="Cancel" onactivate="UIPopupButtonClicked()" />
+
+			<TextButton class="PopupButton" text="Cancel" onactivate="UIPopupButtonClicked()" />
 		</Panel>
-	
+
 	</PopupCustomLayout>
 </root>

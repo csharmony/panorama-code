@@ -1,133 +1,145 @@
-'use strict';
+"use strict"
 
-var MainMenuStoreTileLinked = ( function()
-{
-	var elItem = $.GetContextPanel();
-	
-	var _Init = function()
-	{
-		_FillOutLinkedItemData();
-		_SetOnActivateEventLinkedItemTile();
-	}
-	
-	var _FillOutLinkedItemData = function()
-	{
-		var itemId = elItem.Data().oData.itemid;
-		var itemIdLinked = elItem.Data().oData.linkedid;
+var MainMenuStoreTileLinked = (function () {
+  var elItem = $.GetContextPanel()
 
-		var LootListItemID = ( InventoryAPI.GetItemTypeFromEnum( itemId ) !== 'coupon' ) ? itemId : InventoryAPI.GetLootListItemIdByIndex( itemId, 0 );
-		var elImage = elItem.FindChildInLayoutFile( 'StoreItemImage' );
-		elImage.itemid = LootListItemID;
+  var _Init = function () {
+    _FillOutLinkedItemData()
+    _SetOnActivateEventLinkedItemTile()
+  }
 
-		LootListItemID = ( InventoryAPI.GetItemTypeFromEnum( itemIdLinked ) !== 'coupon' ) ? itemIdLinked : InventoryAPI.GetLootListItemIdByIndex( itemIdLinked, 0 );
-		elImage = elItem.FindChildInLayoutFile( 'StoreItemImageLinked' );
-		elImage.itemid = LootListItemID;
+  var _FillOutLinkedItemData = function () {
+    var itemId = elItem.Data().oData.itemid
+    var itemIdLinked = elItem.Data().oData.linkedid
 
-		                                                                                                              
-		var bShowLinked = itemId != itemIdLinked;
-		elImage.visible = bShowLinked;
+    var LootListItemID =
+      InventoryAPI.GetItemTypeFromEnum(itemId) !== "coupon"
+        ? itemId
+        : InventoryAPI.GetLootListItemIdByIndex(itemId, 0)
+    var elImage = elItem.FindChildInLayoutFile("StoreItemImage")
+    elImage.itemid = LootListItemID
 
-		var elStattrak = elImage.FindChildInLayoutFile( 'StoreItemStattrak' );
-		elStattrak.SetHasClass( 'hidden', !ItemInfo.IsStatTrak( itemIdLinked ) && !ItemInfo.IsStatTrak( itemId ) );
+    LootListItemID =
+      InventoryAPI.GetItemTypeFromEnum(itemIdLinked) !== "coupon"
+        ? itemIdLinked
+        : InventoryAPI.GetLootListItemIdByIndex(itemIdLinked, 0)
+    elImage = elItem.FindChildInLayoutFile("StoreItemImageLinked")
+    elImage.itemid = LootListItemID
 
-		var isNewRelease = elItem.Data().oData.isNewRelease;
-		var elNewHighlight = elItem.FindChildInLayoutFile( 'StoreItemNew' );
-		elNewHighlight.SetHasClass( 'hidden', !isNewRelease );
+    var bShowLinked = itemId != itemIdLinked
+    elImage.visible = bShowLinked
 
-		var elStoreItemName = elItem.FindChildInLayoutFile( 'StoreItemName' );
-		var elShortNameHeader = elItem.FindChildInLayoutFile( 'ShortName' );
-		var strItemName = '';
-		if ( elItem.Data().oData.usegroupname )
-			strItemName = $.Localize( elItem.Data().oData.usegroupname );
-		else if ( elItem.Data().oData.usetinynames )
-			strItemName = $.Localize( InventoryAPI.GetRawDefinitionKey(LootListItemID, 'item_name') + '_tinyname' );
-		else
-			strItemName = ItemInfo.GetName( LootListItemID );
-		
+    var elStattrak = elImage.FindChildInLayoutFile("StoreItemStattrak")
+    elStattrak.SetHasClass(
+      "hidden",
+      !ItemInfo.IsStatTrak(itemIdLinked) && !ItemInfo.IsStatTrak(itemId)
+    )
 
-			elShortNameHeader.text = '';
-			                                     
-			elStoreItemName.text = strItemName;
-		
+    var isNewRelease = elItem.Data().oData.isNewRelease
+    var elNewHighlight = elItem.FindChildInLayoutFile("StoreItemNew")
+    elNewHighlight.SetHasClass("hidden", !isNewRelease)
 
-		var elSale = elItem.FindChildInLayoutFile( 'StoreItemSalePrice' );
-		var elPrecent = elItem.FindChildInLayoutFile( 'StoreItemPercent' );
-		var reduction = ItemInfo.GetStoreSalePercentReduction( itemId, 1 );
+    var elStoreItemName = elItem.FindChildInLayoutFile("StoreItemName")
+    var elShortNameHeader = elItem.FindChildInLayoutFile("ShortName")
+    var strItemName = ""
+    if (elItem.Data().oData.usegroupname)
+      strItemName = $.Localize(elItem.Data().oData.usegroupname)
+    else if (elItem.Data().oData.usetinynames)
+      strItemName = $.Localize(
+        InventoryAPI.GetRawDefinitionKey(LootListItemID, "item_name") +
+          "_tinyname"
+      )
+    else strItemName = ItemInfo.GetName(LootListItemID)
 
-		  
-		                 
-		  
-		var priceItemFirst = itemIdLinked;
-		var priceItemLast = itemId;
-		if ( elItem.Data().oData.linkpricing === 'reverse' )
-		{
-			priceItemFirst = itemId;
-			priceItemLast = itemIdLinked;
-		}
+    elShortNameHeader.text = ""
 
-		if ( reduction )
-		{
-			elSale.visible = true;
-			elSale.text = ItemInfo.GetStoreOriginalPrice( priceItemFirst, 1 ) === ItemInfo.GetStoreOriginalPrice( priceItemLast, 1 ) ?
-				ItemInfo.GetStoreOriginalPrice( priceItemFirst, 1 ) :
-				ItemInfo.GetStoreOriginalPrice( priceItemFirst, 1 ) + ' - ' + ItemInfo.GetStoreOriginalPrice( priceItemLast, 1 );
+    elStoreItemName.text = strItemName
 
-			elPrecent.visible = true;
-			elPrecent.text = reduction;
-		}
-		else
-		{
-			elSale.visible = false;
-			elPrecent.visible = false;
-		}
+    var elSale = elItem.FindChildInLayoutFile("StoreItemSalePrice")
+    var elPrecent = elItem.FindChildInLayoutFile("StoreItemPercent")
+    var reduction = ItemInfo.GetStoreSalePercentReduction(itemId, 1)
 
-		var elPrice = elItem.FindChildInLayoutFile( 'StoreItemPrice' );
-		if ( ItemInfo.GetStoreSalePrice( priceItemFirst, 1 ) )
-		{
-			elPrice.text = ItemInfo.GetStoreSalePrice( priceItemFirst, 1 ) === ItemInfo.GetStoreSalePrice( priceItemLast, 1 ) ?
-				ItemInfo.GetStoreSalePrice( priceItemFirst, 1 ) : 
-				ItemInfo.GetStoreSalePrice( priceItemFirst, 1 ) + ' - ' + ItemInfo.GetStoreSalePrice( priceItemLast, 1 );
-		}
-		else
-		{
-			elPrice.text = '';
-		}
+    var priceItemFirst = itemIdLinked
+    var priceItemLast = itemId
+    if (elItem.Data().oData.linkpricing === "reverse") {
+      priceItemFirst = itemId
+      priceItemLast = itemIdLinked
+    }
 
-	};
+    if (reduction) {
+      elSale.visible = true
+      elSale.text =
+        ItemInfo.GetStoreOriginalPrice(priceItemFirst, 1) ===
+        ItemInfo.GetStoreOriginalPrice(priceItemLast, 1)
+          ? ItemInfo.GetStoreOriginalPrice(priceItemFirst, 1)
+          : ItemInfo.GetStoreOriginalPrice(priceItemFirst, 1) +
+            " - " +
+            ItemInfo.GetStoreOriginalPrice(priceItemLast, 1)
 
-	var _SetOnActivateEventLinkedItemTile = function()
-	{
-		var OpenContextMenu = function( itemId, itemIdLinked, usetinynames )
-		{
-			var contextMenuPanel = UiToolkitAPI.ShowCustomLayoutContextMenuParameters(
-				'',
-				'',
-				'file://{resources}/layout/context_menus/context_menu_store_linked_items.xml',
-				'itemids=' + itemId + ',' + itemIdLinked +
-				( usetinynames ? '&usetinynames=' + usetinynames : '' ) +
-				( elItem.Data().oData.extrapopupfullscreenstyle ? '&extrapopupfullscreenstyle=solidbkgnd' : '' ) +
-				( elItem.Data().oData.isdisabled ? '&disablepurchase=true' : '' ) +
-				( elItem.Data().oData.warningtext ? '&warningtext=' + elItem.Data().oData.warningtext  : '' )
-			);
-			contextMenuPanel.AddClass( "ContextMenu_NoArrow" );
-		};
+      elPrecent.visible = true
+      elPrecent.text = reduction
+    } else {
+      elSale.visible = false
+      elPrecent.visible = false
+    }
 
-		elItem.SetPanelEvent( 'onactivate', OpenContextMenu.bind(
-			undefined,
-			elItem.Data().oData.itemid,
-			elItem.Data().oData.linkedid,
-			elItem.Data().oData.usetinynames
-		) );
-		elItem.SetPanelEvent( 'oncontextmenu', OpenContextMenu.bind(
-			undefined,
-			elItem.Data().oData.itemid,
-			elItem.Data().oData.linkedid,
-			elItem.Data().oData.usetinynames
-		) );
-	}
+    var elPrice = elItem.FindChildInLayoutFile("StoreItemPrice")
+    if (ItemInfo.GetStoreSalePrice(priceItemFirst, 1)) {
+      elPrice.text =
+        ItemInfo.GetStoreSalePrice(priceItemFirst, 1) ===
+        ItemInfo.GetStoreSalePrice(priceItemLast, 1)
+          ? ItemInfo.GetStoreSalePrice(priceItemFirst, 1)
+          : ItemInfo.GetStoreSalePrice(priceItemFirst, 1) +
+            " - " +
+            ItemInfo.GetStoreSalePrice(priceItemLast, 1)
+    } else {
+      elPrice.text = ""
+    }
+  }
 
-	return {
-		Init: _Init
-	};
+  var _SetOnActivateEventLinkedItemTile = function () {
+    var OpenContextMenu = function (itemId, itemIdLinked, usetinynames) {
+      var contextMenuPanel = UiToolkitAPI.ShowCustomLayoutContextMenuParameters(
+        "",
+        "",
+        "file://{resources}/layout/context_menus/context_menu_store_linked_items.xml",
+        "itemids=" +
+          itemId +
+          "," +
+          itemIdLinked +
+          (usetinynames ? "&usetinynames=" + usetinynames : "") +
+          (elItem.Data().oData.extrapopupfullscreenstyle
+            ? "&extrapopupfullscreenstyle=solidbkgnd"
+            : "") +
+          (elItem.Data().oData.isdisabled ? "&disablepurchase=true" : "") +
+          (elItem.Data().oData.warningtext
+            ? "&warningtext=" + elItem.Data().oData.warningtext
+            : "")
+      )
+      contextMenuPanel.AddClass("ContextMenu_NoArrow")
+    }
 
-} )();
+    elItem.SetPanelEvent(
+      "onactivate",
+      OpenContextMenu.bind(
+        undefined,
+        elItem.Data().oData.itemid,
+        elItem.Data().oData.linkedid,
+        elItem.Data().oData.usetinynames
+      )
+    )
+    elItem.SetPanelEvent(
+      "oncontextmenu",
+      OpenContextMenu.bind(
+        undefined,
+        elItem.Data().oData.itemid,
+        elItem.Data().oData.linkedid,
+        elItem.Data().oData.usetinynames
+      )
+    )
+  }
+
+  return {
+    Init: _Init
+  }
+})()

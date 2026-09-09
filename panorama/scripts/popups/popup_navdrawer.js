@@ -1,62 +1,52 @@
-"use strict";
+"use strict"
 
-function SetupPopup()
-{
-	var strPopupValue = $.GetContextPanel().GetAttributeString( "popupvalue", "(not found)" );
-	$.GetContextPanel().SetDialogVariable( "popupvalue", strPopupValue );
+function SetupPopup() {
+  var strPopupValue = $.GetContextPanel().GetAttributeString(
+    "popupvalue",
+    "(not found)"
+  )
+  $.GetContextPanel().SetDialogVariable("popupvalue", strPopupValue)
 }
 
-function OnOKPressed()
-{
-	                   
-	                                                                  
+function OnOKPressed() {
+  var callbackHandle = $.GetContextPanel().GetAttributeInt("callback", -1)
+  if (callbackHandle != -1) {
+    UiToolkitAPI.InvokeJSCallback(callbackHandle, "OK")
+  }
 
-	                                                      
-	var callbackHandle = $.GetContextPanel().GetAttributeInt( "callback", -1 );
-	if ( callbackHandle != -1 )
-	{
-		UiToolkitAPI.InvokeJSCallback( callbackHandle, 'OK' );
-	}
-
-	                                                                      
-	                                    
-	$.DispatchEvent( 'UIPopupButtonClicked', '' );
+  $.DispatchEvent("UIPopupButtonClicked", "")
 }
 
-function OnQuitButtonPressed()
-{
-	UiToolkitAPI.ShowGenericPopupTwoOptionsBgStyle('Confirm Exit',
-		'Are you sure you want to quit?',
-		'',
-		'Quit',
-		function() {
-			QuitGame('Option1')
-		},
-		'Return',
-		function() {
-		},
-		'dim'
-	);
+function OnQuitButtonPressed() {
+  UiToolkitAPI.ShowGenericPopupTwoOptionsBgStyle(
+    "Confirm Exit",
+    "Are you sure you want to quit?",
+    "",
+    "Quit",
+    function () {
+      QuitGame("Option1")
+    },
+    "Return",
+    function () {},
+    "dim"
+  )
 }
 
-function OnHomeButtonPressed()
-{
-	$.DispatchEvent( 'HideContentPanel' );
+function OnHomeButtonPressed() {
+  $.DispatchEvent("HideContentPanel")
 
-	                   
-	$.DispatchEvent( 'UIPopupButtonClicked', '' );
+  $.DispatchEvent("UIPopupButtonClicked", "")
 }
 
-function OnSettingsButtonPressed()
-{
-	UiToolkitAPI.ShowCustomLayoutPopup( '', 'file://{resources}/layout/popups/popup_settings.xml' );
+function OnSettingsButtonPressed() {
+  UiToolkitAPI.ShowCustomLayoutPopup(
+    "",
+    "file://{resources}/layout/popups/popup_settings.xml"
+  )
 
-	                   
-	$.DispatchEvent( 'UIPopupButtonClicked', '' );
+  $.DispatchEvent("UIPopupButtonClicked", "")
 }
 
-function QuitGame( msg )
-{
-	                                                 
-	GameInterfaceAPI.ConsoleCommand('quit');
+function QuitGame(msg) {
+  GameInterfaceAPI.ConsoleCommand("quit")
 }

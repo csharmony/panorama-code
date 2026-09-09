@@ -2,8 +2,8 @@
   <styles>
     <include src="file://{resources}/styles/csgostyles.css" />
     <include src="file://{resources}/styles/settings/settings.css" />
-    <include src="file://{resources}/styles/mainmenu.css"/>
-    <include src="file://{resources}/styles/mainmenu_inventory.css"/>
+    <include src="file://{resources}/styles/mainmenu.css" />
+    <include src="file://{resources}/styles/mainmenu_inventory.css" />
   </styles>
 
   <scripts>
@@ -13,23 +13,22 @@
   <Panel useglobalcontext="true" class="SettingsMenuTab fontWeight-Light">
 
     <Panel class="SettingsMenuTabContent vscroll">
-      <CSGOVideoSettings class="full-width full-height top-bottom-flow"/>
+      <CSGOVideoSettings class="full-width full-height top-bottom-flow" />
     </Panel>
 
     <Panel style="horizontal-align: middle;flow-children: right;">
 
       <Button class="FlatButton" onactivate="CSGOApplyVideoSettings()">
-        <Label text="#SFUI_Settings_Apply"/> 
-      </Button>     
+        <Label text="#SFUI_Settings_Apply" />
+      </Button>
 
       <Button class="FlatButton" onactivate="SettingsMenuShared.ResetVideoSettings()">
-        <Label text="#SFUI_Controls_Confirm_Default_Title"/>
-      </Button>      
+        <Label text="#SFUI_Controls_Confirm_Default_Title" />
+      </Button>
 
     </Panel>
 
-    
+
   </Panel>
 
 </root>
-

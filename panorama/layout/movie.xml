@@ -3,14 +3,14 @@
 		<include src="file://{resources}/styles/gamestyles.css" />
 		<include src="file://{resources}/styles/movie.css" />
 	</styles>
-	
+
 	<Movie>
 		<MoviePanel id="MoviePanel" />
 
-		                                    
+
 		<Panel id="PlayIndicator" />
 		<Panel id="LoadingThrobber" />
-		                                                 
+
 		<Label id="ErrorMessage" text="#Panorama_MoviePlaybackError" />
 
 		<Panel id="PlaybackTitleAndControls">
@@ -20,10 +20,9 @@
 
 				<Panel id="PlaybackControls">
 					<Label id="PlaybackSpeed" class="PlaybackControl" />
-					<Panel id="Timeline" class="PlaybackControl" >
-						                                  
-						
-						                                                                                        
+					<Panel id="Timeline" class="PlaybackControl">
+
+
 						<Panel class="ProgressBarWrapper">
 							<Panel id="PlaybackProgress" />
 						</Panel>
@@ -57,5 +56,5 @@
 				</Panel>
 			</Panel>
 		</Panel>
-	</Movie>	
+	</Movie>
 </root>

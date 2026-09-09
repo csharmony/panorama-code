@@ -8,8 +8,6 @@
 	</scripts>
 
 	<Panel>
-    <Label text="This panel is loaded from a different xml file than its parent" />
+		<Label text="This panel is loaded from a different xml file than its parent" />
 	</Panel>
 </root>
-
-

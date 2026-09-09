@@ -2,8 +2,8 @@
 	<styles>
 		<include src="file://{resources}/styles/gamestyles.css" />
 	</styles>
-    
-    <script>
+
+	<script>
     
         function SetupContextMenu()
 		{
@@ -29,8 +29,8 @@
         }
     
     </script>
-    
-    <ContextMenuCustomLayout onload="SetupContextMenu()">
-        <TextButton id="DynamicButton" class="PopupButton" onactivate="OnTestPressed()" />
-    </ContextMenuCustomLayout>
+
+	<ContextMenuCustomLayout onload="SetupContextMenu()">
+		<TextButton id="DynamicButton" class="PopupButton" onactivate="OnTestPressed()" />
+	</ContextMenuCustomLayout>
 </root>

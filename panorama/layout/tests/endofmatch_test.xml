@@ -2,7 +2,7 @@
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
 	</styles>
-	
+
 	<scripts>
 		<include src="file://{resources}/scripts/tests/endofmatch_test.js" />
 	</scripts>

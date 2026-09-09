@@ -1,14 +1,13 @@
 <root>
-	<styles>
+  <styles>
     <include src="file://{resources}/styles/gamestyles.css" />
     <include src="file://{resources}/styles/popups/popup_manager.css" />
   </styles>
 
   <CSGOPopupManager hittest="false">
     <Button id="DimBackground" onactivate="PopupBackgroundClicked()" />
-	  <Button id="BlurBackground" onactivate="PopupBackgroundClicked()" />
-    
-                                              
+    <Button id="BlurBackground" onactivate="PopupBackgroundClicked()" />
+
 
   </CSGOPopupManager>
 </root>

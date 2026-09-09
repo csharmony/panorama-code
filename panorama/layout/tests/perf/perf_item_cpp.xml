@@ -2,10 +2,10 @@
 	<styles>
 		<include src="file://{resources}/styles/csgostyles.css" />
 	</styles>
-	
+
 	<Panel>
-        <Button class="PopupButton">
-            <Label id="buttonText" class="MonoNumbersFont" allowrawtext="true" text="C++" />
-        </Button>
+		<Button class="PopupButton">
+			<Label id="buttonText" class="MonoNumbersFont" allowrawtext="true" text="C++" />
+		</Button>
 	</Panel>
 </root>

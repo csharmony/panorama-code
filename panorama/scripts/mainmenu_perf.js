@@ -1,35 +1,27 @@
-'use strict';
+"use strict"
 
-                                                                                                    
-             
-                                                                                                    
+var activeTab
 
-var activeTab;
+function NavigateToTab(tab, PanelName, pressedBtnId) {
+  if (activeTab) {
+    $.DispatchEvent("DeletePanel", activeTab)
+  }
 
-function NavigateToTab( tab, PanelName, pressedBtnId )
-{
-    if ( activeTab )
-    {
-                                     
-        $.DispatchEvent( 'DeletePanel', activeTab );
-    }
-    
-    UiToolkitAPI.ProfilingScopeBegin( 'PerfNavigate' );
+  UiToolkitAPI.ProfilingScopeBegin("PerfNavigate")
 
-                           
-    var newPanel = $.CreatePanel( PanelName, $.FindChildInContext('#JsPerfContent'), tab );
+  var newPanel = $.CreatePanel(
+    PanelName,
+    $.FindChildInContext("#JsPerfContent"),
+    tab
+  )
 
-    var durationMS = UiToolkitAPI.ProfilingScopeEnd();
+  var durationMS = UiToolkitAPI.ProfilingScopeEnd()
 
-    $( '#JsPerfTime' ).text = durationMS.toFixed( 3 );
+  $("#JsPerfTime").text = durationMS.toFixed(3)
 
-    activeTab = tab;
+  activeTab = tab
 }
 
-                                                                                                    
-                                           
-                                                                                                    
-(function ()
-{
-    activeTab = "JsPerfIntro";
-})();
+;(function () {
+  activeTab = "JsPerfIntro"
+})()

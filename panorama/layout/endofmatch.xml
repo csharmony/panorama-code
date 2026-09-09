@@ -14,16 +14,16 @@
 
 	<snippets>
 
-		                
-		<snippet name="snippet-eom-layout--default" >
+
+		<snippet name="snippet-eom-layout--default">
 			<Panel class="eom-layout">
 
-				<Frame							id="eom-win" 			class="eom-panel"		src="file://{resources}/layout/endofmatch-win.xml" />
-				                                   	                    	                        
-				<CSGOEndOfMatchXpPanel			id="eom-rank" 			class="eom-panel" />
-				<CSGOEndOfMatchSkillgroupPanel	id="eom-skillgroup" 	class="eom-panel" />
-				<CSGOEndOfMatchItemDropsPanel 	id="eom-drops" 			class="eom-panel" />
-				<CSGOEndOfMatchVotingPanel		id="eom-voting" 		class="eom-panel" />
+				<Frame id="eom-win" class="eom-panel" src="file://{resources}/layout/endofmatch-win.xml" />
+
+				<CSGOEndOfMatchXpPanel id="eom-rank" class="eom-panel" />
+				<CSGOEndOfMatchSkillgroupPanel id="eom-skillgroup" class="eom-panel" />
+				<CSGOEndOfMatchItemDropsPanel id="eom-drops" class="eom-panel" />
+				<CSGOEndOfMatchVotingPanel id="eom-voting" class="eom-panel" />
 			</Panel>
 		</snippet>
 
@@ -33,19 +33,19 @@
 			</RadioButton>
 		</snippet>
 
-		                             
+
 		<snippet name="snippet-eom-lower--default">
 			<Panel>
-				<CSGOEndOfMatchCharactersPanel	id="id-eom-characters-root" class="" />
-				<Panel id="id-eom-scoreboard-container" class="horizontal-center eom-scoreboard"/>	
+				<CSGOEndOfMatchCharactersPanel id="id-eom-characters-root" class="" />
+				<Panel id="id-eom-scoreboard-container" class="horizontal-center eom-scoreboard" />
 				<Panel id="id-eom-chat-container" />
 				<Label class="eom-scoreboard-toggle-instructions" html="true" text="#Scoreboard_Toggle_Instruction" />
 			</Panel>
 		</snippet>
 
 		<snippet name="snippet-eom-lower--survival">
-			<Panel >
-				<Panel id="id-eom-scoreboard-container" class="horizontal-center eom-scoreboard"/>	
+			<Panel>
+				<Panel id="id-eom-scoreboard-container" class="horizontal-center eom-scoreboard" />
 				<Panel id="id-eom-chat-container" />
 			</Panel>
 		</snippet>
@@ -53,10 +53,10 @@
 	</snippets>
 
 	<CSGOEndOfMatch useglobalcontext="true" class="eom mainmenu-content__container">
-		                
-		<Panel class="content-navbar" >
+
+		<Panel class="content-navbar">
 			<Panel id="id-content-navbar__tabs" class="content-navbar__tabs">
-				                                         
+
 			</Panel>
 			<Panel class="time_container">
 				<CSGOGameTimeLabel id="id-gametime__desc" class="timer" text="{s:s_gametime_desc}" />
@@ -65,16 +65,16 @@
 		</Panel>
 
 		<Panel id="id-display-timer-progress-bar-container">
-			<Panel id="id-display-timer-progress-bar"/>
+			<Panel id="id-display-timer-progress-bar" />
 		</Panel>
 
 		<Panel class="full-width full-height">
-			<Panel id="id-eom-layout" >
-				                               
+			<Panel id="id-eom-layout">
+
 			</Panel>
 
-			<Panel id="id-eom-chat-and-score" >
-				                                                                 
+			<Panel id="id-eom-chat-and-score">
+
 			</Panel>
 		</Panel>
 

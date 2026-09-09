@@ -6,7 +6,7 @@
 
 	<scripts>
 	</scripts>
-	
+
 	<snippets>
 
 		<snippet name="snippet-estt-player">
@@ -26,7 +26,7 @@
 
 		<Panel class="estt-root">
 			<Panel id="id-estt-lineup-container" class="estt-lineup">
-				                                                            
+
 			</Panel>
 			<Image id="id-estt-header__team-logo" />
 

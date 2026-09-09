@@ -1,28 +1,24 @@
-'use strict';
+"use strict"
 
 var FeaturedSurvival = (function () {
+  var _OnSurvivalPlayPressed = function () {
+    if (PartyListAPI.GetCount() <= 1) {
+      if (PartyListAPI.GetPartySessionSetting("game/mode") !== "survival") {
+        LobbyAPI.CloseSession()
+      }
 
+      GameInterfaceAPI.SetSettingString(
+        "ui_playsettings_mode_official",
+        "survival"
+      )
+    }
 
-	var _OnSurvivalPlayPressed = function()
-	{
-        if ( PartyListAPI.GetCount() <= 1 )
-        {
-            if ( PartyListAPI.GetPartySessionSetting( "game/mode" ) !== "survival" )
-            {
-                LobbyAPI.CloseSession();
-            }
-            
-            GameInterfaceAPI.SetSettingString( 'ui_playsettings_mode_official', 'survival' );
-        }
+    $.DispatchEvent("OpenPlayMenu")
+  }
 
-        $.DispatchEvent( 'OpenPlayMenu' );
-	};
+  return {
+    OnSurvivalPlayPressed: _OnSurvivalPlayPressed
+  }
+})()
 
-	return {
-		OnSurvivalPlayPressed: _OnSurvivalPlayPressed
-	};
-})();
-
-
-(function () {
-})();
+;(function () {})()

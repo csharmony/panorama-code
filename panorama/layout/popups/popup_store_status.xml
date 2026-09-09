@@ -1,7 +1,7 @@
 <root>
 	<styles>
 		<include src="file://{resources}/styles/gamestyles.css" />
-    <include src="file://{resources}/styles/popups/popups_shared.css" />
+		<include src="file://{resources}/styles/popups/popups_shared.css" />
 		<include src="file://{resources}/styles/popups/popup_custom.css" />
 	</styles>
 	<scripts>
@@ -17,6 +17,6 @@
 			<TextButton id="OkButton" class="PopupButton" text="#SFUI_MBox_OKButton" onactivate="OnOKPressed()" />
 			<TextButton id="CancelButton" class="PopupButton" text="#SFUI_MBox_CancelButton" onactivate="UIPopupButtonClicked()" />
 		</Panel>
-	
+
 	</PopupCustomLayout>
 </root>

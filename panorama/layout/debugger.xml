@@ -1,8 +1,8 @@
 <root>
-	<styles>		
+	<styles>
 		<include src="file://{resources}/styles/debugger.css" />
 	</styles>
-	
+
 	<Debugger>
 		<Panel class="DebugToolbar">
 			<Button id="InspectButton">
@@ -14,7 +14,7 @@
 			<Button id="PaintInfo">
 				<Label text="#Debugger_PaintInfo" />
 			</Button>
-			
+
 			<Panel id="DebugSize">
 				<Button id="DebugSizeSmaller">
 					<Label text="#Debugger_Smaller" />
@@ -26,7 +26,7 @@
 					<Label text="#Debugger_ResetSize" />
 				</Button>
 			</Panel>
-			
+
 			<Panel id="InMemoryButtons">
 				<Button id="RevertButton">
 					<Label text="#Debugger_Revert" />
@@ -49,5 +49,5 @@
 				<TextEntry id="JSConsoleInput" onmoveup="UpdateJSConsolePriorHistory()" onmovedown="UpdateJSConsoleNextHistory()" />
 			</Panel>
 		</Panel>
-	</Debugger>	
+	</Debugger>
 </root>

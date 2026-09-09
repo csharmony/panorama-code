@@ -9,13 +9,13 @@
 		{
 		}
 	</script>
-	
+
 	<Panel ontooltiploaded="setupTooltip()">
-		<Panel class="playerstats-tt__root" >
-			<Label class="playerstats-tt__header" text="{s:category_name}"/>
+		<Panel class="playerstats-tt__root">
+			<Label class="playerstats-tt__header" text="{s:category_name}" />
 			<Panel class="top-bottom-flow horizontal-center">
-				<Label text="#playerstats_weapon_tooltip_counts"/>
-				<Label text="#playerstats_weapon_tooltip_kd"/>
+				<Label text="#playerstats_weapon_tooltip_counts" />
+				<Label text="#playerstats_weapon_tooltip_kd" />
 			</Panel>
 		</Panel>
 	</Panel>

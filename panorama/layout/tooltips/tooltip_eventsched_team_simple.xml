@@ -9,14 +9,14 @@
 		<include src="file://{resources}/scripts/watch_events_debug.js" />
 		<include src="file://{resources}/scripts/tooltips/tooltip_eventsched_team.js" />
 	</scripts>
-	
+
 	<snippets>
 
-	<snippet name="snippet-estt-player">
-		<Panel class="estt-player top-bottom-flow">
-			<Label class="estt-player__name stratum-font" text="{s:esttplayer-name}" />
-		</Panel>
-	</snippet>
+		<snippet name="snippet-estt-player">
+			<Panel class="estt-player top-bottom-flow">
+				<Label class="estt-player__name stratum-font" text="{s:esttplayer-name}" />
+			</Panel>
+		</snippet>
 
 	</snippets>
 
@@ -28,7 +28,7 @@
 				<Label allowrawtext="true" class="stratum-font estt-header__team-name" text="{s:eventsched-tt-teamname}" />
 			</Panel>
 			<Panel id="id-estt-lineup-container" class="estt-lineup top-bottom-flow">
-				                                                            
+
 			</Panel>
 		</Panel>
 

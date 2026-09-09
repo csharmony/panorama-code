@@ -1,17 +1,11 @@
-'use strict';
+"use strict"
 
-var PopupChoices = ( function(){
+var PopupChoices = (function () {
+  var _Init = function () {}
 
-	var _Init = function ()
-	{
-	}
+  return {
+    Init: _Init
+  }
+})()
 
-	return {
-		Init					: _Init,
-	}
-
-})();
-
-(function()
-{
-})();
+;(function () {})()

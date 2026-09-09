@@ -1,22 +1,7 @@
-"use strict";
+"use strict"
 
+function OnLoadedC() {}
 
-function OnLoadedC()
-{
-                       
-}
+function ButtonActivatedC() {}
 
-function ButtonActivatedC()
-{
-                                                                                              
-}
-
-                                                                                                    
-                                           
-                                                                                                    
-(function ()
-{
-                      
-})();
-
-
+;(function () {})()

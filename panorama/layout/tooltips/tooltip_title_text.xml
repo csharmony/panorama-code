@@ -1,7 +1,7 @@
 <root>
 	<styles>
-    <include src="file://{resources}/styles/gamestyles.css" />
-    <include src="file://{resources}/styles/tooltips/tooltip_title_text.css" />
+		<include src="file://{resources}/styles/gamestyles.css" />
+		<include src="file://{resources}/styles/tooltips/tooltip_title_text.css" />
 	</styles>
 
 	<TooltipTitleText class="TitleTextContents">

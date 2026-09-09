@@ -6,8 +6,8 @@
 	</styles>
 
 	<CSGOOutOfAmmo class="OutOfAmmo">
-		<Panel class="OutOfAmmoBackdrop"/>
-		<Panel class="OutOfAmmoOverlay"/>
+		<Panel class="OutOfAmmoBackdrop" />
+		<Panel class="OutOfAmmoOverlay" />
 	</CSGOOutOfAmmo>
-	
+
 </root>

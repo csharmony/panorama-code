@@ -9,7 +9,7 @@
 		<include src="file://{resources}/scripts/stats/fakestats.js" />
 		<include src="file://{resources}/scripts/common/formattext.js" />
 	</scripts>
-	
+
 	<snippets>
 	</snippets>
 

@@ -6,8 +6,8 @@
 	<scripts>
 		<include src="file://{resources}/scripts/context_menus/context_menu_playercard.js" />
 	</scripts>
-	
-	<ContextMenuCustomLayout class="ContextMenuPlayerCard" onload="contextmenuPlayerCard.Init()" acceptsfocus="true"  useglobalcontext="true">
+
+	<ContextMenuCustomLayout class="ContextMenuPlayerCard" onload="contextmenuPlayerCard.Init()" acceptsfocus="true" useglobalcontext="true">
 		<Panel id="JsContextMenuSections" class="context-menu-playercard-info">
 		</Panel>
 	</ContextMenuCustomLayout>

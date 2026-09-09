@@ -1,182 +1,177 @@
-"use strict";
-	
+"use strict"
 
-var DirectChallengeJoin = ( function ()
-{
-	var m_submitFn = null;
-	var m_elErrortext = $.GetContextPanel().FindChildInLayoutFile( 'id-error_text' );
+var DirectChallengeJoin = (function () {
+  var m_submitFn = null
+  var m_elErrortext = $.GetContextPanel().FindChildInLayoutFile("id-error_text")
 
-	function _Init()
-	{
-		$.GetContextPanel().SetDialogVariable( 'text', $.Localize( '#DirectChallenge_EnterKeyField' ) );
+  function _Init() {
+    $.GetContextPanel().SetDialogVariable(
+      "text",
+      $.Localize("#DirectChallenge_EnterKeyField")
+    )
 
-		m_submitFn = parseInt( $.GetContextPanel().GetAttributeInt( "submitCallback", -1 ) );
+    m_submitFn = parseInt(
+      $.GetContextPanel().GetAttributeInt("submitCallback", -1)
+    )
 
-		$( "#submit" ).enabled = false;
-		$( '#TextEntry' ).SetPanelEvent( 'ontextentrychange', OnTextEntryChanged );
-		OnTextEntryChanged();
-		$( '#TextEntry' ).SetFocus();
-	}
+    $("#submit").enabled = false
+    $("#TextEntry").SetPanelEvent("ontextentrychange", OnTextEntryChanged)
+    OnTextEntryChanged()
+    $("#TextEntry").SetFocus()
+  }
 
-	function OnTextEntryChanged ()
-	{
-		                                                
+  function OnTextEntryChanged() {
+    var hasText = /.*\S.*/
+    if (!hasText.test($("#TextEntry").text)) {
+      _Validate()
+      return
+    }
 
-		                          
-		var hasText = /.*\S.*/;
-		if ( !hasText.test( $( '#TextEntry' ).text ) )
-		{
-			_Validate();
-			return;
-		}
+    var arrStrings = $("#TextEntry")
+      .text.split(/\s/)
+      .filter((s) => /^\w+$/.test(s))
+    _Validate()
+  }
 
-		                                                                 
-		var arrStrings = $( '#TextEntry' ).text.split( /\s/ ).filter( s => /^\w+$/.test( s ) );
-		_Validate();
+  function _Submit() {
+    var value = $("#TextEntry").text
 
-	}
+    UiToolkitAPI.InvokeJSCallback(m_submitFn, value)
+    _Close()
+  }
 
-	function _Submit()
-	{
-		var value = $( '#TextEntry' ).text;
+  function _IsChallengeKeyValid(key, oReturn = { value: [] }, how = "") {
+    var code = CompetitiveMatchAPI.ValidateDirectChallengeCode(key, how)
 
-		UiToolkitAPI.InvokeJSCallback( m_submitFn, value );
-		_Close();
-	}
+    var bValid = typeof code === "string" && code.includes(",")
 
-	function _IsChallengeKeyValid ( key, oReturn = { value: [] }, how = '' )
-	{
-		var code = CompetitiveMatchAPI.ValidateDirectChallengeCode( key, how );
+    if (bValid) {
+      oReturn.value = code.split(",")
+    }
 
-		var bValid = ( typeof code === 'string' ) && code.includes( ',' );
+    return bValid
+  }
 
-		if ( bValid )
-		{
-			oReturn.value = code.split( ',' );
-		}
+  function _IsPartOfGroup(groupId) {
+    var nNumClans = MyPersonaAPI.GetMyClanCount()
+    for (var i = 0; i < nNumClans; i++) {
+      var clanID64 = MyPersonaAPI.GetMyClanIdByIndex(i)
 
-		return bValid;
-	}
+      if (groupId === clanID64) {
+        return true
+      }
+    }
+    return false
+  }
 
-	function _IsPartOfGroup ( groupId )
-	{
-		var nNumClans = MyPersonaAPI.GetMyClanCount();
-		for ( var i = 0; i < nNumClans; i++ )
-		{
-			                                                   
-			var clanID64 = MyPersonaAPI.GetMyClanIdByIndex( i );
+  function _Validate() {
+    var elResultsPanel = $("#validation-result")
+    if (elResultsPanel && elResultsPanel.IsValid()) {
+      elResultsPanel.RemoveAndDeleteChildren()
+    }
 
-			if ( groupId === clanID64 )
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+    var bSuccess = false
+    var elAvatarContainer = $.CreatePanel(
+      "Panel",
+      elResultsPanel,
+      "avatar-container",
+      { class: "avatar-container" }
+    )
 
-	function _Validate ()
-	{
-		var elResultsPanel = $( "#validation-result" );
-		if ( elResultsPanel && elResultsPanel.IsValid() )
-		{
-			elResultsPanel.RemoveAndDeleteChildren();
-		}
+    var value = $("#TextEntry").text
+    var oReturn = { value: [] }
 
-		var bSuccess = false;
-		var elAvatarContainer = $.CreatePanel( 'Panel', elResultsPanel, 'avatar-container', { class: 'avatar-container' } );
+    if (_IsChallengeKeyValid(value.toUpperCase(), oReturn, "")) {
+      var type = oReturn.value[2]
+      var id = oReturn.value[3]
 
-		var value = $( '#TextEntry' ).text;
-		var oReturn = { value: [] };
+      var elTile = $.CreatePanel(
+        "Panel",
+        elAvatarContainer,
+        "JsKeyValidatedResult",
+        { class: "directchallenge__join-validator" }
+      )
+      elTile.codeXuid = id
+      elTile.codeType = type
 
-		if ( _IsChallengeKeyValid( value.toUpperCase(), oReturn, '' ) )
-		{
-			                             
-			var type = oReturn.value[ 2 ];                           
-			var id = oReturn.value[ 3 ];                                 
+      elTile.SetAttributeString("xuid", id)
+      elTile.BLoadLayout(
+        "file://{resources}/layout/friendtile.xml",
+        false,
+        false
+      )
+      $.GetContextPanel()
+        .FindChildInLayoutFile("id-direct-challenge-icon")
+        .SetHasClass("valid", true)
 
-			var elTile = $.CreatePanel( "Panel", elAvatarContainer, 'JsKeyValidatedResult', { class: "directchallenge__join-validator" } );
-			elTile.codeXuid = id;
-			elTile.codeType = type ;
+      if (type == "g") {
+        elTile.SetAttributeString("isClan", "true")
 
-			elTile.SetAttributeString( 'xuid', id );
-			elTile.BLoadLayout( 'file://{resources}/layout/friendtile.xml', false, false );
-			$.GetContextPanel().FindChildInLayoutFile( 'id-direct-challenge-icon' ).SetHasClass( 'valid', true );
+        $.CreatePanel(
+          "Image",
+          elTile.FindChildInLayoutFile("JsFriendTileBtn"),
+          "",
+          {
+            src: "file://{images}/icons/ui/link.svg",
+            class:
+              "vertical-center left-padding right-padding horizontal-align-right",
+            textureheight: "24",
+            texturewidth: "24"
+          }
+        )
+      }
 
-			                                               
-			if ( type == 'g' )
-			{
-				elTile.SetAttributeString( 'isClan', 'true' );
+      $.Schedule(0.1, function () {
+        friendTile.Init(elTile)
+        elTile.RemoveClass("hidden")
+      })
 
-				$.CreatePanel( "Image", elTile.FindChildInLayoutFile( 'JsFriendTileBtn' ), '', {
-					src: "file://{images}/icons/ui/link.svg",
-					class: "vertical-center left-padding right-padding horizontal-align-right",
-					textureheight: "24",
-					texturewidth: "24",
-				});
-			}
+      if (type == "g" && !_IsPartOfGroup(id)) {
+        bSuccess = false
+        m_elErrortext.visible = true
+        m_elErrortext.text = $.Localize("#DirectChallenge_not_member")
+      } else {
+        bSuccess = true
+        m_elErrortext.visible = false
+      }
+    } else {
+      m_elErrortext.visible = $("#TextEntry").text === "" ? false : true
 
-			                                                                
-			$.Schedule( .1, function ()
-			{
-				friendTile.Init( elTile );
-				elTile.RemoveClass( 'hidden' );
-			} );
+      $.GetContextPanel()
+        .FindChildInLayoutFile("id-direct-challenge-icon")
+        .SetHasClass("valid", false)
 
-			                                              
-			if ( type == 'g' && !_IsPartOfGroup( id ) )
-			{
-				bSuccess = false;
-				m_elErrortext.visible = true;
-				m_elErrortext.text = $.Localize( "#DirectChallenge_not_member" );
-			}
-			else
-			{
-				bSuccess = true;
-				m_elErrortext.visible = false;
-			}
-		}
-		else
-		{
+      m_elErrortext.SetDialogVariable(
+        "code",
+        $("#TextEntry").text.toUpperCase()
+      )
+      m_elErrortext.text = $.Localize(
+        "#DirectChallenge_BadKeyText",
+        m_elErrortext
+      )
+    }
 
-			m_elErrortext.visible = $( '#TextEntry' ).text === '' ? false : true;
+    $("#submit").enabled = bSuccess
+    $.GetContextPanel().SetHasClass("results-panel-valid", bSuccess)
+  }
 
-			$.GetContextPanel().FindChildInLayoutFile( 'id-direct-challenge-icon' ).SetHasClass( 'valid', false );
-			
-			                          
-			m_elErrortext.SetDialogVariable( 'code', $( '#TextEntry' ).text.toUpperCase() );
-			m_elErrortext.text = $.Localize( '#DirectChallenge_BadKeyText', m_elErrortext );
-		}
+  function _Cancel() {
+    _Close()
+  }
 
-		$( "#submit" ).enabled = bSuccess;
-		$.GetContextPanel().SetHasClass( 'results-panel-valid', bSuccess );
-	}
+  function _Close() {
+    if (m_submitFn != -1) UiToolkitAPI.UnregisterJSCallback(m_submitFn)
 
-	function _Cancel ()
-	{
-		_Close();
-	}
+    $.DispatchEvent("UIPopupButtonClicked", "")
+  }
 
-	function _Close ()
-	{
-		if ( m_submitFn != -1 )
-			UiToolkitAPI.UnregisterJSCallback( m_submitFn );
-		
-		$.DispatchEvent( 'UIPopupButtonClicked', '' );
-	}
+  return {
+    Init: _Init,
+    Submit: _Submit,
+    Close: _Close,
+    Cancel: _Cancel,
+    Validate: _Validate
+  }
+})()
 
-	return {
-		Init: 					_Init,
-		Submit:					_Submit,
-		Close: 					_Close,
-		Cancel: 				_Cancel,
-		Validate: 				_Validate,
-	};
-
-} )();
-
-                                                                                                    
-                                            
-                                                                                                    
-( function ()
-{
-} )();
+;(function () {})()

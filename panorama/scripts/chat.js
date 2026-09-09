@@ -1,240 +1,201 @@
-          
-   
-   
+"use strict"
 
-"use strict"; 
+var Chat = (function () {
+  var m_isContentPanelOpen = false
+  var m_ChatPanel = $("#PartyChat")
+  var m_OriginalParent = m_ChatPanel.GetParent()
 
-var Chat = ( function ()
-{
-	var m_isContentPanelOpen = false;
-	var m_ChatPanel = $( "#PartyChat" );
-	var m_OriginalParent = m_ChatPanel.GetParent();                                                                                                               
-	
-	function _Init() 
-	{
-		var elInput = $( '#ChatInput' );
-		elInput.SetPanelEvent( 'oninputsubmit', Chat.ChatTextSubmitted );
+  function _Init() {
+    var elInput = $("#ChatInput")
+    elInput.SetPanelEvent("oninputsubmit", Chat.ChatTextSubmitted)
 
-		var elOpenChat = $.GetContextPanel().FindChildInLayoutFile( 'ChatContainer' );
-		elOpenChat.SetPanelEvent( "onactivate", function ()
-		{
-			_OpenChat();
-		} );
-		
-		var elCloseChat = $.GetContextPanel().FindChildInLayoutFile( 'ChatCloseButton' );
-		elCloseChat.SetPanelEvent( "onactivate", function ()
-		{
-			_Close();
-		} );
-	}
+    var elOpenChat = $.GetContextPanel().FindChildInLayoutFile("ChatContainer")
+    elOpenChat.SetPanelEvent("onactivate", function () {
+      _OpenChat()
+    })
 
-	function _OpenChat()
-	{
-		var elChatContainer = $( '#ChatContainer' );
-		
-		if ( !elChatContainer.BHasClass( "chat-open" ) )
-		{
-			elChatContainer.RemoveClass( 'closed-minimized' );
-			elChatContainer.AddClass( "chat-open" );
-			$( "#ChatInput" ).SetFocus();
-			$( "#ChatInput" ).activationenabled = true;
-			
-			                                   
-			
-			$.Schedule( .1, _ScrollToBottom );
-		}
-	}
+    var elCloseChat =
+      $.GetContextPanel().FindChildInLayoutFile("ChatCloseButton")
+    elCloseChat.SetPanelEvent("onactivate", function () {
+      _Close()
+    })
+  }
 
-	function _Close()
-	{
-		var elChatContainer = $( '#ChatContainer' );
-		if ( elChatContainer.BHasClass( "chat-open" ) )
-		{
-			elChatContainer.RemoveClass( "chat-open" );
-			elChatContainer.SetFocus();
-			$( "#ChatInput" ).activationenabled = false;
-			                                    
-			$.Schedule( .1, _ScrollToBottom );
+  function _OpenChat() {
+    var elChatContainer = $("#ChatContainer")
 
-			_SetClosedHeight();
-			return true;                                            
-		}
+    if (!elChatContainer.BHasClass("chat-open")) {
+      elChatContainer.RemoveClass("closed-minimized")
+      elChatContainer.AddClass("chat-open")
+      $("#ChatInput").SetFocus()
+      $("#ChatInput").activationenabled = true
 
-		return false;
-	}
+      $.Schedule(0.1, _ScrollToBottom)
+    }
+  }
 
-	function _SetClosedHeight()
-	{
-		var elChatContainer = $( '#ChatContainer' );
-		if ( !elChatContainer.BHasClass( "chat-open" ) )
-		{
-			elChatContainer.SetHasClass( 'closed-minimized', m_isContentPanelOpen );
-			$.Schedule( .1, _ScrollToBottom );
-		}
-	}
+  function _Close() {
+    var elChatContainer = $("#ChatContainer")
+    if (elChatContainer.BHasClass("chat-open")) {
+      elChatContainer.RemoveClass("chat-open")
+      elChatContainer.SetFocus()
+      $("#ChatInput").activationenabled = false
 
-	function _ChatTextSubmitted()
-	{
-		$.GetContextPanel().SubmitChatText();
+      $.Schedule(0.1, _ScrollToBottom)
 
-		$( '#ChatInput' ).text = "";
-	}
+      _SetClosedHeight()
+      return true
+    }
 
-	function _ShowPlayerCard( strSteamID ) 
-	{
-		var contextMenuPanel = UiToolkitAPI.ShowCustomLayoutContextMenuParameters(
-			'',
-			'',
-			'file://{resources}/layout/context_menus/context_menu_playercard.xml',
-			                            
-			'xuid=' + strSteamID
-		);
-	}
+    return false
+  }
 
-	function _OnNewChatEntry()
-	{
-		$.Schedule( .1, _ScrollToBottom );
-	}
+  function _SetClosedHeight() {
+    var elChatContainer = $("#ChatContainer")
+    if (!elChatContainer.BHasClass("chat-open")) {
+      elChatContainer.SetHasClass("closed-minimized", m_isContentPanelOpen)
+      $.Schedule(0.1, _ScrollToBottom)
+    }
+  }
 
-	function _ScrollToBottom()
-	{
-		$( '#ChatLinesContainer' ).ScrollToBottom();
-	}
+  function _ChatTextSubmitted() {
+    $.GetContextPanel().SubmitChatText()
 
-	function _SessionUpdate( status )
-	{
-		var elChat = $.GetContextPanel().FindChildInLayoutFile( 'ChatPanelContainer' );
+    $("#ChatInput").text = ""
+  }
 
-		if ( status === 'closed' )
-			_ClearChatMessages();
+  function _ShowPlayerCard(strSteamID) {
+    var contextMenuPanel = UiToolkitAPI.ShowCustomLayoutContextMenuParameters(
+      "",
+      "",
+      "file://{resources}/layout/context_menus/context_menu_playercard.xml",
 
-		if ( !LobbyAPI.IsSessionActive() )
-		{
-			elChat.AddClass( 'hidden' );
-		}
-		else
-		{
-			var numPlayersActuallyInParty = PartyListAPI.GetCount();
-			var networkSetting = PartyListAPI.GetPartySessionSetting( "system/network" );
-			
-			elChat.SetHasClass( 'hidden', ( networkSetting !== 'LIVE' ) );
+      "xuid=" + strSteamID
+    )
+  }
 
-			if ( networkSetting !== 'LIVE' )
-			{
-				_Close();
-			}
+  function _OnNewChatEntry() {
+    $.Schedule(0.1, _ScrollToBottom)
+  }
 
-			var elPlaceholder = $.GetContextPanel().FindChildInLayoutFile( 'PlaceholderText' );
+  function _ScrollToBottom() {
+    $("#ChatLinesContainer").ScrollToBottom()
+  }
 
-			if ( numPlayersActuallyInParty > 1 )
-			{
-				elPlaceholder.text = $.Localize( '#party_chat_placeholder' );
-			}
-			else
-			{
-				elPlaceholder.text = $.Localize( '#party_chat_placeholder_empty_lobby' );
-			}
-		}
-	}
+  function _SessionUpdate(status) {
+    var elChat = $.GetContextPanel().FindChildInLayoutFile("ChatPanelContainer")
 
-	function _ClearChatMessages()
-	{
-		var elMessagesContainer = $( '#ChatLinesContainer' );
-		elMessagesContainer.RemoveAndDeleteChildren();
-	}
+    if (status === "closed") _ClearChatMessages()
 
-	var _ClipPanelToNotOverlapSideBar = function ( noClip )
-	{
-		var panelToClip = $.GetContextPanel();
-		if ( !panelToClip || panelToClip.BHasClass( 'hidden' ))
-			return;
-		
-		                                                                     
-		                                                                                     
-		if ( $.GetContextPanel().GetParent().id !== 'MainMenuFriendsAndParty' )
-			return;
+    if (!LobbyAPI.IsSessionActive()) {
+      elChat.AddClass("hidden")
+    } else {
+      var numPlayersActuallyInParty = PartyListAPI.GetCount()
+      var networkSetting = PartyListAPI.GetPartySessionSetting("system/network")
 
-		var panelToClipWidth = panelToClip.actuallayoutwidth;
-		var friendsListWidthWhenExpanded = panelToClip.GetParent().FindChildInLayoutFile( 'mainmenu-sidebar__blur-target' ).contentwidth;
-		
-		var sideBarWidth = noClip ? 0 : friendsListWidthWhenExpanded;
-		var widthDiff = panelToClipWidth - sideBarWidth;
-		var clipPercent = ( panelToClipWidth <= 0 || widthDiff <= 0 ? 1 : ( widthDiff / panelToClipWidth ) ) * 100;
+      elChat.SetHasClass("hidden", networkSetting !== "LIVE")
 
-		if ( clipPercent )
-			panelToClip.style.clip = 'rect( 0%, ' + clipPercent + '%, 100%, 0% );';
-	};
+      if (networkSetting !== "LIVE") {
+        _Close()
+      }
 
-	var _OnHideContentPanel = function ()
-	{
-		m_isContentPanelOpen = false;
-		_SetClosedHeight();
-	};
+      var elPlaceholder =
+        $.GetContextPanel().FindChildInLayoutFile("PlaceholderText")
 
-	var _OnShowContentPanel = function ()
-	{
-		m_isContentPanelOpen = true;
-		_SetClosedHeight();
-	};
+      if (numPlayersActuallyInParty > 1) {
+        elPlaceholder.text = $.Localize("#party_chat_placeholder")
+      } else {
+        elPlaceholder.text = $.Localize("#party_chat_placeholder_empty_lobby")
+      }
+    }
+  }
 
-	var _OnShowAcceptPopup = function( popup )
-	{
-		m_ChatPanel.SetParent( popup.FindChildInLayoutFile( 'id-accept-match-chat-container' ) );
-		$.GetContextPanel().style.clip = 'rect( 0%,  100%, 100%, 0% );'
+  function _ClearChatMessages() {
+    var elMessagesContainer = $("#ChatLinesContainer")
+    elMessagesContainer.RemoveAndDeleteChildren()
+  }
 
-		var elChatContainer = $( '#ChatContainer' );
-		
-		                                                                           
-		                                                                             
-		                                                 
-		if ( elChatContainer.BHasClass( "chat-open" ) )
-		{
-			$( "#ChatInput" ).SetFocus();
-			$( "#ChatInput" ).activationenabled = true;
-		}
-	};
+  var _ClipPanelToNotOverlapSideBar = function (noClip) {
+    var panelToClip = $.GetContextPanel()
+    if (!panelToClip || panelToClip.BHasClass("hidden")) return
 
-	var _OnCloseAcceptPopup = function() 
-	{
-		m_ChatPanel.SetParent( m_OriginalParent );
-		var elPreviousPeer = m_OriginalParent.FindChild( 'JsMainMenuSidebar' );
-		m_OriginalParent.MoveChildAfter( m_ChatPanel, elPreviousPeer );
+    if ($.GetContextPanel().GetParent().id !== "MainMenuFriendsAndParty") return
 
-		                                                                                      
-		                                        
-		m_ChatPanel.style.y = '0px';
-		_Init();
-	};
+    var panelToClipWidth = panelToClip.actuallayoutwidth
+    var friendsListWidthWhenExpanded = panelToClip
+      .GetParent()
+      .FindChildInLayoutFile("mainmenu-sidebar__blur-target").contentwidth
 
-	return {
-		Init 					: _Init,
-		ChatTextSubmitted  		: _ChatTextSubmitted,
-		ShowPlayerCard			: _ShowPlayerCard,
-		SessionUpdate			: _SessionUpdate,
-		NewChatEntry			: _OnNewChatEntry,
-		OnSideBarHover:  _ClipPanelToNotOverlapSideBar,
-		OnHideContentPanel: _OnHideContentPanel,
-		OnShowContentPanel: _OnShowContentPanel,
-		Close 					: _Close,
-		OnShowAcceptPopup: _OnShowAcceptPopup,
-		OnCloseAcceptPopup : _OnCloseAcceptPopup
-	 };
-})();
+    var sideBarWidth = noClip ? 0 : friendsListWidthWhenExpanded
+    var widthDiff = panelToClipWidth - sideBarWidth
+    var clipPercent =
+      (panelToClipWidth <= 0 || widthDiff <= 0
+        ? 1
+        : widthDiff / panelToClipWidth) * 100
 
-                                                                                                    
-                                           
-                                                                                                    
-(function()
-{
-	Chat.Init();
-	$.RegisterForUnhandledEvent( "PanoramaComponent_Lobby_MatchmakingSessionUpdate", Chat.SessionUpdate );
-	$.RegisterForUnhandledEvent( "OnNewChatEntry", Chat.NewChatEntry );
-	$.RegisterEventHandler( "Cancelled", $.GetContextPanel(), Chat.Close );
-	$.RegisterForUnhandledEvent( 'SidebarIsCollapsed', Chat.OnSideBarHover );
-	$.RegisterForUnhandledEvent( 'HideContentPanel', Chat.OnHideContentPanel );
-	$.RegisterForUnhandledEvent( 'ShowContentPanel', Chat.OnShowContentPanel );
-	$.RegisterForUnhandledEvent( 'ShowAcceptPopup', Chat.OnShowAcceptPopup );
-	$.RegisterForUnhandledEvent( 'CloseAcceptPopup', Chat.OnCloseAcceptPopup );
-	
+    if (clipPercent)
+      panelToClip.style.clip = "rect( 0%, " + clipPercent + "%, 100%, 0% );"
+  }
 
-})();
+  var _OnHideContentPanel = function () {
+    m_isContentPanelOpen = false
+    _SetClosedHeight()
+  }
+
+  var _OnShowContentPanel = function () {
+    m_isContentPanelOpen = true
+    _SetClosedHeight()
+  }
+
+  var _OnShowAcceptPopup = function (popup) {
+    m_ChatPanel.SetParent(
+      popup.FindChildInLayoutFile("id-accept-match-chat-container")
+    )
+    $.GetContextPanel().style.clip = "rect( 0%,  100%, 100%, 0% );"
+
+    var elChatContainer = $("#ChatContainer")
+
+    if (elChatContainer.BHasClass("chat-open")) {
+      $("#ChatInput").SetFocus()
+      $("#ChatInput").activationenabled = true
+    }
+  }
+
+  var _OnCloseAcceptPopup = function () {
+    m_ChatPanel.SetParent(m_OriginalParent)
+    var elPreviousPeer = m_OriginalParent.FindChild("JsMainMenuSidebar")
+    m_OriginalParent.MoveChildAfter(m_ChatPanel, elPreviousPeer)
+
+    m_ChatPanel.style.y = "0px"
+    _Init()
+  }
+
+  return {
+    Init: _Init,
+    ChatTextSubmitted: _ChatTextSubmitted,
+    ShowPlayerCard: _ShowPlayerCard,
+    SessionUpdate: _SessionUpdate,
+    NewChatEntry: _OnNewChatEntry,
+    OnSideBarHover: _ClipPanelToNotOverlapSideBar,
+    OnHideContentPanel: _OnHideContentPanel,
+    OnShowContentPanel: _OnShowContentPanel,
+    Close: _Close,
+    OnShowAcceptPopup: _OnShowAcceptPopup,
+    OnCloseAcceptPopup: _OnCloseAcceptPopup
+  }
+})()
+
+;(function () {
+  Chat.Init()
+  $.RegisterForUnhandledEvent(
+    "PanoramaComponent_Lobby_MatchmakingSessionUpdate",
+    Chat.SessionUpdate
+  )
+  $.RegisterForUnhandledEvent("OnNewChatEntry", Chat.NewChatEntry)
+  $.RegisterEventHandler("Cancelled", $.GetContextPanel(), Chat.Close)
+  $.RegisterForUnhandledEvent("SidebarIsCollapsed", Chat.OnSideBarHover)
+  $.RegisterForUnhandledEvent("HideContentPanel", Chat.OnHideContentPanel)
+  $.RegisterForUnhandledEvent("ShowContentPanel", Chat.OnShowContentPanel)
+  $.RegisterForUnhandledEvent("ShowAcceptPopup", Chat.OnShowAcceptPopup)
+  $.RegisterForUnhandledEvent("CloseAcceptPopup", Chat.OnCloseAcceptPopup)
+})()

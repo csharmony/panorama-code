@@ -7,10 +7,10 @@
 
   <CSGOSettingsKeyBinder class="BindingRow">
 
-    <Label id="title" text="" class="BindingRowLabel"/>
+    <Label id="title" text="" class="BindingRowLabel" />
     <Panel id="LabelFXContainer">
       <Panel id="BindingLabelContainer">
-        <Label id="value" text="" class="BindingRowButton"/>
+        <Label id="value" text="" class="BindingRowButton" />
       </Panel>
       <Button id="clearkeybinding" class="ClearKeybinding" />
     </Panel>

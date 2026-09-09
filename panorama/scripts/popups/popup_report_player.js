@@ -1,44 +1,47 @@
-'use strict';
+"use strict"
 
-var PopupReportPlayer = ( function(){
+var PopupReportPlayer = (function () {
+  var _Init = function () {
+    var xuid = $.GetContextPanel().GetAttributeString("xuid", "")
 
-	var _Init = function ()
-	{
+    $.GetContextPanel().SetDialogVariable(
+      "target_player",
+      GameStateAPI.GetPlayerName(xuid)
+    )
 
-		var xuid = $.GetContextPanel().GetAttributeString( "xuid", "" );
+    $.GetContextPanel()
+      .FindChildInLayoutFile("id-report")
+      .Children()
+      .forEach((el) => {
+        var category = el.GetAttributeString("data-category", "")
 
-		$.GetContextPanel().SetDialogVariable( "target_player", GameStateAPI.GetPlayerName( xuid ));
+        el.enabled = GameStateAPI.IsReportCategoryEnabledForSelectedPlayer(
+          xuid,
+          category
+        )
+      })
+  }
 
-		                                                               
-		$.GetContextPanel().FindChildInLayoutFile( "id-report" ).Children().forEach( el => 
-		{
-			var category = el.GetAttributeString( "data-category", "" );
+  var _Submit = function () {
+    var categories = ""
 
-			el.enabled = GameStateAPI.IsReportCategoryEnabledForSelectedPlayer( xuid, category );
-		});
+    $.GetContextPanel()
+      .FindChildInLayoutFile("id-report")
+      .Children()
+      .forEach((el) => {
+        if (el.checked)
+          categories += el.GetAttributeString("data-category", "") + ","
+      })
 
-	}
+    var xuid = $.GetContextPanel().GetAttributeString("xuid", "")
 
-	var _Submit = function ()
-	{
-		var categories = "";
+    GameStateAPI.SubmitPlayerReport(xuid, categories)
 
-		                                                    
-		$.GetContextPanel().FindChildInLayoutFile( "id-report" ).Children().forEach( el => 
-		{
-			if ( el.checked )
-				categories += el.GetAttributeString( "data-category", "" ) + ",";
-		});
+    $.DispatchEvent("UIPopupButtonClicked", "")
+  }
 
-		var xuid = $.GetContextPanel().GetAttributeString( "xuid", "" );
-
-		GameStateAPI.SubmitPlayerReport( xuid, categories );
-
-		$.DispatchEvent( 'UIPopupButtonClicked', '' );
-	}
-
-	return {
-				Init	:	_Init,
-				Submit	:	_Submit,
-	};
-})();
+  return {
+    Init: _Init,
+    Submit: _Submit
+  }
+})()

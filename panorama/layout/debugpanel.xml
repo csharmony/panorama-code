@@ -2,7 +2,7 @@
 	<styles>
 		<include src="file://{resources}/styles/debugger.css" />
 	</styles>
-	
+
 	<DebugPanel>
 		<Panel class="DebugPanelToolbar">
 			<Button id="StyleButton" onactivate="ShowDebugStyle()">
@@ -17,5 +17,5 @@
 			<DebugPanelStyle id="DebugPanelStyle" />
 			<DebugPanelComputed id="DebugPanelComputed" />
 		</Panel>
-	</DebugPanel>	
+	</DebugPanel>
 </root>

@@ -10,16 +10,16 @@
 			<Panel class="RetakeLoadoutMenu--main-container" />
 		</snippet>
 		<snippet name="RetakeLoadoutMenuLoadoutsContainer">
-			<Panel class="RetakeLoadoutMenu--loadouts-container"/>
+			<Panel class="RetakeLoadoutMenu--loadouts-container" />
 		</snippet>
 		<snippet name="RetakeLoadoutMenuLoadoutContainer">
 			<Panel class="RetakeLoadoutMenu--loadout-container">
-				<Panel id="RetakeLoadoutMenuCardContainer" class="RetakeLoadoutMenu--card-container"/>
+				<Panel id="RetakeLoadoutMenuCardContainer" class="RetakeLoadoutMenu--card-container" />
 			</Panel>
 		</snippet>
 		<snippet name="RetakeLoadoutMenuLoadoutContainerSelected">
 			<Panel class="RetakeLoadoutMenu--loadout-container-selected">
-				<Panel id="RetakeLoadoutMenuCardContainer" class="RetakeLoadoutMenu--card-container-selected"/>
+				<Panel id="RetakeLoadoutMenuCardContainer" class="RetakeLoadoutMenu--card-container-selected" />
 			</Panel>
 		</snippet>
 		<snippet name="RetakeLoadoutMenuLoadoutsTitle">
@@ -29,7 +29,7 @@
 			<Label class="RetakeLoadoutMenu--card-title" text="" />
 		</snippet>
 		<snippet name="RetakeLoadoutMenuLoadoutWeaponContainer">
-			<Panel class="RetakeLoadoutMenu--loadout-weapon-container"/>
+			<Panel class="RetakeLoadoutMenu--loadout-weapon-container" />
 		</snippet>
 		<snippet name="RetakeLoadoutMenuLoadoutWeaponIcon">
 			<Image class="RetakeLoadoutMenu--loadout-weapon-icon" />
@@ -71,7 +71,7 @@
 			<Label class="RetakeLoadoutMenu--bombsite-title" text="" />
 		</snippet>
 		<snippet name="RetakeLoadoutMenuCardStarEnemy">
-			<Panel class="RetakeLoadoutMenu--card-star-enemy" >
+			<Panel class="RetakeLoadoutMenu--card-star-enemy">
 				<Label id="RetakeLoadoutCardStarTitle" class="RetakeLoadoutMenu--card-star-title-enemy" />
 				<Panel class="circle4" />
 				<Panel class="circle3" />
@@ -81,7 +81,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="RetakeLoadoutMenuCardStarBonus">
-			<Panel class="RetakeLoadoutMenu--card-star-bonus" >
+			<Panel class="RetakeLoadoutMenu--card-star-bonus">
 				<Label id="RetakeLoadoutCardStarTitle" class="RetakeLoadoutMenu--card-star-title-bonus" />
 				<Panel class="circle4" />
 				<Panel class="circle3" />
@@ -91,7 +91,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="RetakeLoadoutMenuCardStarMvp">
-			<Panel class="RetakeLoadoutMenu--card-star-mvp" >
+			<Panel class="RetakeLoadoutMenu--card-star-mvp">
 				<Label id="RetakeLoadoutCardStarTitle" class="RetakeLoadoutMenu--card-star-title-mvp" />
 				<Panel class="circle4" />
 				<Panel class="circle3" />
@@ -104,32 +104,8 @@
 
 	<CSGORetakeLoadout class="RetakeLoadout">
 		<Panel id="backdrop" class="RetakeLoadoutMenu--backdrop" />
-		                                                                                                                                                        
-		                                 
-			                          
-			                         
-			                         
-			                         
-			                        
-			                            
-		        
-		                                   
-			                             
-			                         
-			                         
-			                         
-			                        
-			                              
-		        
-		                                   
-			                             
-			                         
-			                         
-			                         
-			                        
-			                              
-		        
-		   
+
+
 	</CSGORetakeLoadout>
-	
+
 </root>
