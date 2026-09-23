@@ -54,19 +54,19 @@
 					<Panel class="horizontal-separator" />
 
 					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_Offset_X">
-						<CSGOSettingsSlider id="viewmodel_offset_x" text="#Harmony_Viewmodel_Offset_X" max="2.5" min="-2.5" invert="false" percentage="false" convar="viewmodel_offset_x" />
+						<CSGOSettingsSlider id="viewmodel_offset_x" text="#Harmony_Viewmodel_Offset_X" max="2.5" min="-2.0" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_x" />
 					</TooltipPanel>
 
 					<Panel class="horizontal-separator" />
 
 					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_Offset_Y">
-						<CSGOSettingsSlider id="viewmodel_offset_y" text="#Harmony_Viewmodel_Offset_Y" max="2" min="-2" invert="false" percentage="false" convar="viewmodel_offset_y" />
+						<CSGOSettingsSlider id="viewmodel_offset_y" text="#Harmony_Viewmodel_Offset_Y" max="2" min="-2" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_y" />
 					</TooltipPanel>
 
 					<Panel class="horizontal-separator" />
 
 					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_Offset_Z">
-						<CSGOSettingsSlider id="viewmodel_offset_z" text="#Harmony_Viewmodel_Offset_Z" max="2" min="-2" invert="false" percentage="false" convar="viewmodel_offset_z" />
+						<CSGOSettingsSlider id="viewmodel_offset_z" text="#Harmony_Viewmodel_Offset_Z" max="2" min="-2" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_z" />
 					</TooltipPanel>
 				</Panel>
 			</Panel>
