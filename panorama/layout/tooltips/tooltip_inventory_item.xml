@@ -20,7 +20,7 @@
 			<Panel class="top-bottom-flow">
 				<Label class="rarity-header" text="#inv_header_rarity" />
 				<Label class="grade-header" text="#inv_header_grade" />
-				<Label class="wear-header" text="#SFUI_ItemInfo_WearAmount" />
+				<Label class="wear-header" text="#inv_header_wear" />
 				<Label class="team-header" text="#inv_header_team" />
 			</Panel>
 			<Panel class="top-bottom-flow">
