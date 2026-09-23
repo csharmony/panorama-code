@@ -402,6 +402,9 @@ var InventoryPanel = (function () {
         _UpdateCraftingPanelVisibility(true)
       })
 
+      var elBulkDeleteBtn = elTopRightExtraButtons.FindChild("InvBulkDeleteBtn")
+      elBulkDeleteBtn.SetPanelEvent("onactivate", _ShowBulkDeletePopup)
+
       var elInvSearchBtn = elTopRightExtraButtons.FindChild("InvSearchBtn")
       elInvSearchBtn.SetPanelEvent("onactivate", function () {
         _HideInventoryMainListers()
@@ -824,9 +827,12 @@ var InventoryPanel = (function () {
 
     elList.SetHasClass(
       "inv-multi-select-allow",
-      capability === "casketstore" || capability === "casketretrieve"
+      capability === "casketstore" ||
+        capability === "casketretrieve" ||
+        capability === "bulkdelete"
     )
-    var capabilityFilter = capability + ":" + id
+    var capabilityFilter =
+      capability === "bulkdelete" ? "" : capability + ":" + id
 
     _UpdateActiveItemList(
       elList,
@@ -849,7 +855,11 @@ var InventoryPanel = (function () {
       "CapabilityPopupActionBar"
     )
 
-    if (capability === "casketstore" || capability === "casketretrieve") {
+    if (
+      capability === "casketstore" ||
+      capability === "casketretrieve" ||
+      capability === "bulkdelete"
+    ) {
       elList.SetAttributeInt("capability_multistatus_selected", 1)
 
       if (!elActionBar) {
@@ -898,6 +908,8 @@ var InventoryPanel = (function () {
       szPrefixString = "#inv_select_casketretrieve"
     } else if (capability === "casketstore") {
       szPrefixString = "#inv_select_casketstore"
+    } else if (capability === "bulkdelete") {
+      szPrefixString = "#inv_bulkdelete_select"
     }
     elPrefixString.text = szPrefixString
 
@@ -907,7 +919,16 @@ var InventoryPanel = (function () {
 
     var elLabel =
       _m_elSelectItemForCapabilityPopup.FindChildInLayoutFile("CapItemName")
-    elLabel.text = ItemInfo.GetName(id)
+
+    // show only "select items to delete" string in page title
+    if (capability === "bulkdelete") {
+      elImage.visible = false
+      elLabel.visible = false
+    } else {
+      elImage.visible = true
+      elLabel.visible = true
+      elLabel.text = ItemInfo.GetName(id)
+    }
   }
 
   var _UpdateSelectItemForCapabilityPopup = function (
@@ -960,6 +981,10 @@ var InventoryPanel = (function () {
     ).enabled = _SelectedCapabilityInfo.multiselectItemIdsArray.length > 0
   }
 
+  var _ShowBulkDeletePopup = function () {
+    $.DispatchEvent("ShowSelectItemForCapabilityPopup", "bulkdelete", "", "")
+  }
+
   var _ProceedForMultiStatusCapabilityPopup = function () {
     var capability = _SelectedCapabilityInfo.capability
     var arrItemIDs = _SelectedCapabilityInfo.multiselectItemIdsArray
@@ -1000,6 +1025,29 @@ var InventoryPanel = (function () {
             "&subject_item_id=" +
             strItemIDs
         )
+        break
+      case "bulkdelete":
+        var strItemIDs = arrItemIDs.join(",")
+        var elConfirm = UiToolkitAPI.ShowGenericPopupYesNo(
+          "#inv_confirm_bulkdelete_title",
+          "#inv_confirm_bulkdelete_desc",
+          "",
+          function () {
+            UiToolkitAPI.ShowCustomLayoutPopupParameters(
+              "",
+              "file://{resources}/layout/popups/popup_casket_operation.xml",
+              "op=delete" +
+                "&nextcapability=batch" +
+                "&spinner=1" +
+                "&subject_item_id=" +
+                strItemIDs
+            )
+          },
+          function () {}
+        )
+        if (elConfirm != null) {
+          elConfirm.SetDialogVariableInt("count", arrItemIDs.length)
+        }
         break
     }
   }
@@ -1255,6 +1303,7 @@ var InventoryPanel = (function () {
     ShowResetMusicConfirmation: _ShowResetMusicConfirmation,
     ShowNotification: _ShowNotification,
     ShowLoadoutForItem: _ShowLoadoutForItem,
+    ShowBulkDeletePopup: _ShowBulkDeletePopup,
     UpdateCraftingPanelVisibility: _UpdateCraftingPanelVisibility,
     UpdateSearchPanelVisibility: _UpdateSearchPanelVisibility,
     CloseSearchPanel: _CloseSearchPanel,

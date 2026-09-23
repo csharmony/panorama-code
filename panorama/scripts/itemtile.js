@@ -183,6 +183,12 @@ var ItemTile = (function () {
 
     if (
       capabilityInfo &&
+      capabilityInfo.capability === "bulkdelete" &&
+      (id.length > 20 || (id.length === 20 && id >= "17293822569102704640"))
+    ) {
+      $.GetContextPanel().enabled = false
+    } else if (
+      capabilityInfo &&
       capabilityInfo.capability === "can_sticker" &&
       !ItemInfo.ItemMatchDefName(id, "sticker")
     ) {
@@ -238,6 +244,19 @@ var ItemTile = (function () {
           $.GetContextPanel().BHasClass("capability_multistatus_selected")
         )
       } else if (capabilityInfo.capability === "casketstore") {
+        $.GetContextPanel().ToggleClass("capability_multistatus_selected")
+        $.DispatchEvent(
+          "UpdateSelectItemForCapabilityPopup",
+          capabilityInfo.capability,
+          id,
+          $.GetContextPanel().BHasClass("capability_multistatus_selected")
+        )
+      } else if (capabilityInfo.capability === "bulkdelete") {
+        if (
+          id.length > 20 ||
+          (id.length === 20 && id >= "17293822569102704640")
+        )
+          return
         $.GetContextPanel().ToggleClass("capability_multistatus_selected")
         $.DispatchEvent(
           "UpdateSelectItemForCapabilityPopup",

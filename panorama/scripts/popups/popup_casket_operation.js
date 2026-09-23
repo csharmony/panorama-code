@@ -39,6 +39,13 @@ var SetupPopup = function () {
     "PanoramaComponent_Inventory_ItemCustomizationNotification",
     OnItemCustomizationNotification
   )
+
+  if (m_strOperation === "delete") {
+    $.RegisterForUnhandledEvent(
+      "PanoramaComponent_MyPersona_InventoryUpdated",
+      OnDeleteItemUpdated
+    )
+  }
 }
 
 var ConfigurePopupFromItemsList = function (itemidsList) {
@@ -122,8 +129,23 @@ function OnRequestCancelBatch() {
   m_arrSubjectItemsRemaining = []
 }
 
+function OnDeleteItemUpdated() {
+  _CancelCasketOperationTimeoutScheduledHandle()
+
+  if (m_arrSubjectItemsRemaining.length > 0) {
+    var strItemIDs = m_arrSubjectItemsRemaining.join(",")
+    ConfigurePopupFromItemsList(strItemIDs)
+  } else {
+    _ClosePopUp()
+  }
+}
+
 function OnItemCustomizationNotification(numericType, type, itemid) {
   _CancelCasketOperationTimeoutScheduledHandle()
+
+  if (m_strOperation === "delete") {
+    return
+  }
 
   switch (type) {
     case "casket_added":
@@ -197,6 +219,11 @@ function OnItemCustomizationNotification(numericType, type, itemid) {
 }
 
 function LaunchOperation() {
+  if (m_strOperation === "delete") {
+    InventoryAPI.DeleteItem(m_itemidSubject)
+    return
+  }
+
   var nOpRequestNumber = 0
   switch (m_strOperation) {
     case "add":
