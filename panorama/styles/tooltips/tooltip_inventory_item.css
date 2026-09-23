@@ -82,7 +82,7 @@
 	margin-bottom: 10px;
 }
 
-.rarity-header, .grade-header, .team-header
+.rarity-header, .grade-header, .wear-header, .team-header
 {
 	font-size: 14px;
 	height: 22px;
@@ -91,15 +91,15 @@
 	color: #7c7c7c;
 }
 
-.rarity-label, .grade-label, .team-label
+.rarity-label, .grade-label, .wear-label, .team-label
 {
 	font-size: 14px;
 	height: 22px;
     text-overflow:shrink;
 }
 
-.rarity-header, .grade-header, .team-header,
-.rarity-label, .grade-label, .team-container,
+.rarity-header, .grade-header, .wear-header, .team-header,
+.rarity-label, .grade-label, .wear-label, .team-container,
 .team-logo__ct, .team-logo__t
 {
 	visibility:collapse;
@@ -113,6 +113,12 @@
 
 .tooltip-inventory-item__has-grade .grade-header,
 .tooltip-inventory-item__has-grade .grade-label
+{
+	visibility:visible;
+}
+
+.tooltip-inventory-item__has-wear .wear-header,
+.tooltip-inventory-item__has-wear .wear-label
 {
 	visibility:visible;
 }

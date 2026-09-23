@@ -20,11 +20,13 @@
 			<Panel class="top-bottom-flow">
 				<Label class="rarity-header" text="#inv_header_rarity" />
 				<Label class="grade-header" text="#inv_header_grade" />
+				<Label class="wear-header" text="#SFUI_ItemInfo_WearAmount" />
 				<Label class="team-header" text="#inv_header_team" />
 			</Panel>
 			<Panel class="top-bottom-flow">
 				<Label class="rarity-label" text="{s:rarity}" />
 				<Label class="grade-label" text="{s:grade}" />
+				<Label class="wear-label" text="{s:wear}" />
 				<Panel class="team-container left-right-flow">
 					<Image class="team-logo team-logo__ct" src="file://{images}/icons/ct_logo.svg" texturewidth="20" textureheight="-1" />
 					<Image class="team-logo team-logo__t" src="file://{images}/icons/t_logo.svg" texturewidth="20" textureheight="-1" />

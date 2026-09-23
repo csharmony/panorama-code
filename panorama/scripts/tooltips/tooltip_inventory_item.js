@@ -56,6 +56,19 @@ function setupTooltip() {
     ctx.SetDialogVariable("grade", "")
   }
 
+  var numWearFloat = bThisIsFauxItemID
+    ? undefined
+    : numWear != undefined && numWear >= 0
+      ? InventoryAPI.GetItemAttributeValue(id, "set item texture wear")
+      : undefined
+  if (numWearFloat != undefined && numWearFloat >= 0) {
+    ctx.AddClass("tooltip-inventory-item__has-wear")
+    ctx.SetDialogVariable("wear", numWearFloat.toFixed(9))
+  } else {
+    ctx.RemoveClass("tooltip-inventory-item__has-wear")
+    ctx.SetDialogVariable("wear", "")
+  }
+
   var strTeam = InventoryAPI.GetItemTeam(id)
 
   var strSlot = InventoryAPI.GetSlot(id)
