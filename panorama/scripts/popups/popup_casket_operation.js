@@ -89,16 +89,16 @@ var ConfigurePopupFromItemsList = function (itemidsList) {
   ) {
     schOperation = 0.25
   } else if (m_strOperation === "delete") {
-    schOperation = 0.5
+    schOperation = 0.25
   } else if (_BIsBatchMode()) {
     schOperation = 0.2
   }
 
   if (m_strOperation === "delete") {
-    if (m_DeleteOperationScheduledHandle) {
-      $.CancelScheduled(m_DeleteOperationScheduledHandle)
-    }
-    m_DeleteOperationScheduledHandle = $.Schedule(schOperation, LaunchOperation)
+    m_DeleteOperationScheduledHandle = $.Schedule(
+      schOperation,
+      _LaunchDeleteOperation
+    )
   } else {
     $.Schedule(schOperation, LaunchOperation)
   }
@@ -141,6 +141,8 @@ function OnRequestCancelBatch() {
 
 function OnDeleteItemUpdated() {
   _CancelCasketOperationTimeoutScheduledHandle()
+
+  if (m_DeleteOperationScheduledHandle) return
 
   if (m_arrSubjectItemsRemaining.length > 0) {
     var strItemIDs = m_arrSubjectItemsRemaining.join(",")
@@ -226,6 +228,11 @@ function OnItemCustomizationNotification(numericType, type, itemid) {
     default:
       break
   }
+}
+
+var _LaunchDeleteOperation = function () {
+  m_DeleteOperationScheduledHandle = null
+  LaunchOperation()
 }
 
 function LaunchOperation() {
