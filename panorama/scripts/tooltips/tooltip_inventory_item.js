@@ -64,9 +64,19 @@ function setupTooltip() {
   if (numWearFloat != undefined && numWearFloat >= 0) {
     ctx.AddClass("tooltip-inventory-item__has-wear")
     ctx.SetDialogVariable("wear", numWearFloat.toFixed(9))
+
+    var numPattern = InventoryAPI.GetItemAttributeValue(
+      id,
+      "set item texture seed"
+    )
+    ctx.SetDialogVariable(
+      "pattern",
+      numPattern != undefined && numPattern >= 0 ? String(numPattern) : ""
+    )
   } else {
     ctx.RemoveClass("tooltip-inventory-item__has-wear")
     ctx.SetDialogVariable("wear", "")
+    ctx.SetDialogVariable("pattern", "")
   }
 
   var strTeam = InventoryAPI.GetItemTeam(id)
