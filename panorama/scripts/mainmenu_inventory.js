@@ -1035,12 +1035,8 @@ var InventoryPanel = (function () {
           function () {
             UiToolkitAPI.ShowCustomLayoutPopupParameters(
               "",
-              "file://{resources}/layout/popups/popup_casket_operation.xml",
-              "op=delete" +
-                "&nextcapability=batch" +
-                "&spinner=1" +
-                "&subject_item_id=" +
-                strItemIDs
+              "file://{resources}/layout/popups/popup_bulkdelete.xml",
+              "spinner=1" + "&subject_item_id=" + strItemIDs
             )
           },
           function () {}

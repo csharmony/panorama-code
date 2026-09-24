@@ -999,9 +999,7 @@ var ItemContextEntires = (function () {
       },
       AvailableForItem: function (id) {
         // return InventoryAPI.IsDeletable( id );
-        const isDefault =
-          id.length > 20 || (id.length === 20 && id >= "17293822569102704640")
-        return !isDefault
+        return ItemInfo.IsDeletable(id)
       },
       OnSelected: function (id) {
         $.DispatchEvent("ContextMenuEvent", "")

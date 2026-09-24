@@ -68,8 +68,7 @@ var ItemTile = (function () {
 
     $.GetContextPanel().SetHasClass(
       "capability_multistatus_selected",
-      bSelectedInMultiSelect &&
-        !$.GetContextPanel().BHasClass("capability_multistatus_selected")
+      bSelectedInMultiSelect
     )
   }
 
@@ -181,12 +180,8 @@ var ItemTile = (function () {
   var _DisableTile = function (id) {
     var capabilityInfo = _GetPopUpCapability()
 
-    if (
-      capabilityInfo &&
-      capabilityInfo.capability === "bulkdelete" &&
-      (id.length > 20 || (id.length === 20 && id >= "17293822569102704640"))
-    ) {
-      $.GetContextPanel().enabled = false
+    if (capabilityInfo && capabilityInfo.capability === "bulkdelete") {
+      $.GetContextPanel().enabled = ItemInfo.IsDeletable(id)
     } else if (
       capabilityInfo &&
       capabilityInfo.capability === "can_sticker" &&
@@ -252,11 +247,7 @@ var ItemTile = (function () {
           $.GetContextPanel().BHasClass("capability_multistatus_selected")
         )
       } else if (capabilityInfo.capability === "bulkdelete") {
-        if (
-          id.length > 20 ||
-          (id.length === 20 && id >= "17293822569102704640")
-        )
-          return
+        if (!ItemInfo.IsDeletable(id)) return
         $.GetContextPanel().ToggleClass("capability_multistatus_selected")
         $.DispatchEvent(
           "UpdateSelectItemForCapabilityPopup",

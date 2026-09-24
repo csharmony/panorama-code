@@ -2,7 +2,6 @@
 
 var m_strOperation = ""
 var m_CasketOperationTimeoutScheduledHandle = null
-var m_DeleteOperationScheduledHandle = null
 var m_strShowSelectItemForCapabilityPopupCapability = ""
 var m_numSubjectItems = 1
 var m_itemidCasket = ""
@@ -40,13 +39,6 @@ var SetupPopup = function () {
     "PanoramaComponent_Inventory_ItemCustomizationNotification",
     OnItemCustomizationNotification
   )
-
-  if (m_strOperation === "delete") {
-    $.RegisterForUnhandledEvent(
-      "PanoramaComponent_MyPersona_InventoryUpdated",
-      OnDeleteItemUpdated
-    )
-  }
 }
 
 var ConfigurePopupFromItemsList = function (itemidsList) {
@@ -88,20 +80,11 @@ var ConfigurePopupFromItemsList = function (itemidsList) {
     m_strShowSelectItemForCapabilityPopupCapability
   ) {
     schOperation = 0.25
-  } else if (m_strOperation === "delete") {
-    schOperation = 0.25
   } else if (_BIsBatchMode()) {
     schOperation = 0.2
   }
 
-  if (m_strOperation === "delete") {
-    m_DeleteOperationScheduledHandle = $.Schedule(
-      schOperation,
-      _LaunchDeleteOperation
-    )
-  } else {
-    $.Schedule(schOperation, LaunchOperation)
-  }
+  $.Schedule(schOperation, LaunchOperation)
 }
 
 var PanelTimedOut = function () {
@@ -139,25 +122,8 @@ function OnRequestCancelBatch() {
   m_arrSubjectItemsRemaining = []
 }
 
-function OnDeleteItemUpdated() {
-  _CancelCasketOperationTimeoutScheduledHandle()
-
-  if (m_DeleteOperationScheduledHandle) return
-
-  if (m_arrSubjectItemsRemaining.length > 0) {
-    var strItemIDs = m_arrSubjectItemsRemaining.join(",")
-    ConfigurePopupFromItemsList(strItemIDs)
-  } else {
-    _ClosePopUp()
-  }
-}
-
 function OnItemCustomizationNotification(numericType, type, itemid) {
   _CancelCasketOperationTimeoutScheduledHandle()
-
-  if (m_strOperation === "delete") {
-    return
-  }
 
   switch (type) {
     case "casket_added":
@@ -230,17 +196,7 @@ function OnItemCustomizationNotification(numericType, type, itemid) {
   }
 }
 
-var _LaunchDeleteOperation = function () {
-  m_DeleteOperationScheduledHandle = null
-  LaunchOperation()
-}
-
 function LaunchOperation() {
-  if (m_strOperation === "delete") {
-    InventoryAPI.DeleteItem(m_itemidSubject)
-    return
-  }
-
   var nOpRequestNumber = 0
   switch (m_strOperation) {
     case "add":

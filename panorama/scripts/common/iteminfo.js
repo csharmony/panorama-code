@@ -540,6 +540,12 @@ var ItemInfo = (function () {
     return _ItemMatchDefName(itemId, "patch")
   }
 
+  var _IsDeletable = function (id) {
+    const isDefault =
+      id.length > 20 || (id.length === 20 && id >= "17293822569102704640")
+    return !isDefault
+  }
+
   var _GetDefaultCheer = function (id) {
     var schemaString = InventoryAPI.BuildItemSchemaDefJSON(id)
     var itemSchemaDef = JSON.parse(schemaString)
@@ -719,6 +725,7 @@ var ItemInfo = (function () {
     PrecacheVanityCharacterSettings: _PrecacheVanityCharacterSettings,
     GetLoadoutWeapons: _GetLoadoutWeapons,
     IsSticker: _IsSticker,
-    IsPatch: _IsPatch
+    IsPatch: _IsPatch,
+    IsDeletable: _IsDeletable
   }
 })()
