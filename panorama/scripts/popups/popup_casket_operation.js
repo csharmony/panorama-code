@@ -2,6 +2,7 @@
 
 var m_strOperation = ""
 var m_CasketOperationTimeoutScheduledHandle = null
+var m_DeleteOperationScheduledHandle = null
 var m_strShowSelectItemForCapabilityPopupCapability = ""
 var m_numSubjectItems = 1
 var m_itemidCasket = ""
@@ -87,11 +88,20 @@ var ConfigurePopupFromItemsList = function (itemidsList) {
     m_strShowSelectItemForCapabilityPopupCapability
   ) {
     schOperation = 0.25
+  } else if (m_strOperation === "delete") {
+    schOperation = 0.5
   } else if (_BIsBatchMode()) {
     schOperation = 0.2
   }
 
-  $.Schedule(schOperation, LaunchOperation)
+  if (m_strOperation === "delete") {
+    if (m_DeleteOperationScheduledHandle) {
+      $.CancelScheduled(m_DeleteOperationScheduledHandle)
+    }
+    m_DeleteOperationScheduledHandle = $.Schedule(schOperation, LaunchOperation)
+  } else {
+    $.Schedule(schOperation, LaunchOperation)
+  }
 }
 
 var PanelTimedOut = function () {
