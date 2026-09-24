@@ -188,8 +188,6 @@ var friendsList = (function () {
   }
 
   var _UpdateTabAlertCounts = function (tabIndex) {
-    return
-
     var tabData = _m_tabs[tabIndex]
     var count = 0
     var elAlert = tabData.elTabRadioBtn.FindChild("JsFriendsTabAlert")
