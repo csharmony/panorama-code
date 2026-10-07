@@ -371,6 +371,13 @@
 							</Button>
 						</TooltipPanel>
 
+						<TooltipPanel id="id-tt_dz_team_count" tooltip="" class="horizontal-right play-settings-gamemodeflags vertical-center" style="tooltip-position: top;">
+							<Button id="DzTeamCountBtn" class="play-menu-option-btn" onactivate="PlayMenu.OnDzTeamCountBtnClicked()">
+								<Image id="DZTeamCountSettingImg" texturewidth="-1" textureheight="28" src="file://{images}/icons/ui/settings.svg" />
+								<Label text="{s:dz_team_count_setting}" />
+							</Button>
+						</TooltipPanel>
+
 						<Button id="PlayMenulLeaderboards" class="play-menu-option-btn" style="horizontal-align:left;">
 							<Image texturewidth="-1" textureheight="28" src="file://{images}/icons/ui/graph.svg" />
 							<Label text="#SFUI_LEADERBOARD" />

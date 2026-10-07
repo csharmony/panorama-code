@@ -27,6 +27,8 @@ var PlayMenu = (function () {
 
   var m_isWorkshop = false
 
+  var m_dzTeamCount = 1
+
   var m_challengeKey = ""
   var m_popupChallengeKeyEntryValidate = null
 
@@ -227,6 +229,7 @@ var PlayMenu = (function () {
     }
 
     _UpdateGameModeFlagsBtn()
+    _UpdateDzTeamCountBtn()
     _UpdateDirectChallengePage()
   }
 
@@ -558,7 +561,8 @@ var PlayMenu = (function () {
     var isAvailable = true
 
     if (gameMode === "survival") {
-      isAvailable = _IsValveOfficialServer(serverType)
+      isAvailable =
+        _IsValveOfficialServer(serverType) || serverType === "listen"
       _SetGameModeRadioButtonAvailableTooltip(
         gameMode,
         isAvailable,
@@ -863,6 +867,7 @@ var PlayMenu = (function () {
     _UpdateDirectChallengePage(isSearching, isHost)
 
     _UpdateGameModeFlagsBtn()
+    _UpdateDzTeamCountBtn()
 
     $("#PlayTopNavDropdown").enabled = BIsServerTypeDropdownEnabled()
     _SetClientViewLobbySettingsTitle(isHost)
@@ -2961,6 +2966,52 @@ var PlayMenu = (function () {
     )
   }
 
+  function _UpdateDzTeamCountBtn() {
+    var elTT = $.GetContextPanel().FindChildTraverse("id-tt_dz_team_count")
+
+    if (!elTT) return
+
+    if (m_gameModeSetting !== "survival" || m_serverSetting !== "listen") {
+      elTT.visible = false
+      return
+    }
+
+    elTT.visible = true
+
+    $.GetContextPanel().SetDialogVariable(
+      "dz_team_count_setting",
+      $.Localize("#DZ_Team_Count_" + m_dzTeamCount)
+    )
+
+    elTT.tooltip = $.Localize("#Tooltip_DZ_Team_Count")
+
+    var elBtn = $.GetContextPanel().FindChildTraverse("DzTeamCountBtn")
+    elBtn.enabled =
+      !inDirectChallenge() && !_IsSearching() && LobbyAPI.BIsHost()
+  }
+
+  function _OnDzTeamCountBtnClicked() {
+    function _Callback(value) {
+      m_dzTeamCount = parseInt(value)
+      GameInterfaceAPI.ConsoleCommand("sv_dz_team_count " + value)
+      _UpdateDzTeamCountBtn()
+    }
+
+    var callback = UiToolkitAPI.RegisterJSCallback(_Callback)
+
+    UiToolkitAPI.ShowCustomLayoutPopupParameters(
+      "",
+      "file://{resources}/layout/popups/popup_play_gamemodeflags.xml",
+      "&callback=" +
+        callback +
+        "&textToken=" +
+        "#DZ_Team_Count" +
+        "&option0=1&option1=2&option2=3" +
+        "&currentvalue=" +
+        m_dzTeamCount
+    )
+  }
+
   function _PlayTopNavDropdownChanged() {
     var playType = _GetPlayType()
 
@@ -3023,6 +3074,7 @@ var PlayMenu = (function () {
     }
 
     _UpdateGameModeFlagsBtn()
+    _UpdateDzTeamCountBtn()
 
     _UpdatePlayDropDown()
   }
@@ -3187,6 +3239,7 @@ var PlayMenu = (function () {
     SaveMapSelectionToCustomPreset: _SaveMapSelectionToCustomPreset,
     OnMapQuickSelect: _OnMapQuickSelect,
     OnGameModeFlagsBtnClicked: _OnGameModeFlagsBtnClicked,
+    OnDzTeamCountBtnClicked: _OnDzTeamCountBtnClicked,
     OnDirectChallengeBtn: _OnDirectChallengeBtn,
     OnDirectChallengeRandom: _OnDirectChallengeRandom,
     OnDirectChallengeCopy: _OnDirectChallengeCopy,
