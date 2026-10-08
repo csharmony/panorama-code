@@ -15,7 +15,7 @@
 		<Panel class="content-navbar content-navbar--short">
 			<Panel id="GameModeSelectionRadios" class="content-navbar__tabs content-navbar__tabs--small">
 				<RadioButton onactivate="SettingsMenuShared.ScrollToId('HarmonySettings')" group="SettingsHarmony">
-					<Label class="" text="#Harmony_Viewmodel" />
+					<Label class="" text="#SFUI_Settings_Viewmodel" />
 				</RadioButton>
 
 			</Panel>
@@ -24,11 +24,11 @@
 		<Panel class="SettingsMenuTabContent vscroll">
 			<Panel id="HarmonySettings" class="SettingsBackground">
 				<Panel class="SettingsSectionTitleContianer">
-					<Label class="SettingsSectionTitleLabel" text="#Harmony_Viewmodel" />
+					<Label class="SettingsSectionTitleLabel" text="#SFUI_Settings_Viewmodel" />
 				</Panel>
 				<Panel class="top-bottom-flow full-width">
-					<TooltipPanel id="HarmonyRightHandSelector" class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_RightHand">
-						<Label text="#Harmony_Use_Right_Hand" class="half-width" />
+					<TooltipPanel id="HarmonyRightHandSelector" class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_Right_Hand_Info">
+						<Label text="#SFUI_Settings_Right_Hand" class="half-width" />
 						<CSGOSettingsEnumDropDown class="PopupButton White" convar="cl_righthand">
 							<Label text="#SFUI_Settings_Enabled" value="1" id="cl_righthand_enabled" />
 							<Label text="#SFUI_Settings_Disabled" value="0" id="cl_righthand_disabled" />
@@ -37,8 +37,8 @@
 
 					<Panel class="horizontal-separator" />
 
-					<TooltipPanel id="HarmonyViewmodelRecoilSelector" class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_Recoil">
-						<Label text="#Harmony_Viewmodel_Recoil" class="half-width" />
+					<TooltipPanel id="HarmonyViewmodelRecoilSelector" class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_Viewmodel_Recoil_Info">
+						<Label text="#SFUI_Settings_Viewmodel_Recoil" class="half-width" />
 						<CSGOSettingsEnumDropDown class="PopupButton White" convar="viewmodel_recoil">
 							<Label text="#SFUI_Settings_Enabled" value="1" id="viewmodel_recoil_enabled" />
 							<Label text="#SFUI_Settings_Disabled" value="0" id="viewmodel_recoil_disabled" />
@@ -47,26 +47,26 @@
 
 					<Panel class="horizontal-separator" />
 
-					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_FOV">
-						<CSGOSettingsSlider id="viewmodel_fov" text="#Harmony_Viewmodel_FOV" max="68" min="54" invert="false" percentage="false" convar="viewmodel_fov" />
+					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_Viewmodel_FOV_Info">
+						<CSGOSettingsSlider id="viewmodel_fov" text="#SFUI_Settings_Viewmodel_FOV" max="68" min="54" invert="false" percentage="false" convar="viewmodel_fov" />
 					</TooltipPanel>
 
 					<Panel class="horizontal-separator" />
 
-					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_Offset_X">
-						<CSGOSettingsSlider id="viewmodel_offset_x" text="#Harmony_Viewmodel_Offset_X" max="2.5" min="-2.0" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_x" />
+					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_Viewmodel_Offset_X_Info">
+						<CSGOSettingsSlider id="viewmodel_offset_x" text="#SFUI_Settings_Viewmodel_Offset_X" max="2.5" min="-2.0" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_x" />
 					</TooltipPanel>
 
 					<Panel class="horizontal-separator" />
 
-					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_Offset_Y">
-						<CSGOSettingsSlider id="viewmodel_offset_y" text="#Harmony_Viewmodel_Offset_Y" max="2" min="-2" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_y" />
+					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_Viewmodel_Offset_Y_Info">
+						<CSGOSettingsSlider id="viewmodel_offset_y" text="#SFUI_Settings_Viewmodel_Offset_Y" max="2" min="-2" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_y" />
 					</TooltipPanel>
 
 					<Panel class="horizontal-separator" />
 
-					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#Harmony_Tooltip_Offset_Z">
-						<CSGOSettingsSlider id="viewmodel_offset_z" text="#Harmony_Viewmodel_Offset_Z" max="2" min="-2" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_z" />
+					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_Viewmodel_Offset_Z_Info">
+						<CSGOSettingsSlider id="viewmodel_offset_z" text="#SFUI_Settings_Viewmodel_Offset_Z" max="2" min="-2" invert="false" percentage="false" displayprecision="1" convar="viewmodel_offset_z" />
 					</TooltipPanel>
 				</Panel>
 			</Panel>
@@ -76,7 +76,7 @@
 			<Panel class="left-right-flow vertical-center horizontal-align-right">
 				<Button id="SettingsRestoreKbMouse"
 					class="PopupButton White"
-					onactivate="SettingsMenuShared.ShowConfirmReset( SettingsMenuShared.ResetVideoSettings, '#Harmony_Reset_Confirm_Msg' );"
+					onactivate="SettingsMenuShared.ShowConfirmReset( SettingsMenuShared.ResetVideoSettings, '#settings_reset_confirm_harmony_desc' );"
 					onmouseover="UiToolkitAPI.ShowTextTooltip( 'SettingsRestoreKbMouse', '#tooltip_reset_defaults' );"
 					onmouseout="UiToolkitAPI.HideTextTooltip();">
 					<Image id="PermissionsSettingsImg" texturewidth="-1" textureheight="28" src="file://{images}/icons/ui/recent.svg" />

@@ -8,38 +8,38 @@
 	</scripts>
 	<Panel class="mainmenu-content__container">
 		<Panel class="content-navbar">
-			<Label class="content-navbar__title" text="#Harmony_Credits_Title" />
+			<Label class="content-navbar__title" text="#SFUI_MainMenu_Credits" />
 		</Panel>
 		<Panel id="JsCreditsContent" class="overwatch-context-container">
 			<Panel class="vertical-top full-width top-bottom-flow">
 				<Panel class="overwatch-content-column">
-					<Label class="overwatch-content__title" text="#Harmony_Credits_Title" />
+					<Label class="overwatch-content__title" text="#SFUI_MainMenu_Credits" />
 					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_H4rmy" html="true" />
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_H4rmy" html="true" />
 					</Panel>
-					<Label class="overwatch-content__subheader" text="#Harmony_Credits_Development_Team" html="true" />
+					<Label class="overwatch-content__subheader" text="#SFUI_Credits_Development_Team" html="true" />
 					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_Heapy" html="true" />
-					</Panel>
-					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_Lpta" html="true" />
-					</Panel>
-					<Label class="overwatch-content__subheader" text="#Harmony_Credits_Credits" html="true" />
-					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_CsgoGc" html="true" />
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_Heapy" html="true" />
 					</Panel>
 					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_LittleAntiCheat" html="true" />
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_Lpta" html="true" />
 					</Panel>
-					<Label class="overwatch-content__subheader" text="#Harmony_Credits_BigThanks" html="true" />
+					<Label class="overwatch-content__subheader" text="#SFUI_Credits_Credits" html="true" />
 					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_Theeto" html="true" />
-					</Panel>
-					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_Vallu" html="true" />
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_CsgoGc" html="true" />
 					</Panel>
 					<Panel class="overwatch-paragraph__container">
-						<Label class="overwatch-content__paragraph" text="#Harmony_Credits_Drico" html="true" />
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_LittleAntiCheat" html="true" />
+					</Panel>
+					<Label class="overwatch-content__subheader" text="#SFUI_Credits_BigThanks" html="true" />
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_Theeto" html="true" />
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_Vallu" html="true" />
+					</Panel>
+					<Panel class="overwatch-paragraph__container">
+						<Label class="overwatch-content__paragraph" text="#SFUI_Credits_Drico" html="true" />
 					</Panel>
 				</Panel>
 			</Panel>

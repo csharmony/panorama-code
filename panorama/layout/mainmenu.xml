@@ -234,7 +234,7 @@
 									class="mainmenu-navbar__btn-small MainMenuModeOnly"
 									group="NavBar"
 									onactivate="MainMenu.NavigateToTab('JsHarmonyCredits', 'mainmenu_credits');"
-									onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarHarmonyCredits', '#Harmony_Tooltip_Credits' );"
+									onmouseover="UiToolkitAPI.ShowTextTooltip( 'MainMenuNavBarHarmonyCredits', '#tooltip_navbar_credits' );"
 									onmouseout="UiToolkitAPI.HideTextTooltip();">
 									<Image style="padding: 28px;" textureheight="32" texturewidth="-1" src="file://{resources}/images/harmy.png" />
 								</RadioButton>

@@ -22,7 +22,7 @@
 				</RadioButton>
 
 				<RadioButton id="HarmonyRadio" group="SettingsNavBar" onactivate='SettingsMenu.NavigateToTab("HarmonySettings")'>
-					<Label class="" text="#Harmony_Settings_Tab" />
+					<Label class="" text="#settings_harmony" />
 				</RadioButton>
 
 				<RadioButton id="VideoRadio" group="SettingsNavBar" onactivate='SettingsMenu.NavigateToTab("VideoSettings")'>
