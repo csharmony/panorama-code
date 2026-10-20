@@ -249,10 +249,20 @@
 
 					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_MotionBlur_Info">
 						<Label text="#SFUI_Settings_MotionBlur" class="half-width" />
-						<CSGOSettingsEnumDropDown onuserinputsubmit="SettingsMenuShared.VideoSettingsOnUserInputSubmit()" class="PopupButton White" id="MotionBlur">
+						<CSGOSettingsEnumDropDown onuserinputsubmit="SettingsMenuShared.VideoSettingsOnUserInputSubmit()" class="PopupButton White" id="MotionBlur" convar="mat_motion_blur_enabled">
 							<Label text="#SFUI_MotionBlur_Disabled" value="0" id="motionblur0" />
 							<Label text="#SFUI_MotionBlur_Enabled" value="1" id="motionblur1" />
 						</CSGOSettingsEnumDropDown>
+					</TooltipPanel>
+					<Panel class="horizontal-separator" />
+
+
+					<TooltipPanel class="SettingsMenuDropdownContainer" tooltip="#SFUI_Settings_MotionBlur_Info">
+						<CSGOSettingsSlider id="MotionBlurStrength"
+							text="Motion Blur Strength"
+							min="0.0" max="5.0"
+							displayprecision="2"
+							convar="mat_motion_blur_strength" />
 					</TooltipPanel>
 					<Panel class="horizontal-separator" />
 
