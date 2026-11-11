@@ -41,7 +41,7 @@ uv run pbin.py pack
 
 Packaged Panorama code will be saved as `code_harmony.pbin`.
 
-## Adding Resources
+## Adding resources
 
 Files from `resources/` should go into `csgo/panorama/`, for example: `file://{resources}/images/harmony_logo.png` should be placed inside `csgo/panorama/images/harmony_logo.png`.
 
@@ -55,7 +55,7 @@ Resource usage example (Panorama XML):
 
 Contributions to the project are welcome.
 
-### Pull Requests
+### Pull requests
 
 Before opening a pull request, make sure that:
 
